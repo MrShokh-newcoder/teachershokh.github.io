@@ -265,7 +265,7 @@
 <div class="wrap" id="app">
 
   <header>
-    <a class="site-name" href="#" onclick="showList(event)">Your Name</a>
+    <a class="site-name" href="#" onclick="showList(event)">Teacher Shokh</a>
     <nav>
       <a href="#" onclick="showList(event)" id="nav-writing" class="active">Writing</a>
       <a href="#" onclick="showAbout(event)" id="nav-about">About</a>
@@ -291,18 +291,20 @@
   <!-- ABOUT VIEW -->
   <div class="about-view" id="about-view">
     <h1>About</h1>
-    <p>I write about things I find worth thinking about — ideas that changed how I see the world, or helped me do something better.</p>
-    <p>In a previous life I built <a href="#">something interesting</a>. Now I spend my time reading, writing, and working on new projects.</p>
-    <p>If something I've written helps you, I'd love to hear about it. Email me at <a href="mailto:you@example.com">you@example.com</a>.</p>
+    <p>👨‍🏫 English Teacher | CELTA Certified</p>
+    <p>🚀 Helping kids + teachers thrive in English</p>
+    <p>📚 IH CTYL | Young Learners Specialist</p>
+    <p>🏫 Currently working at @RahimovSchool</p>
+    <p>Read my posts on <a href="https://teachershokh.substack.com/" target="_blank" rel="noopener">Substack →</a></p>
   </div>
 
   <footer id="footer">
-    <span id="footer-text">Words by Your Name</span>
+    <span id="footer-text">Words by Teacher Shokh</span>
   </footer>
 
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const articles = [
   {
     slug: "obvious-to-you-amazing-to-others",
@@ -450,15 +452,4 @@ function showAbout(e) {
 // Handle initial hash
 function handleHash() {
   const hash = location.hash.slice(1);
-  if (!hash) { showList(); return; }
-  const a = articles.find(x => x.slug === hash);
-  if (a) showArticle(null, hash);
-  else showList();
-}
-
-renderList();
-handleHash();
-window.addEventListener('popstate', handleHash);
-</script>
-</body>
-</html>
+  if (!has

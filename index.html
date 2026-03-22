@@ -14,6 +14,7 @@
     --paper: #f7f4ef;
     --muted: #9c9488;
     --accent: #c8503a;
+    --yt: #FF0000;
     --line: #e0dbd2;
     --hover-bg: #f0ece4;
     --max: 640px;
@@ -52,7 +53,7 @@
   }
   .site-name:hover { color: var(--accent); }
 
-  nav { display: flex; gap: 1.8rem; margin-top: 1rem; }
+  nav { display: flex; gap: 1.8rem; margin-top: 1rem; align-items: center; }
 
   nav a {
     font-family: 'IBM Plex Mono', monospace;
@@ -65,6 +66,16 @@
     cursor: pointer;
   }
   nav a:hover, nav a.active { color: var(--ink); }
+
+  nav a.yt-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--muted);
+    transition: color 0.15s;
+  }
+  nav a.yt-link:hover { color: var(--yt); }
+  nav a.yt-link svg { width: 14px; height: 10px; flex-shrink: 0; }
 
   .page-title {
     font-family: 'IBM Plex Mono', monospace;
@@ -152,11 +163,34 @@
   }
   .back-link:hover { color: var(--ink); }
 
+  /* ── Giscus comments ── */
+  .comments-section {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .comments-heading {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.8rem;
+  }
+
+  .giscus-frame {
+    border: none;
+    width: 100%;
+  }
+
+  /* ── About ── */
   .about-view { display: none; }
   .about-view h1 { font-size: 1.5rem; font-weight: 500; margin-bottom: 1.8rem; }
   .about-view p { margin-bottom: 1.3rem; font-size: 1rem; }
   .about-view a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
 
+  /* ── Footer ── */
   footer {
     margin-top: 5rem;
     padding: 2rem 0 3rem;
@@ -167,7 +201,7 @@
     letter-spacing: 0.04em;
   }
 
-  /* View states */
+  /* ── View states ── */
   .list-view .article-view,
   .list-view .about-view { display: none; }
   .list-view .list-section { display: block; }
@@ -193,6 +227,7 @@
     .article-list a { flex-direction: column; gap: 0.2rem; }
     .article-date { align-self: flex-start; }
     header { padding-top: 2.5rem; }
+    nav { gap: 1.2rem; }
   }
 </style>
 </head>
@@ -205,14 +240,22 @@
     <nav>
       <a href="#" id="nav-writing" class="active">Writing</a>
       <a href="#" id="nav-about">About</a>
+      <a href="https://www.youtube.com/@InspiringTeacherShokh" target="_blank" rel="noopener" class="yt-link">
+        <svg viewBox="0 0 24 17" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M23.495 2.656a3.016 3.016 0 0 0-2.122-2.135C19.505 0 12 0 12 0S4.495 0 2.627.521A3.016 3.016 0 0 0 .505 2.656 31.59 31.59 0 0 0 0 8.5a31.59 31.59 0 0 0 .505 5.844 3.016 3.016 0 0 0 2.122 2.135C4.495 17 12 17 12 17s7.505 0 9.373-.521a3.016 3.016 0 0 0 2.122-2.135A31.59 31.59 0 0 0 24 8.5a31.59 31.59 0 0 0-.505-5.844zM9.546 12.068V4.932L15.818 8.5l-6.272 3.568z"/>
+        </svg>
+        Watch
+      </a>
     </nav>
   </header>
 
+  <!-- LIST -->
   <div class="list-section" id="list-section">
     <p class="page-title">Articles</p>
     <ul class="article-list" id="article-list"></ul>
   </div>
 
+  <!-- SINGLE ARTICLE -->
   <div class="article-view" id="article-view">
     <button class="back-link" id="back-btn">&#8592; Writing</button>
     <div class="article-header">
@@ -220,8 +263,15 @@
       <div class="article-meta" id="article-meta"></div>
     </div>
     <div class="article-body" id="article-body"></div>
+
+    <!-- GISCUS COMMENTS -->
+    <div class="comments-section">
+      <p class="comments-heading">Comments</p>
+      <div id="giscus-container"></div>
+    </div>
   </div>
 
+  <!-- ABOUT -->
   <div class="about-view" id="about-view">
     <h1>About</h1>
     <p>&#128104;&#8205;&#127979; English Teacher | CELTA Certified</p>
@@ -230,14 +280,7 @@
     <p>&#127983; Currently working at @RahimovSchool</p>
     <p>Read my posts on <a href="https://teachershokh.substack.com/" target="_blank" rel="noopener">Substack &#8594;</a></p>
   </div>
-  
-  <h2>Watch</h2>
-<p>
-  <a href="https://youtube.com/@InspiringTeacherShokh">
-    My YouTube channel
-  </a>
-</p>
-  
+
   <footer>
     <span>Words by Teacher Shokh</span>
   </footer>
@@ -285,11 +328,38 @@ var articles = [
 ];
 
 function formatDate(iso) {
-  var parts = iso.split('-');
-  var d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
-  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  var p = iso.split('-');
+  return new Date(parseInt(p[0]), parseInt(p[1])-1, parseInt(p[2]))
+    .toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
 }
 
+/* ── Giscus ── */
+function loadGiscus(slug) {
+  var container = document.getElementById('giscus-container');
+  // Remove any existing giscus iframe/script
+  container.innerHTML = '';
+
+  var script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'MrShokh-newcoder/teachershokh.github.io');
+  script.setAttribute('data-repo-id', 'R_kgDORtn81g');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDORtn81s4C5BOA');
+  script.setAttribute('data-mapping', 'specific');
+  script.setAttribute('data-term', slug);
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'top');
+  script.setAttribute('data-theme', 'preferred_color_scheme');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('data-loading', 'lazy');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  container.appendChild(script);
+}
+
+/* ── Views ── */
 function showList() {
   document.getElementById('app').className = 'wrap list-view';
   document.getElementById('nav-writing').className = 'active';
@@ -308,6 +378,7 @@ function showArticle(slug) {
   document.getElementById('app').className = 'wrap single-view';
   document.getElementById('nav-writing').className = 'active';
   document.getElementById('nav-about').className = '';
+  loadGiscus(slug);
   window.scrollTo(0, 0);
 }
 
@@ -318,12 +389,16 @@ function showAbout() {
   window.scrollTo(0, 0);
 }
 
+/* ── Render list ── */
 function renderList() {
   var ul = document.getElementById('article-list');
   var html = '';
   for (var i = 0; i < articles.length; i++) {
     var a = articles[i];
-    html += '<li><a href="#' + a.slug + '" data-slug="' + a.slug + '"><span class="article-title">' + a.title + '</span><span class="article-date">' + formatDate(a.date) + '</span></a></li>';
+    html += '<li><a href="#' + a.slug + '" data-slug="' + a.slug + '">'
+      + '<span class="article-title">' + a.title + '</span>'
+      + '<span class="article-date">' + formatDate(a.date) + '</span>'
+      + '</a></li>';
   }
   ul.innerHTML = html;
   var links = ul.querySelectorAll('a');
@@ -337,6 +412,7 @@ function renderList() {
   }
 }
 
+/* ── Event listeners ── */
 document.getElementById('nav-writing').addEventListener('click', function(e) {
   e.preventDefault();
   history.pushState(null, '', location.pathname);
@@ -368,7 +444,7 @@ window.addEventListener('popstate', function() {
   showList();
 });
 
-// Init on load
+/* ── Init ── */
 renderList();
 var initHash = location.hash.slice(1);
 if (initHash) {

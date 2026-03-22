@@ -30,13 +30,8 @@
     min-height: 100vh;
   }
 
-  /* ── Layout ── */
-  .wrap {
-    max-width: var(--max);
-    margin: 0 auto;
-  }
+  .wrap { max-width: var(--max); margin: 0 auto; }
 
-  /* ── Site header ── */
   header {
     padding: 3.5rem 0 2.5rem;
     border-bottom: 1px solid var(--line);
@@ -57,11 +52,7 @@
   }
   .site-name:hover { color: var(--accent); }
 
-  nav {
-    display: flex;
-    gap: 1.8rem;
-    margin-top: 1rem;
-  }
+  nav { display: flex; gap: 1.8rem; margin-top: 1rem; }
 
   nav a {
     font-family: 'IBM Plex Mono', monospace;
@@ -71,10 +62,10 @@
     color: var(--muted);
     text-decoration: none;
     transition: color 0.15s;
+    cursor: pointer;
   }
   nav a:hover, nav a.active { color: var(--ink); }
 
-  /* ── Page title ── */
   .page-title {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.75rem;
@@ -84,14 +75,8 @@
     margin-bottom: 2.2rem;
   }
 
-  /* ── Article list ── */
-  .article-list {
-    list-style: none;
-  }
-
-  .article-list li {
-    border-bottom: 1px solid var(--line);
-  }
+  .article-list { list-style: none; }
+  .article-list li { border-bottom: 1px solid var(--line); }
 
   .article-list a {
     display: flex;
@@ -105,12 +90,8 @@
     border-radius: 4px;
     transition: background 0.12s;
   }
-  .article-list a:hover {
-    background: var(--hover-bg);
-  }
-  .article-list a:hover .article-title {
-    color: var(--accent);
-  }
+  .article-list a:hover { background: var(--hover-bg); }
+  .article-list a:hover .article-title { color: var(--accent); }
 
   .article-title {
     font-size: 1rem;
@@ -128,19 +109,9 @@
     flex-shrink: 0;
   }
 
-  /* ── Single article ── */
   .article-view { display: none; }
-
-  .article-header {
-    margin-bottom: 2.5rem;
-  }
-
-  .article-header h1 {
-    font-size: 1.7rem;
-    font-weight: 500;
-    line-height: 1.3;
-    margin-bottom: 0.6rem;
-  }
+  .article-header { margin-bottom: 2.5rem; }
+  .article-header h1 { font-size: 1.7rem; font-weight: 500; line-height: 1.3; margin-bottom: 0.6rem; }
 
   .article-meta {
     font-family: 'IBM Plex Mono', monospace;
@@ -149,24 +120,11 @@
     letter-spacing: 0.04em;
   }
 
-  .article-body {
-    font-size: 1.02rem;
-  }
-
-  .article-body p {
-    margin-bottom: 1.4rem;
-  }
-
+  .article-body { font-size: 1.02rem; }
+  .article-body p { margin-bottom: 1.4rem; }
   .article-body p:last-child { margin-bottom: 0; }
-
-  .article-body em {
-    font-style: italic;
-  }
-
-  .article-body strong {
-    font-weight: 500;
-  }
-
+  .article-body em { font-style: italic; }
+  .article-body strong { font-weight: 500; }
   .article-body blockquote {
     border-left: 2px solid var(--accent);
     padding-left: 1.2rem;
@@ -193,29 +151,12 @@
     padding: 0;
   }
   .back-link:hover { color: var(--ink); }
-  .back-link::before { content: '←'; }
 
-  /* ── About page ── */
   .about-view { display: none; }
+  .about-view h1 { font-size: 1.5rem; font-weight: 500; margin-bottom: 1.8rem; }
+  .about-view p { margin-bottom: 1.3rem; font-size: 1rem; }
+  .about-view a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
 
-  .about-view h1 {
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-bottom: 1.8rem;
-  }
-
-  .about-view p {
-    margin-bottom: 1.3rem;
-    font-size: 1rem;
-  }
-
-  .about-view a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid currentColor;
-  }
-
-  /* ── Footer ── */
   footer {
     margin-top: 5rem;
     padding: 2rem 0 3rem;
@@ -226,7 +167,7 @@
     letter-spacing: 0.04em;
   }
 
-  /* ── States ── */
+  /* View states */
   .list-view .article-view,
   .list-view .about-view { display: none; }
   .list-view .list-section { display: block; }
@@ -241,17 +182,12 @@
 
   .list-section { display: block; }
 
-  /* ── Fade animation ── */
-  .article-view, .about-view, .list-section {
-    animation: fade-in 0.25s ease;
-  }
-
   @keyframes fade-in {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  .article-view, .about-view, .list-section { animation: fade-in 0.25s ease; }
 
-  /* ── Mobile ── */
   @media (max-width: 480px) {
     html { font-size: 17px; }
     .article-list a { flex-direction: column; gap: 0.2rem; }
@@ -265,22 +201,20 @@
 <div class="wrap" id="app">
 
   <header>
-    <a class="site-name" href="#" onclick="showList(event)">Teacher Shokh</a>
+    <a class="site-name" href="#" id="site-name-link">Teacher Shokh</a>
     <nav>
-      <a href="#" onclick="showList(event)" id="nav-writing" class="active">Writing</a>
-      <a href="#" onclick="showAbout(event)" id="nav-about">About</a>
+      <a href="#" id="nav-writing" class="active">Writing</a>
+      <a href="#" id="nav-about">About</a>
     </nav>
   </header>
 
-  <!-- LIST VIEW -->
-  <div class="list-section">
+  <div class="list-section" id="list-section">
     <p class="page-title">Articles</p>
     <ul class="article-list" id="article-list"></ul>
   </div>
 
-  <!-- SINGLE ARTICLE VIEW -->
   <div class="article-view" id="article-view">
-    <button class="back-link" onclick="showList()"> Writing</button>
+    <button class="back-link" id="back-btn">&#8592; Writing</button>
     <div class="article-header">
       <h1 id="article-title"></h1>
       <div class="article-meta" id="article-meta"></div>
@@ -288,168 +222,157 @@
     <div class="article-body" id="article-body"></div>
   </div>
 
-  <!-- ABOUT VIEW -->
   <div class="about-view" id="about-view">
     <h1>About</h1>
-    <p>👨‍🏫 English Teacher | CELTA Certified</p>
-    <p>🚀 Helping kids + teachers thrive in English</p>
-    <p>📚 IH CTYL | Young Learners Specialist</p>
-    <p>🏫 Currently working at @RahimovSchool</p>
-    <p>Read my posts on <a href="https://teachershokh.substack.com/" target="_blank" rel="noopener">Substack →</a></p>
+    <p>&#128104;&#8205;&#127979; English Teacher | CELTA Certified</p>
+    <p>&#128640; Helping kids + teachers thrive in English</p>
+    <p>&#128218; IH CTYL | Young Learners Specialist</p>
+    <p>&#127983; Currently working at @RahimovSchool</p>
+    <p>Read my posts on <a href="https://teachershokh.substack.com/" target="_blank" rel="noopener">Substack &#8594;</a></p>
   </div>
 
-  <footer id="footer">
-    <span id="footer-text">Words by Teacher Shokh</span>
+  <footer>
+    <span>Words by Teacher Shokh</span>
   </footer>
 
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const articles = [
+<script>
+var articles = [
   {
     slug: "obvious-to-you-amazing-to-others",
     title: "Obvious to you, amazing to others",
     date: "2024-11-03",
-    body: `<p>Everybody's ideas seem obvious to them. But so many ideas that were obvious to one person turn out to be amazing to others.</p>
-
-<p>We each have a unique combination of influences, ideas, obsessions, and experiences. Your combination is entirely unique. So your take on something — even something that seems well-worn — will be unlike anyone else's.</p>
-
-<blockquote>The song that's a cliché to you might be the most profound thing someone else has ever heard.</blockquote>
-
-<p>I meet musicians who haven't recorded because they don't think they're good enough yet. But meanwhile, they're still better than most. Their "obvious" level is higher than they realize.</p>
-
-<p>So if you're not sharing your work because it feels too obvious, consider: obvious to you, amazing to others.</p>`
+    body: "<p>Everybody's ideas seem obvious to them. But so many ideas that were obvious to one person turn out to be amazing to others.</p><p>We each have a unique combination of influences, ideas, obsessions, and experiences. Your combination is entirely unique. So your take on something will be unlike anyone else's.</p><blockquote>The song that's a cliche to you might be the most profound thing someone else has ever heard.</blockquote><p>So if you're not sharing your work because it feels too obvious, consider: obvious to you, amazing to others.</p>"
   },
   {
     slug: "decisions-are-temporary",
     title: "Decisions are temporary",
     date: "2024-09-18",
-    body: `<p>We often treat decisions as permanent — as if saying yes to something locks us in forever. It doesn't.</p>
-
-<p>Almost every important decision you make can be revisited. The path you choose is rarely a cliff. It's more like a hiking trail: you can turn around, take a side route, or find another way through.</p>
-
-<p>Treating decisions as temporary has a surprising effect: it makes you more willing to act. Fear of commitment is often fear of permanence. Remove the permanence, and the fear dissolves.</p>
-
-<blockquote>Make the decision. See what you learn. Adjust.</blockquote>
-
-<p>This isn't an excuse for flakiness. Some decisions deserve deep thought. But more often, we overthink because we've convinced ourselves we only get one shot. We usually get more than one shot.</p>
-
-<p>Move. Learn. Repeat.</p>`
+    body: "<p>We often treat decisions as permanent. They aren't.</p><p>Almost every important decision you make can be revisited. The path you choose is rarely a cliff. It's more like a hiking trail: you can turn around, take a side route, or find another way through.</p><blockquote>Make the decision. See what you learn. Adjust.</blockquote><p>More often, we overthink because we've convinced ourselves we only get one shot. We usually get more than one shot.</p>"
   },
   {
     slug: "do-this-for-twenty-years",
     title: "Do this for twenty years",
     date: "2024-07-05",
-    body: `<p>There's a kind of commitment that most people never make, because it sounds absurd: do the same thing, consistently, for twenty years.</p>
-
-<p>Not because you're obligated. Because you want to see what happens. Because you're genuinely curious what you'd know, who you'd be, what you'd build, if you just kept going.</p>
-
-<p>Most people quit after two years because it's not working yet. Some quit after five because it's gotten hard. A few make it to ten and get impatient. Very few stay for twenty.</p>
-
-<blockquote>The twenty-year people are almost always the ones you end up calling masters.</blockquote>
-
-<p>This applies to skills, relationships, businesses, and ideas. Depth takes an unglamorous amount of time. The compounding only becomes visible later — and by then, the commitment feels obvious in retrospect.</p>
-
-<p>Pick something worth doing. Do it for twenty years. That's the whole strategy.</p>`
+    body: "<p>There's a kind of commitment that most people never make: do the same thing, consistently, for twenty years.</p><p>Most people quit after two years because it's not working yet. Some quit after five because it's gotten hard. Very few stay for twenty.</p><blockquote>The twenty-year people are almost always the ones you end up calling masters.</blockquote><p>Pick something worth doing. Do it for twenty years. That's the whole strategy.</p>"
   },
   {
-    slug: "actions-not-equals-identity",
+    slug: "actions-not-identity",
     title: "Actions, not identity",
     date: "2024-05-22",
-    body: `<p>When you make a mistake, there's a choice in how you interpret it. You can say "I did something bad" or "I <em>am</em> bad." The difference seems small but it changes everything.</p>
-
-<p>Identity labels — "I'm a procrastinator," "I'm bad with money," "I'm not a morning person" — feel like facts but they're stories. And they're self-reinforcing. Once you believe the story, you act accordingly, which makes it feel more true.</p>
-
-<p>Actions are much more flexible than identity. Actions can change tomorrow. Identity feels carved in stone.</p>
-
-<blockquote>Describe what you did, not what you are. Then doing something different next time feels possible.</blockquote>
-
-<p>This isn't optimism for its own sake. It's just accuracy. You haven't been a procrastinator for your whole life — you've procrastinated in specific situations for specific reasons. Those reasons can be addressed.</p>
-
-<p>Keep the identity loose. Focus on the actions.</p>`
+    body: "<p>When you make a mistake, there's a choice. You can say 'I did something bad' or 'I am bad.' The difference seems small but changes everything.</p><p>Actions are much more flexible than identity. Actions can change tomorrow. Identity feels carved in stone.</p><blockquote>Describe what you did, not what you are. Then doing something different next time feels possible.</blockquote>"
   },
   {
     slug: "subtract",
     title: "Subtract",
     date: "2024-03-10",
-    body: `<p>When something isn't working, our first instinct is to add. Add more features. Add more effort. Add more people. Add more explanation.</p>
-
-<p>But often, the problem is something that's already there. And the fix is removal.</p>
-
-<p>A song gets better when you cut the verse that doesn't belong. An argument gets stronger when you remove the weakest point. A product gets easier to use when you eliminate the confusing option.</p>
-
-<blockquote>Constraints create clarity. Removal reveals what was always most essential.</blockquote>
-
-<p>I used to think addition was the mark of effort and subtraction was laziness. Now I think the opposite. It's much harder to throw something away — especially something you spent time on — than to keep piling on.</p>
-
-<p>Before you add: try subtracting first. See what's left. Often, that remainder is exactly what you needed all along.</p>`
+    body: "<p>When something isn't working, our first instinct is to add. Add more features. Add more effort. Add more explanation.</p><p>But often, the problem is something that's already there. And the fix is removal.</p><blockquote>Constraints create clarity. Removal reveals what was always most essential.</blockquote><p>Before you add: try subtracting first. See what's left.</p>"
   },
   {
     slug: "being-useful",
     title: "Being useful",
     date: "2024-01-14",
-    body: `<p>There's a simple test I apply to most things: is this useful?</p>
-
-<p>Not useful in the abstract — useful to an actual person, in a real situation. Does this information help someone make a better decision? Does this tool save real time? Does this conversation change how someone thinks about something that matters to them?</p>
-
-<p>Usefulness is easy to fake. You can be busy without being useful. You can produce a lot without contributing much. The output feels real, but when you look for the person it helped, no one is there.</p>
-
-<blockquote>Useful things have a destination. They're made for someone specific, to do something specific.</blockquote>
-
-<p>I try to write things that I would have wanted to read five years ago. Not to perform having ideas, but because I remember what I didn't know and what would have helped.</p>
-
-<p>If you're making something, the question worth keeping close is: who, specifically, does this help? And how?</p>`
+    body: "<p>There's a simple test I apply to most things: is this useful?</p><p>Not useful in the abstract. Useful to an actual person, in a real situation.</p><blockquote>Useful things have a destination. They're made for someone specific, to do something specific.</blockquote><p>The question worth keeping close: who, specifically, does this help? And how?</p>"
   }
 ];
 
 function formatDate(iso) {
-  const [y, m, d] = iso.split('-').map(Number);
-  return new Date(y, m - 1, d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  var parts = iso.split('-');
+  var d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
-function renderList() {
-  const ul = document.getElementById('article-list');
-  ul.innerHTML = articles.map(a => `
-    <li>
-      <a href="#${a.slug}" onclick="showArticle(event,'${a.slug}')">
-        <span class="article-title">${a.title}</span>
-        <span class="article-date">${formatDate(a.date)}</span>
-      </a>
-    </li>
-  `).join('');
-}
-
-function showList(e) {
-  if (e) e.preventDefault();
+function showList() {
   document.getElementById('app').className = 'wrap list-view';
-  document.getElementById('nav-writing').classList.add('active');
-  document.getElementById('nav-about').classList.remove('active');
-  history.pushState(null, '', location.pathname);
+  document.getElementById('nav-writing').className = 'active';
+  document.getElementById('nav-about').className = '';
 }
 
-function showArticle(e, slug) {
-  if (e) e.preventDefault();
-  const a = articles.find(x => x.slug === slug);
-  if (!a) return;
+function showArticle(slug) {
+  var a = null;
+  for (var i = 0; i < articles.length; i++) {
+    if (articles[i].slug === slug) { a = articles[i]; break; }
+  }
+  if (!a) { showList(); return; }
   document.getElementById('article-title').textContent = a.title;
   document.getElementById('article-meta').textContent = formatDate(a.date);
   document.getElementById('article-body').innerHTML = a.body;
   document.getElementById('app').className = 'wrap single-view';
-  document.getElementById('nav-writing').classList.add('active');
-  document.getElementById('nav-about').classList.remove('active');
+  document.getElementById('nav-writing').className = 'active';
+  document.getElementById('nav-about').className = '';
   window.scrollTo(0, 0);
-  history.pushState(null, '', '#' + slug);
 }
 
-function showAbout(e) {
-  if (e) e.preventDefault();
+function showAbout() {
   document.getElementById('app').className = 'wrap about-page';
-  document.getElementById('nav-about').classList.add('active');
-  document.getElementById('nav-writing').classList.remove('active');
+  document.getElementById('nav-about').className = 'active';
+  document.getElementById('nav-writing').className = '';
   window.scrollTo(0, 0);
 }
 
-// Handle initial hash
-function handleHash() {
-  const hash = location.hash.slice(1);
-  if (!has
+function renderList() {
+  var ul = document.getElementById('article-list');
+  var html = '';
+  for (var i = 0; i < articles.length; i++) {
+    var a = articles[i];
+    html += '<li><a href="#' + a.slug + '" data-slug="' + a.slug + '"><span class="article-title">' + a.title + '</span><span class="article-date">' + formatDate(a.date) + '</span></a></li>';
+  }
+  ul.innerHTML = html;
+  var links = ul.querySelectorAll('a');
+  for (var j = 0; j < links.length; j++) {
+    links[j].addEventListener('click', function(e) {
+      e.preventDefault();
+      var slug = this.getAttribute('data-slug');
+      history.pushState(null, '', '#' + slug);
+      showArticle(slug);
+    });
+  }
+}
+
+document.getElementById('nav-writing').addEventListener('click', function(e) {
+  e.preventDefault();
+  history.pushState(null, '', location.pathname);
+  showList();
+});
+
+document.getElementById('nav-about').addEventListener('click', function(e) {
+  e.preventDefault();
+  showAbout();
+});
+
+document.getElementById('site-name-link').addEventListener('click', function(e) {
+  e.preventDefault();
+  history.pushState(null, '', location.pathname);
+  showList();
+});
+
+document.getElementById('back-btn').addEventListener('click', function() {
+  history.pushState(null, '', location.pathname);
+  showList();
+});
+
+window.addEventListener('popstate', function() {
+  var hash = location.hash.slice(1);
+  if (!hash) { showList(); return; }
+  for (var i = 0; i < articles.length; i++) {
+    if (articles[i].slug === hash) { showArticle(hash); return; }
+  }
+  showList();
+});
+
+// Init on load
+renderList();
+var initHash = location.hash.slice(1);
+if (initHash) {
+  var found = false;
+  for (var i = 0; i < articles.length; i++) {
+    if (articles[i].slug === initHash) { showArticle(initHash); found = true; break; }
+  }
+  if (!found) showList();
+} else {
+  showList();
+}
+</script>
+</body>
+</html>

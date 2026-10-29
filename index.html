@@ -1,467 +1,221 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teacher Shokh · Articles</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --ink: #1a1814;
-    --paper: #f7f4ef;
-    --muted: #9c9488;
-    --accent: #c8503a;
-    --yt: #FF0000;
-    --line: #e0dbd2;
-    --hover-bg: #f0ece4;
-    --max: 640px;
-  }
-
-  html { font-size: 18px; }
-
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'Lora', Georgia, serif;
-    line-height: 1.7;
-    padding: 0 1.5rem;
-    min-height: 100vh;
-  }
-
-  .wrap { max-width: var(--max); margin: 0 auto; }
-
-  header {
-    padding: 3.5rem 0 2.5rem;
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 3rem;
-  }
-
-  .site-name {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    display: block;
-    margin-bottom: 0.4rem;
-    transition: color 0.15s;
-  }
-  .site-name:hover { color: var(--accent); }
-
-  nav { display: flex; gap: 1.8rem; margin-top: 1rem; align-items: center; }
-
-  nav a {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.15s;
-    cursor: pointer;
-  }
-  nav a:hover, nav a.active { color: var(--ink); }
-
-  nav a.yt-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    color: var(--muted);
-    transition: color 0.15s;
-  }
-  nav a.yt-link:hover { color: var(--yt); }
-  nav a.yt-link svg { width: 14px; height: 10px; flex-shrink: 0; }
-
-  .page-title {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 2.2rem;
-  }
-
-  .article-list { list-style: none; }
-  .article-list li { border-bottom: 1px solid var(--line); }
-
-  .article-list a {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding: 1.1rem 0.6rem;
-    margin: 0 -0.6rem;
-    text-decoration: none;
-    color: inherit;
-    border-radius: 4px;
-    transition: background 0.12s;
-  }
-  .article-list a:hover { background: var(--hover-bg); }
-  .article-list a:hover .article-title { color: var(--accent); }
-
-  .article-title {
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.4;
-    transition: color 0.12s;
-    flex: 1;
-  }
-
-  .article-date {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--muted);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .article-view { display: none; }
-  .article-header { margin-bottom: 2.5rem; }
-  .article-header h1 { font-size: 1.7rem; font-weight: 500; line-height: 1.3; margin-bottom: 0.6rem; }
-
-  .article-meta {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-  }
-
-  .article-body { font-size: 1.02rem; }
-  .article-body p { margin-bottom: 1.4rem; }
-  .article-body p:last-child { margin-bottom: 0; }
-  .article-body em { font-style: italic; }
-  .article-body strong { font-weight: 500; }
-  .article-body blockquote {
-    border-left: 2px solid var(--accent);
-    padding-left: 1.2rem;
-    margin: 1.6rem 0;
-    color: #4a4540;
-    font-style: italic;
-  }
-
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    margin-bottom: 2.5rem;
-    transition: color 0.15s;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0;
-  }
-  .back-link:hover { color: var(--ink); }
-
-  /* ── Giscus comments ── */
-  .comments-section {
-    margin-top: 4rem;
-    padding-top: 2.5rem;
-    border-top: 1px solid var(--line);
-  }
-
-  .comments-heading {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 1.8rem;
-  }
-
-  .giscus-frame {
-    border: none;
-    width: 100%;
-  }
-
-  /* ── About ── */
-  .about-view { display: none; }
-  .about-view h1 { font-size: 1.5rem; font-weight: 500; margin-bottom: 1.8rem; }
-  .about-view p { margin-bottom: 1.3rem; font-size: 1rem; }
-  .about-view a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
-
-  /* ── Footer ── */
-  footer {
-    margin-top: 5rem;
-    padding: 2rem 0 3rem;
-    border-top: 1px solid var(--line);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-  }
-
-  /* ── View states ── */
-  .list-view .article-view,
-  .list-view .about-view { display: none; }
-  .list-view .list-section { display: block; }
-
-  .single-view .list-section,
-  .single-view .about-view { display: none; }
-  .single-view .article-view { display: block; }
-
-  .about-page .list-section,
-  .about-page .article-view { display: none; }
-  .about-page .about-view { display: block; }
-
-  .list-section { display: block; }
-
-  @keyframes fade-in {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .article-view, .about-view, .list-section { animation: fade-in 0.25s ease; }
-
-  @media (max-width: 480px) {
-    html { font-size: 17px; }
-    .article-list a { flex-direction: column; gap: 0.2rem; }
-    .article-date { align-self: flex-start; }
-    header { padding-top: 2.5rem; }
-    nav { gap: 1.2rem; }
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teacher Shokh — Notes on teaching English</title>
+  <meta name="description" content="Teacher Shokh: an English teacher in Tashkent writing about methodology, young learners, Cambridge exams and IELTS. Essays, videos and projects.">
+  <meta property="og:title" content="Teacher Shokh">
+  <meta property="og:description" content="Notes on teaching English, and learning anything, well.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://teachershokh.blog/">
+  <meta name="theme-color" content="#f5efe3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#14120f" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%238a2c1d'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='40' font-style='italic' text-anchor='middle' fill='%23f5efe3'%3ES%3C/text%3E%3C/svg%3E">
+  <link rel="alternate" type="application/rss+xml" title="Teacher Shokh on Substack" href="https://teachershokh.substack.com/feed">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Set theme + language before paint to avoid a flash.
+    (function () {
+      var d = document.documentElement, t = null, l = null;
+      try { t = localStorage.getItem('ts-theme'); l = localStorage.getItem('ts-lang'); } catch (e) {}
+      var q = new URLSearchParams(location.search).get('lang');
+      if (q === 'en' || q === 'uz') l = q;
+      if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+      d.lang = (l === 'en') ? 'en' : 'uz';
+    })();
+  </script>
 </head>
 <body>
+  <a class="skip" href="#main" data-i18n="skip">Asosiy qismga o'tish</a>
 
-<div class="wrap" id="app">
-
-  <header>
-    <a class="site-name" href="#" id="site-name-link">Teacher Shokh</a>
-    <nav>
-      <a href="#" id="nav-writing" class="active">Articles</a>
-      <a href="#" id="nav-about">About</a>
-      <a href="https://www.youtube.com/@InspiringTeacherShokh" target="_blank" rel="noopener" class="yt-link">
-        <svg viewBox="0 0 24 17" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M23.495 2.656a3.016 3.016 0 0 0-2.122-2.135C19.505 0 12 0 12 0S4.495 0 2.627.521A3.016 3.016 0 0 0 .505 2.656 31.59 31.59 0 0 0 0 8.5a31.59 31.59 0 0 0 .505 5.844 3.016 3.016 0 0 0 2.122 2.135C4.495 17 12 17 12 17s7.505 0 9.373-.521a3.016 3.016 0 0 0 2.122-2.135A31.59 31.59 0 0 0 24 8.5a31.59 31.59 0 0 0-.505-5.844zM9.546 12.068V4.932L15.818 8.5l-6.272 3.568z"/>
-        </svg>
-        Watch
-      </a>
-    </nav>
+  <header class="masthead">
+    <div class="wrap masthead__top">
+      <span class="mono" data-i18n="edition">Toshkent · Ingliz tili metodikasi</span>
+      <div class="controls">
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-set-lang="uz" aria-pressed="true">UZ</button>
+          <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" class="theme" id="themeToggle" aria-label="Toggle dark mode">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path class="sun" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10Zm0-5v3m0 14v3M4.2 4.2l2.1 2.1m11.4 11.4l2.1 2.1M2 12h3m14 0h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><path class="moon" d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="wrap masthead__brand">
+      <a href="#top" class="wordmark" id="top">Teacher <em>Shokh</em></a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#writing" data-i18n="nav.writing">Maqolalar</a>
+        <a href="#watch" data-i18n="nav.watch">Videolar</a>
+        <a href="#work" data-i18n="nav.work">Loyihalar</a>
+        <a href="#about" data-i18n="nav.about">Men haqimda</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- LIST -->
-  <div class="list-section" id="list-section">
-    <p class="page-title">Articles</p>
-    <ul class="article-list" id="article-list"></ul>
+  <main id="main">
+  <div id="home">
+    <!-- HERO -->
+    <section class="hero wrap">
+      <p class="kicker" data-i18n="hero.kicker">O'qituvchi daftari</p>
+      <h1 class="hero__title" data-i18n-html="hero.title">Yaxshi o'qitish&nbsp;— <em>hunar.</em><br>Bular ustaxonamdan qaydlar.</h1>
+      <div class="hero__grid">
+        <p class="hero__lede" data-i18n="hero.lede">Men Shokh — Toshkentdagi ingliz tili o'qituvchisiman. Yosh o'quvchilar, o'smirlar va IELTS nomzodlari bilan ishlayman. Metodika haqida yozaman: tadqiqotlar nima deydi, sinfda aslida nima bo'ladi va ikkalasi orasidagi masofa.</p>
+        <aside class="hero__aside">
+          <dl class="facts">
+            <div><dt data-i18n="facts.teach">O'qitaman</dt><dd>Cambridge YLE · KET–FCE · IELTS</dd></div>
+            <div><dt data-i18n="facts.train">Malaka</dt><dd>CELTA · IH CTYL · <span data-i18n="facts.delta">DELTA (jarayonda)</span></dd></div>
+            <div><dt data-i18n="facts.now">Hozir</dt><dd>Rahimov School, <span data-i18n="facts.city">Toshkent</span></dd></div>
+          </dl>
+          <div class="hero__ctas">
+            <a class="btn btn--solid" href="#writing" data-i18n="hero.cta1">So'nggi maqolalar</a>
+            <a class="btn" href="https://teachershokh.substack.com/subscribe" target="_blank" rel="noopener" data-i18n="hero.cta2">Obuna bo'lish</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- WRITING -->
+    <section class="section wrap" id="writing" aria-labelledby="writing-h">
+      <header class="section__head">
+        <span class="section__no mono">01</span>
+        <h2 id="writing-h" data-i18n="writing.h">Maqolalar</h2>
+        <p class="section__dek" data-i18n="writing.dek">O'qitish, o'rganish va ikkalasini ham yaxshi bajarish hunari haqida esselar.</p>
+      </header>
+      <div class="filters" role="group" aria-label="Filter by language">
+        <button type="button" data-filter="all" aria-pressed="true" data-i18n="filter.all">Hammasi</button>
+        <button type="button" data-filter="uz" aria-pressed="false">O'zbekcha</button>
+        <button type="button" data-filter="en" aria-pressed="false">English</button>
+      </div>
+
+      <article class="feature" id="featured" aria-live="polite"></article>
+      <ol class="index" id="postIndex"></ol>
+
+      <a class="more" href="https://teachershokh.substack.com/archive" target="_blank" rel="noopener"><span data-i18n="writing.all">Barcha maqolalar Substack'da</span> <span aria-hidden="true">→</span></a>
+    </section>
+
+    <!-- PULL QUOTE -->
+    <figure class="pull wrap">
+      <blockquote data-i18n="pull.q">“Yuragimni bolalarga beraman.”</blockquote>
+      <figcaption><span class="mono">V. A. Sukhomlinskiy</span> · <span data-i18n="pull.src">kitob nomi, 1969</span></figcaption>
+    </figure>
+
+    <!-- WATCH -->
+    <section class="section wrap" id="watch" aria-labelledby="watch-h">
+      <header class="section__head">
+        <span class="section__no mono">02</span>
+        <h2 id="watch-h" data-i18n="watch.h">Videolar</h2>
+        <p class="section__dek" data-i18n="watch.dek">YouTube'da: yangi o'qituvchilar uchun metodika, aniq va amaliy.</p>
+      </header>
+      <div class="watch">
+        <a class="watch__card" href="https://www.youtube.com/@InspiringTeacherShokh" target="_blank" rel="noopener">
+          <span class="watch__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="watch__label mono">YouTube</span>
+          <span class="watch__title">@InspiringTeacherShokh</span>
+          <span class="watch__go" data-i18n="watch.go">Kanalni ochish →</span>
+        </a>
+        <ul class="series">
+          <li><span class="mono">I</span><span data-i18n="watch.s1">Yosh o'quvchilar va o'smirlarni o'qitish</span></li>
+          <li><span class="mono">II</span><span data-i18n="watch.s2">Kattalar uchun CELTA freymvorklari</span></li>
+          <li><span class="mono">III</span><span data-i18n="watch.s3">Sinfni boshqarish</span></li>
+          <li><span class="mono">IV</span><span data-i18n="watch.s4">“How to teach…” turkumi: lug'at, grammatika, ko'nikmalar</span></li>
+          <li><span class="mono">V</span><span data-i18n="watch.s5">O'qiyotgan ELT kitoblarimdan g'oyalar</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="section wrap" id="work" aria-labelledby="work-h">
+      <header class="section__head">
+        <span class="section__no mono">03</span>
+        <h2 id="work-h" data-i18n="work.h">Loyihalar</h2>
+        <p class="section__dek" data-i18n="work.dek">Darsdan tashqarida qurayotgan narsalarim.</p>
+      </header>
+      <div class="work">
+        <a class="work__item" href="https://ielts-pro-gang.vercel.app" target="_blank" rel="noopener">
+          <span class="work__tag mono" data-i18n="work.live">Ishlamoqda</span>
+          <h3>IELTS Pro Gang</h3>
+          <p data-i18n="work.ielts">IELTS'ga tayyorlanish platformasi: to'liq Listening va Reading testlari. Maqsad: yozish va gapirishda 9 ball darajasiga olib chiqish.</p>
+          <span class="work__go" aria-hidden="true">↗</span>
+        </a>
+        <div class="work__item">
+          <span class="work__tag mono" data-i18n="work.soon">Tez orada</span>
+          <h3 data-i18n="work.podcastT">O'qituvchilar podkasti</h3>
+          <p data-i18n="work.podcast">Metodika haqida suhbatlar: boshlang'ich o'quvchilarni imtihonga tayyorlash, CELTA asoslari (til va ko'nikmalar), dars bosqichlari.</p>
+        </div>
+        <div class="work__item">
+          <span class="work__tag mono">Rahimov School</span>
+          <h3 data-i18n="work.gameT">Geymifikatsiya</h3>
+          <p data-i18n="work.game">Motivatsiyani almashtirmaydigan, balki qo'llab-quvvatlaydigan rag'batlantirish va ball tizimlarini loyihalash.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section wrap" id="about" aria-labelledby="about-h">
+      <header class="section__head">
+        <span class="section__no mono">04</span>
+        <h2 id="about-h" data-i18n="about.h">Men haqimda</h2>
+      </header>
+      <div class="about">
+        <div class="about__text">
+          <p data-i18n="about.p1">Taxminan besh yildan beri dars beraman: Starters'dagi yetti yoshlilardan tortib IELTS'ga tayyorlanayotgan kattalargacha. Hozir Toshkentdagi Rahimov School'da ishlayman va maktabning geymifikatsiya hamda rag'batlantirish tizimlariga mas'ulman.</p>
+          <p data-i18n="about.p2">Meni bir savol qiziqtiradi: o'quvchi aslida qanday o'rganadi va o'qituvchi bunga qanchalik ta'sir qila oladi? Shu sababli ikkinchi tilni o'zlashtirish (SLA) tadqiqotlarini, pedagogika, psixologiya va falsafani o'qiyman, keyin ularni sinfda sinab ko'raman.</p>
+        </div>
+        <table class="ledger">
+          <caption class="mono" data-i18n="about.cap">Malaka va tajriba</caption>
+          <tbody>
+            <tr><th>CELTA</th><td data-i18n="about.celta">Cambridge, kattalarga ingliz tilini o'qitish sertifikati</td></tr>
+            <tr><th>IH CTYL</th><td data-i18n="about.ctyl">International House, yosh o'quvchilarni o'qitish sertifikati</td></tr>
+            <tr><th>IELTS</th><td data-i18n="about.ielts">Academic, umumiy 8.0</td></tr>
+            <tr><th>DELTA</th><td data-i18n="about.delta">Tayyorlanmoqda</td></tr>
+            <tr><th data-i18n="about.expT">Tajriba</th><td data-i18n="about.exp">~5 yil sinfda</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SUBSCRIBE -->
+    <section class="subscribe wrap" aria-labelledby="sub-h">
+      <h2 id="sub-h" data-i18n="sub.h">Yangi maqolalar to'g'ridan-to'g'ri pochtangizga.</h2>
+      <p data-i18n="sub.p">Spam yo'q. Faqat yangi maqola chiqqanda xat keladi.</p>
+      <a class="btn btn--solid btn--lg" href="https://teachershokh.substack.com/subscribe" target="_blank" rel="noopener" data-i18n="sub.cta">Substack'da obuna bo'lish</a>
+    </section>
   </div>
 
-  <!-- SINGLE ARTICLE -->
-  <div class="article-view" id="article-view">
-    <button class="back-link" id="back-btn">&#8592; Articles</button>
-    <div class="article-header">
-      <h1 id="article-title"></h1>
-      <div class="article-meta" id="article-meta"></div>
+    <!-- READER (single essay) -->
+    <article class="reader wrap" id="reader" hidden>
+      <a class="back mono" href="#writing" id="backLink"><span aria-hidden="true">←</span> <span data-i18n="reader.back">Barcha maqolalar</span></a>
+      <header class="reader__head">
+        <p class="reader__meta mono" id="readerMeta"></p>
+        <h1 id="readerTitle"></h1>
+      </header>
+      <div class="prose" id="readerBody"></div>
+      <nav class="reader__next" id="readerNext" aria-label="Next essay"></nav>
+      <section class="comments" aria-labelledby="comments-h">
+        <h2 id="comments-h" class="mono" data-i18n="reader.comments">Izohlar</h2>
+        <div id="giscus"></div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <span class="wordmark wordmark--sm">Teacher <em>Shokh</em></span>
+      <nav class="footer__links" aria-label="Elsewhere">
+        <a href="https://teachershokh.substack.com/" target="_blank" rel="noopener">Substack</a>
+        <a href="https://www.youtube.com/@InspiringTeacherShokh" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://ielts-pro-gang.vercel.app" target="_blank" rel="noopener">IELTS Pro Gang</a>
+        <a href="https://teachershokh.substack.com/feed" target="_blank" rel="noopener">RSS</a>
+      </nav>
+      <span class="mono footer__fine">© <span id="year">2026</span> · <span data-i18n="footer.made">Toshkentda yozildi</span></span>
     </div>
-    <div class="article-body" id="article-body"></div>
-
-    <!-- GISCUS COMMENTS -->
-    <div class="comments-section">
-      <p class="comments-heading">Comments</p>
-      <div id="giscus-container"></div>
-    </div>
-  </div>
-
-  <!-- ABOUT -->
-  <div class="about-view" id="about-view">
-    <h1>About</h1>
-    <p>&#128104;&#8205;&#127979; English Teacher | CELTA Certified</p>
-    <p>&#128640; Helping kids + teachers thrive in English</p>
-    <p>&#128218; IH CTYL | Young Learners Specialist</p>
-    <p>&#127983; Currently working at @RahimovSchool</p>
-    <p>Read my posts on <a href="https://teachershokh.substack.com/" target="_blank" rel="noopener">Substack &#8594;</a></p>
-  </div>
-
-  <footer>
-    <span>Posts by Teacher Shokh</span>
   </footer>
 
-</div>
-
-<script>
-var articles = [
-  {
-  slug: "lexicon",
-  title: "Lexicon",
-  date: "2026-03-22",
-  body: "<p>O'quvchilarda o'rganayotgan tillarida lug'aviy baza qurish muhim, ayniqsa kichik yoshdagi — starter va beginner level o'quvchilarda.</p><p>Yangi so'zlarni inglizcha-o'zbekcha tarjima orqali yodlatishdan yuz o'girganimizda oldimizda:</p><blockquote>\"Endi qanday qilib o'quvchilarim yangi so'zlarni yod olishganini tekshirishim mumkin?\"</blockquote><p>— degan savol turadi.</p><p>Avval oddiygina birma-bir turgizib so'rab olinardi:</p><p><em>T: Trousers nima edi?<br>S: Shim.<br>T: Tufli?<br>S: Shoes.</em></p><p>Turli vizuallar, realia (haqiqiy, jonli buyumlar)dan foydalangan holda o'rgatishni boshladikmi, huddi shu usulda so'rab olaveramiz:</p><p><em>T: What is this &#128539;? &#128397;<br>S: It's a dress.<br><br>T: What are these &#128094; &#128094;?<br>S: It's a shoes...<br>T: Yes, these are shoes — right?<br>S: These are shoes.</em></p><p>Bunday usullar bilan o'quvchilar so'zlarni vacuum'da o'rganishmaydi — gaplarda qanday kelishi, nimalar bilan birga ishlatilishini ham ko'rib ketishadi. Muhimi tarjimaga suyanmasdan o'rgana boshlashadi!</p>"
-},
-  {
-    slug: "obvious-to-you-amazing-to-others",
-    title: "Obvious to you, amazing to others",
-    date: "2024-11-03",
-    body: "<p>Everybody's ideas seem obvious to them. But so many ideas that were obvious to one person turn out to be amazing to others.</p><p>We each have a unique combination of influences, ideas, obsessions, and experiences. Your combination is entirely unique. So your take on something will be unlike anyone else's.</p><blockquote>The song that's a cliche to you might be the most profound thing someone else has ever heard.</blockquote><p>So if you're not sharing your work because it feels too obvious, consider: obvious to you, amazing to others.</p>"
-  },
-  {
-    slug: "decisions-are-temporary",
-    title: "Decisions are temporary",
-    date: "2024-09-18",
-    body: "<p>We often treat decisions as permanent. They aren't.</p><p>Almost every important decision you make can be revisited. The path you choose is rarely a cliff. It's more like a hiking trail: you can turn around, take a side route, or find another way through.</p><blockquote>Make the decision. See what you learn. Adjust.</blockquote><p>More often, we overthink because we've convinced ourselves we only get one shot. We usually get more than one shot.</p>"
-  },
-  {
-    slug: "do-this-for-twenty-years",
-    title: "Do this for twenty years",
-    date: "2024-07-05",
-    body: "<p>There's a kind of commitment that most people never make: do the same thing, consistently, for twenty years.</p><p>Most people quit after two years because it's not working yet. Some quit after five because it's gotten hard. Very few stay for twenty.</p><blockquote>The twenty-year people are almost always the ones you end up calling masters.</blockquote><p>Pick something worth doing. Do it for twenty years. That's the whole strategy.</p>"
-  },
-  {
-    slug: "actions-not-identity",
-    title: "Actions, not identity",
-    date: "2024-05-22",
-    body: "<p>When you make a mistake, there's a choice. You can say 'I did something bad' or 'I am bad.' The difference seems small but changes everything.</p><p>Actions are much more flexible than identity. Actions can change tomorrow. Identity feels carved in stone.</p><blockquote>Describe what you did, not what you are. Then doing something different next time feels possible.</blockquote>"
-  },
-  {
-    slug: "subtract",
-    title: "Subtract",
-    date: "2024-03-10",
-    body: "<p>When something isn't working, our first instinct is to add. Add more features. Add more effort. Add more explanation.</p><p>But often, the problem is something that's already there. And the fix is removal.</p><blockquote>Constraints create clarity. Removal reveals what was always most essential.</blockquote><p>Before you add: try subtracting first. See what's left.</p>"
-  },
-  {
-    slug: "being-useful",
-    title: "Being useful",
-    date: "2024-01-14",
-    body: "<p>There's a simple test I apply to most things: is this useful?</p><p>Not useful in the abstract. Useful to an actual person, in a real situation.</p><blockquote>Useful things have a destination. They're made for someone specific, to do something specific.</blockquote><p>The question worth keeping close: who, specifically, does this help? And how?</p>"
-  }
-];
-
-function formatDate(iso) {
-  var p = iso.split('-');
-  return new Date(parseInt(p[0]), parseInt(p[1])-1, parseInt(p[2]))
-    .toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-}
-
-/* ── Giscus ── */
-function loadGiscus(slug) {
-  var container = document.getElementById('giscus-container');
-  // Remove any existing giscus iframe/script
-  container.innerHTML = '';
-
-  var script = document.createElement('script');
-  script.src = 'https://giscus.app/client.js';
-  script.setAttribute('data-repo', 'MrShokh-newcoder/teachershokh.github.io');
-  script.setAttribute('data-repo-id', 'R_kgDORtn81g');
-  script.setAttribute('data-category', 'General');
-  script.setAttribute('data-category-id', 'DIC_kwDORtn81s4C5BOA');
-  script.setAttribute('data-mapping', 'specific');
-  script.setAttribute('data-term', slug);
-  script.setAttribute('data-strict', '0');
-  script.setAttribute('data-reactions-enabled', '1');
-  script.setAttribute('data-emit-metadata', '0');
-  script.setAttribute('data-input-position', 'top');
-  script.setAttribute('data-theme', 'preferred_color_scheme');
-  script.setAttribute('data-lang', 'en');
-  script.setAttribute('data-loading', 'lazy');
-  script.setAttribute('crossorigin', 'anonymous');
-  script.async = true;
-  container.appendChild(script);
-}
-
-/* ── Views ── */
-function showList() {
-  document.getElementById('app').className = 'wrap list-view';
-  document.getElementById('nav-writing').className = 'active';
-  document.getElementById('nav-about').className = '';
-}
-
-function showArticle(slug) {
-  var a = null;
-  for (var i = 0; i < articles.length; i++) {
-    if (articles[i].slug === slug) { a = articles[i]; break; }
-  }
-  if (!a) { showList(); return; }
-  document.getElementById('article-title').textContent = a.title;
-  document.getElementById('article-meta').textContent = formatDate(a.date);
-  document.getElementById('article-body').innerHTML = a.body;
-  document.getElementById('app').className = 'wrap single-view';
-  document.getElementById('nav-writing').className = 'active';
-  document.getElementById('nav-about').className = '';
-  loadGiscus(slug);
-  window.scrollTo(0, 0);
-}
-
-function showAbout() {
-  document.getElementById('app').className = 'wrap about-page';
-  document.getElementById('nav-about').className = 'active';
-  document.getElementById('nav-writing').className = '';
-  window.scrollTo(0, 0);
-}
-
-/* ── Render list ── */
-function renderList() {
-  var ul = document.getElementById('article-list');
-  var html = '';
-  for (var i = 0; i < articles.length; i++) {
-    var a = articles[i];
-    html += '<li><a href="#' + a.slug + '" data-slug="' + a.slug + '">'
-      + '<span class="article-title">' + a.title + '</span>'
-      + '<span class="article-date">' + formatDate(a.date) + '</span>'
-      + '</a></li>';
-  }
-  ul.innerHTML = html;
-  var links = ul.querySelectorAll('a');
-  for (var j = 0; j < links.length; j++) {
-    links[j].addEventListener('click', function(e) {
-      e.preventDefault();
-      var slug = this.getAttribute('data-slug');
-      history.pushState(null, '', '#' + slug);
-      showArticle(slug);
-    });
-  }
-}
-
-/* ── Event listeners ── */
-document.getElementById('nav-writing').addEventListener('click', function(e) {
-  e.preventDefault();
-  history.pushState(null, '', location.pathname);
-  showList();
-});
-
-document.getElementById('nav-about').addEventListener('click', function(e) {
-  e.preventDefault();
-  showAbout();
-});
-
-document.getElementById('site-name-link').addEventListener('click', function(e) {
-  e.preventDefault();
-  history.pushState(null, '', location.pathname);
-  showList();
-});
-
-document.getElementById('back-btn').addEventListener('click', function() {
-  history.pushState(null, '', location.pathname);
-  showList();
-});
-
-window.addEventListener('popstate', function() {
-  var hash = location.hash.slice(1);
-  if (!hash) { showList(); return; }
-  for (var i = 0; i < articles.length; i++) {
-    if (articles[i].slug === hash) { showArticle(hash); return; }
-  }
-  showList();
-});
-
-/* ── Init ── */
-renderList();
-var initHash = location.hash.slice(1);
-if (initHash) {
-  var found = false;
-  for (var i = 0; i < articles.length; i++) {
-    if (articles[i].slug === initHash) { showArticle(initHash); found = true; break; }
-  }
-  if (!found) showList();
-} else {
-  showList();
-}
-</script>
+  <script src="articles.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>

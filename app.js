@@ -30,6 +30,12 @@
       'writing.all': "Barcha maqolalar Substack'da",
       'post.latest': "So'nggi", 'post.read': "Maqolani o'qish →", 'post.min': 'daqiqa',
       'pull.q': '“Yuragimni bolalarga beraman.”', 'pull.src': 'kitob nomi, 1969',
+      'tg.h': 'Telegram postlari',
+      'tg.dek': "@inspiring_teacher kanalidan: sinfdan qaydlar, o'yinlar, kitoblar va fikrlar.",
+      'tg.more': "Yana ko'rsatish", 'tg.join': "Kanalga qo'shilish", 'tg.count': '{n} ta post',
+      'tg.back': 'Barcha postlar', 'tg.open': "Telegram'da ochish ↗",
+      'tg.photos': '{n} ta rasm', 'tg.video': 'video', 'tg.file': 'fayl',
+      'tg.note': "Bu postda {m} bor. Ularni Telegram'da ko'ring.",
       'watch.h': 'Videolar',
       'watch.dek': "YouTube'da: yangi o'qituvchilar uchun metodika, aniq va amaliy.",
       'watch.go': 'Kanalni ochish →',
@@ -76,6 +82,12 @@
       'writing.all': 'All writing on Substack',
       'post.latest': 'Latest', 'post.read': 'Read the essay →', 'post.min': 'min read',
       'pull.q': '“I give my heart to children.”', 'pull.src': 'book title, 1969',
+      'tg.h': 'Telegram posts',
+      'tg.dek': 'From the @inspiring_teacher channel: classroom notes, games, books and reflections.',
+      'tg.more': 'Show more', 'tg.join': 'Join the channel', 'tg.count': '{n} posts',
+      'tg.back': 'All posts', 'tg.open': 'Open on Telegram ↗',
+      'tg.photos': '{n} photo(s)', 'tg.video': 'a video', 'tg.file': 'a file',
+      'tg.note': 'This post includes {m}. See them on Telegram.',
       'watch.h': 'Watch',
       'watch.dek': 'On YouTube: methodology for new teachers, made clear and practical.',
       'watch.go': 'Open the channel →',
@@ -155,8 +167,15 @@
       url: '#' + a.slug
     };
   });
+  var tgPosts = (window.TELEGRAM || []).map(function (p) {
+    return {
+      kind: 'telegram', slug: p.slug, title: p.title, fullTitle: p.fullTitle || p.title, date: p.date, lang: p.lang,
+      body: p.html, minutes: p.minutes, tags: p.tags || [], cover: p.cover, url: p.url, media: p.media || {}, excerpt: p.excerpt
+    };
+  });
   function bySlug(slug) {
-    for (var i = 0; i < siteArticles.length; i++) if (siteArticles[i].slug === slug) return siteArticles[i];
+    var all = siteArticles.concat(tgPosts);
+    for (var i = 0; i < all.length; i++) if (all[i].slug === slug) return all[i];
     return null;
   }
   function allPosts() {
@@ -189,6 +208,7 @@
       b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === lang));
     });
     renderPosts();
+    renderTelegram();
     if (currentSlug) { renderReaderMeta(bySlug(currentSlug)); giscusConfig({ lang: lang }); }
     store('ts-lang', lang);
   }
@@ -202,7 +222,7 @@
     if (t) return t;
     return window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
-  function giscusTheme() { return currentTheme() === 'dark' ? 'dark_dimmed' : 'light'; }
+  function giscusTheme() { return currentTheme() === 'dark' ? 'dark_dimmed' : 'transparent_dark'; }
   document.getElementById('themeToggle').addEventListener('click', function () {
     var next = currentTheme() === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
@@ -267,6 +287,48 @@
       .catch(function () { /* keep fallback */ });
   }
 
+  /* ---------- Telegram grid ---------- */
+  var tgFilter = 'all', tgShown = 9;
+  function tgList() {
+    return tgFilter === 'all' ? tgPosts : tgPosts.filter(function (p) { return p.lang === tgFilter; });
+  }
+  function mediaLabel(m, dict) {
+    var bits = [];
+    if (m.photos) bits.push(dict['tg.photos'].replace('{n}', m.photos));
+    if (m.video) bits.push(dict['tg.video']);
+    if (m.doc) bits.push(dict['tg.file']);
+    return bits.join(', ');
+  }
+  function renderTelegram() {
+    var grid = document.getElementById('tgGrid');
+    if (!grid) return;
+    var dict = T[lang], list = tgList();
+    grid.innerHTML = list.slice(0, tgShown).map(function (p) {
+      return '<li><a class="tg-card" href="#' + esc(p.slug) + '">' +
+        '<span class="tg-card__img"><img src="' + esc(p.cover) + '" alt="" width="1200" height="750" loading="lazy" decoding="async"></span>' +
+        '<span class="tg-card__meta mono"><time datetime="' + esc(p.date) + '">' + esc(fmtDate(p.date)) + '</time><span>' + esc(p.lang.toUpperCase()) + '</span></span>' +
+        '<span class="tg-card__title" lang="' + esc(p.lang) + '">' + esc(p.title) + '</span>' +
+        (p.excerpt && p.excerpt !== p.title ? '<span class="tg-card__ex" lang="' + esc(p.lang) + '">' + esc(p.excerpt) + '</span>' : '') +
+        '</a></li>';
+    }).join('');
+    document.getElementById('tgCount').textContent = dict['tg.count'].replace('{n}', list.length);
+    document.getElementById('tgMore').hidden = tgShown >= list.length;
+  }
+  document.querySelectorAll('[data-tg-filter]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      tgFilter = b.getAttribute('data-tg-filter'); tgShown = 9;
+      document.querySelectorAll('[data-tg-filter]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      renderTelegram();
+    });
+  });
+  document.getElementById('tgMore').addEventListener('click', function () {
+    var before = tgShown;
+    tgShown += 12;
+    renderTelegram();
+    var next = document.querySelectorAll('#tgGrid .tg-card')[before];
+    if (next) next.focus({ preventScroll: true });
+  });
+
   /* ---------- Reader ---------- */
   var home = document.getElementById('home');
   var reader = document.getElementById('reader');
@@ -275,7 +337,18 @@
     if (!a) return;
     var dict = T[lang];
     document.getElementById('readerMeta').innerHTML = metaBits(a, dict);
-    var next = siteArticles.slice().sort(function (x, y) { return toDate(y.date) - toDate(x.date); });
+    var isTg = a.kind === 'telegram';
+    var back = document.getElementById('backLink');
+    back.setAttribute('href', isTg ? '#telegram' : '#writing');
+    back.querySelector('[data-i18n]').textContent = isTg ? dict['tg.back'] : dict['reader.back'];
+    var mediaEl = document.getElementById('readerMedia');
+    if (isTg) {
+      var m = mediaLabel(a.media, dict);
+      mediaEl.innerHTML = (m ? esc(dict['tg.note'].replace('{m}', m)) + ' ' : '') +
+        '<a class="readlink" href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(dict['tg.open']) + '</a>';
+    }
+    mediaEl.hidden = !isTg;
+    var next = (isTg ? tgPosts : siteArticles).slice().sort(function (x, y) { return toDate(y.date) - toDate(x.date); });
     var i = next.indexOf(a), n = next[i + 1] || next[0];
     document.getElementById('readerNext').innerHTML = (n && n !== a)
       ? '<span class="mono">' + esc(dict['reader.next']) + '</span><a href="#' + esc(n.slug) + '">' + esc(n.title) + ' →</a>'
@@ -284,9 +357,16 @@
 
   function openArticle(a) {
     currentSlug = a.slug;
-    document.getElementById('readerTitle').textContent = a.title;
+    document.getElementById('readerTitle').textContent = a.fullTitle || a.title;
     var body = document.getElementById('readerBody');
-    body.innerHTML = a.body; // authored content from articles.js
+    // authored content: articles.js, or the author's own Telegram posts (telegram.js)
+    body.innerHTML = a.kind === 'telegram' ? '<div class="tg-text">' + a.body + '</div>' : a.body;
+    var cover = document.getElementById('readerCover');
+    cover.hidden = !a.cover;
+    if (a.cover) document.getElementById('readerCoverImg').src = a.cover;
+    var tags = document.getElementById('readerTags');
+    tags.hidden = !(a.tags && a.tags.length);
+    tags.innerHTML = (a.tags || []).map(function (t) { return '<span class="mono">' + esc(t) + '</span>'; }).join('');
     body.lang = a.lang;
     document.getElementById('readerTitle').lang = a.lang;
     renderReaderMeta(a);

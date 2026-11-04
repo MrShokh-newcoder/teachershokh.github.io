@@ -31,6 +31,21 @@
       'post.latest': "So'nggi", 'post.read': "Maqolani o'qish →", 'post.min': 'daqiqa',
       'pull.q': '“Yuragimni bolalarga beraman.”', 'pull.src': 'kitob nomi, 1969',
       'tg.h': 'Telegram postlari',
+      "nav.reading": "Nima o'qiyman",
+      "read.kicker": "Kutubxona",
+      "read.h": "Nima o'qiyman",
+      "read.lede": "O'qituvchilik hunarini o'rganishda davom etish uchun kuzatib boradigan blog va saytlarim: metodika, SLA, yosh o'quvchilar, DELTA va tadqiqotlar. Hammasi ingliz tilida, deyarli hammasi bepul.",
+      "read.sources": "manba",
+      "read.topics": "bo'lim",
+      "read.cat1": "Metodika va ikkinchi tilni o'zlashtirish",
+      "read.cat2": "Lug'at va leksika",
+      "read.cat3": "Yosh o'quvchilar",
+      "read.cat4": "DELTA va kasbiy rivojlanish",
+      "read.cat5": "Tadqiqotlar va dalillar",
+      "read.cat6": "Dars g'oyalari",
+      "read.cat7": "Ta'lim texnologiyalari va AI",
+      "read.cat8": "Motivatsiya va ta'lim",
+      "read.cat9": "Tashkilotlar va imtihon markazlari",
       'tg.dek': "@inspiring_teacher kanalidan: sinfdan qaydlar, o'yinlar, kitoblar va fikrlar.",
       'tg.more': "Yana ko'rsatish", 'tg.join': "Kanalga qo'shilish", 'tg.count': '{n} ta post',
       'tg.back': 'Barcha postlar', 'tg.open': "Telegram'da ochish ↗",
@@ -83,6 +98,21 @@
       'post.latest': 'Latest', 'post.read': 'Read the essay →', 'post.min': 'min read',
       'pull.q': '“I give my heart to children.”', 'pull.src': 'book title, 1969',
       'tg.h': 'Telegram posts',
+      "nav.reading": "What I read",
+      "read.kicker": "Reading list",
+      "read.h": "What I read",
+      "read.lede": "The blogs and sites I follow to keep learning the craft: methodology, SLA, young learners, DELTA and research. All in English, almost all free.",
+      "read.sources": "sources",
+      "read.topics": "topics",
+      "read.cat1": "Methodology and second language acquisition",
+      "read.cat2": "Vocabulary and lexis",
+      "read.cat3": "Young learners",
+      "read.cat4": "DELTA and teacher development",
+      "read.cat5": "Research and evidence",
+      "read.cat6": "Lesson ideas",
+      "read.cat7": "Edtech and AI",
+      "read.cat8": "Motivation and education",
+      "read.cat9": "Organisations and exam boards",
       'tg.dek': 'From the @inspiring_teacher channel: classroom notes, games, books and reflections.',
       'tg.more': 'Show more', 'tg.join': 'Join the channel', 'tg.count': '{n} posts',
       'tg.back': 'All posts', 'tg.open': 'Open on Telegram ↗',
@@ -252,6 +282,7 @@
     var dict = T[lang];
     var featured = document.getElementById('featured');
     var list = document.getElementById('postIndex');
+    if (!featured || !list) return;
     var posts = allPosts();
     if (!posts.length) { featured.innerHTML = ''; list.innerHTML = ''; return; }
 
@@ -278,7 +309,7 @@
   }
 
   function loadSubstack() {
-    if (location.protocol === 'file:') return;
+    if (location.protocol === 'file:' || !document.getElementById('featured')) return;
     fetch('data/substack.json', { cache: 'no-cache' })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (data) {
@@ -321,7 +352,8 @@
       renderTelegram();
     });
   });
-  document.getElementById('tgMore').addEventListener('click', function () {
+  var tgMoreBtn = document.getElementById('tgMore');
+  if (tgMoreBtn) tgMoreBtn.addEventListener('click', function () {
     var before = tgShown;
     tgShown += 12;
     renderTelegram();
@@ -411,6 +443,7 @@
 
   /* ---------- Router: #slug opens an essay, any other hash is a section ---------- */
   function route() {
+    if (!reader || !home) return;
     var hash = decodeURIComponent(location.hash.slice(1));
     var a = hash && bySlug(hash);
     if (a) { openArticle(a); return; }

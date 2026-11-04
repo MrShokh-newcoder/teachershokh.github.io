@@ -356,6 +356,31 @@ a.work__item:hover h3 { text-decoration: underline; text-decoration-thickness: 1
 @media (max-width: 880px) { .tg-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .tg-grid { grid-template-columns: 1fr; } .tg-count { margin-left: 0; width: 100%; } }
 
+/* What I read */
+.hero--page { border-bottom: 0; padding-bottom: 8px; }
+.hero--page .hero__title { max-width: none; }
+.rl__total { color: var(--muted); margin: 6px 0 0; font-size: 13px; }
+.rl__total span:nth-child(odd) { color: var(--accent); }
+.rl__toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(28px, 4vw, 44px); }
+.rl__toc a { display: inline-flex; gap: 8px; align-items: baseline; text-decoration: none; font-size: 16px; color: var(--ink-2);
+  border: 1px solid var(--rule); border-radius: 999px; padding: 7px 14px; transition: border-color .2s, background .2s, color .2s; }
+.rl__toc a .mono { color: var(--accent); font-size: 11px; }
+.rl__toc a:hover { border-color: var(--hl-fg); background: var(--hover-tint); color: var(--ink); }
+.rl .section__head { margin-bottom: 8px; }
+.rl__count { font-style: normal; font-size: 12px; }
+.rl__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 4vw, 56px); }
+.src { display: grid; gap: 6px; padding: 22px 0; border-bottom: 1px solid var(--rule); align-content: start; }
+.src__name { font-size: 23px; line-height: 1.2; letter-spacing: -.01em; text-decoration: none; justify-self: start;
+  background: linear-gradient(var(--hl), var(--hl)) 0 100% / 0 2px no-repeat; transition: background-size .3s; }
+.src__name span { color: var(--accent); font-size: .7em; }
+.src__name:hover { background-size: 100% 2px; }
+.src__by { color: var(--accent); }
+.src__desc { margin: 2px 0 0; color: var(--ink-2); font-size: 17px; line-height: 1.55; }
+.src__desc::first-letter { text-transform: uppercase; }
+.src__host { color: var(--muted); font-size: 11px; }
+.nav a[aria-current="page"] { color: var(--ink); background-size: 100% var(--nav-line-h); }
+@media (max-width: 760px) { .rl__list { grid-template-columns: 1fr; } }
+
 /* Reveal on scroll */
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.in { opacity: 1; transform: none; }

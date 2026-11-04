@@ -129,15 +129,13 @@ a { color: inherit; }
   :root:not([data-theme="light"]) .theme .moon { display: block; }
 }
 .masthead__brand {
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 32px;
+  display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 32px;
   padding-top: 18px; padding-bottom: 14px;
 }
 .wordmark { font-size: clamp(30px, 5vw, 44px); font-weight: 600; letter-spacing: -.02em; text-decoration: none; line-height: 1; }
 .wordmark em { font-weight: 400; color: var(--forest); }
 .wordmark--sm { font-size: 24px; }
-.wordmark { display: inline-flex; align-items: center; gap: .32em; }
-.wordmark__mark { width: 1.05em; height: 1.05em; flex: none; border-radius: 24%; box-shadow: 0 0 0 1px rgba(255,255,255,.12); transition: transform .3s; }
-a.wordmark:hover .wordmark__mark { transform: rotate(-6deg); }
+.wordmark__dot { color: #ff8a3d; margin: 0 .04em 0 .01em; }   /* the tangerine full stop: Teacher.Shokh */
 .nav { display: flex; flex-wrap: wrap; gap: 4px 24px; }
 .nav a { font-size: 17px; text-decoration: none; color: var(--ink-2); padding: 4px 0; background: linear-gradient(var(--nav-line), var(--nav-line)) 0 92% / 0 var(--nav-line-h) no-repeat; transition: background-size .25s; }
 .nav a:hover { background-size: 100% var(--nav-line-h); color: var(--ink); }

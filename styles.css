@@ -150,7 +150,7 @@ a { color: inherit; }
 .kicker { font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin: 0 0 20px; }
 .hero__title {
   font-size: clamp(40px, 7.4vw, 92px); line-height: 1.02; letter-spacing: -.025em; font-weight: 400;
-  margin: 0 0 clamp(28px, 4vw, 48px); max-width: 17ch; text-wrap: balance;
+  margin: 0 0 clamp(28px, 4vw, 48px); max-width: none; text-wrap: balance;
 }
 .hero__title em { font-style: italic; color: var(--forest); }
 .hero__grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: start; }

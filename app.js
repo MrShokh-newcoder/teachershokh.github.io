@@ -17,7 +17,7 @@
     en: {
       skip: 'Skip to content',
       edition: 'Tashkent · English teaching methodology',
-      'nav.writing': 'Writing', 'nav.watch': 'Watch', 'nav.work': 'Work', 'nav.about': 'About',
+      'nav.notes': 'Notes', 'nav.writing': 'Writing', 'nav.watch': 'Watch', 'nav.work': 'Work', 'nav.about': 'About',
       'hero.kicker': "A teacher's notebook",
       'hero.title': "Teaching is an <em>art.</em><br>Teaching well is a <em>craft.</em>",
       'hero.lede': "I'm Teacher Shokh (Shokhrukh Rejavaliev), an English teacher in Tashkent, Uzbekistan. I work with young learners, teens and IELTS candidates, and I write about methodology: what the research says, what actually happens in the classroom, and the distance between the two.",

@@ -63,6 +63,7 @@
       'tg.cat.oneliners': 'One-liners & quotes', 'tg.dek.oneliners': 'Short thoughts and lines worth keeping.',
       'watch.h': 'Watch',
       'watch.dek': 'My two YouTube channels: one on teaching, one personal. You can watch the videos right here.',
+      'more.read': 'Read all', 'more.watch': 'Watch all', 'writing.kicker': 'Essays · Substack',
       'watch.go': 'All videos →', 'watch.label': 'YouTube · 2 channels',
       'yt.kicker': 'YouTube · 2 channels', 'yt.h': 'Watch', 'yt.videos': 'videos', 'yt.channels': 'channels',
       'yt.lede': 'Two channels: teaching on @InspiringTeacherShokh, and my personal thinking on @mrshokh. Click a video to watch it here, or open it on YouTube.',
@@ -166,7 +167,7 @@
     return cat === 'tips' ? list.sort(function (a, b) { return a.id - b.id; }) : list.sort(function (a, b) { return toDate(b.date) - toDate(a.date); });
   }
   // old links pointed at teachershokh.blog/#tg-N; posts now live on the Telegram page
-  if (/^#tg-\d+$/.test(location.hash) && document.getElementById('featured')) location.replace('telegram/' + location.hash);
+  if (/^#tg-\d+$/.test(location.hash) && !BASE && document.getElementById('featured')) location.replace('telegram/' + location.hash);
   function bySlug(slug) {
     var all = siteArticles.concat(tgPosts);
     for (var i = 0; i < all.length; i++) if (all[i].slug === slug) return all[i];
@@ -182,7 +183,7 @@
   function linkAttrs(p) {
     return p.kind === 'substack'
       ? 'href="' + esc(p.url) + '" target="_blank" rel="noopener"'
-      : 'href="#' + esc(p.slug) + '"';
+      : 'href="' + BASE + '#' + esc(p.slug) + '"';
   }
 
   /* ---------- Language ---------- */
@@ -255,7 +256,8 @@
         '<a class="readlink" ' + linkAttrs(f) + '>' + esc(dict['post.read']) + '</a>' +
       '</div>';
 
-    list.innerHTML = posts.slice(1).map(function (p) {
+    var limit = parseInt(list.getAttribute('data-limit'), 10);   // the home page shows only a few
+    list.innerHTML = posts.slice(1, limit ? limit + 1 : undefined).map(function (p) {
       return '<li><a ' + linkAttrs(p) + '>' +
         '<div><h4>' + esc(p.title) + '</h4>' + (p.subtitle ? '<p>' + esc(p.subtitle) + '</p>' : '') + '</div>' +
         '<span class="when mono"><time datetime="' + esc(p.date) + '">' + esc(fmtDate(p.date)) + '</time>' +
@@ -266,7 +268,7 @@
 
   function loadSubstack() {
     if (location.protocol === 'file:' || !document.getElementById('featured')) return;
-    fetch('data/substack.json', { cache: 'no-cache' })
+    fetch(BASE + 'data/substack.json', { cache: 'no-cache' })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (data) {
         if (data && Array.isArray(data.posts) && data.posts.length) { substack = data.posts; renderPosts(); }
@@ -402,13 +404,10 @@
     });
   }
   function renderWatch() {
-    var latest = document.querySelector('[data-yt-latest]');
-    if (latest) {
-      // the teaching channel first, then the newest personal videos
-      latest.innerHTML = ytIn('teaching').slice(0, 3).concat(ytIn('personal').slice(0, 2)).map(function (v) {
-          return '<li><a href="' + BASE + 'watch/#v-' + esc(v.id) + '"><span class="mono">' + ytDur(v.secs) + '</span>' +
-            '<span lang="' + esc(v.lang || 'uz') + '">' + esc(ytTitle(v.title)) + '</span></a></li>';
-        }).join('');
+    var homeYt = document.querySelector('[data-yt-home]');
+    if (homeYt && !homeYt.children.length) {   // home page: the two newest teaching videos and the newest personal one
+      homeYt.innerHTML = ytIn('teaching').slice(0, 2).concat(ytIn('personal').slice(0, 1))
+        .map(function (v) { return ytCard(v, false); }).join('');
     }
     var lists = document.querySelectorAll('[data-yt-list]');
     if (!lists.length) return;

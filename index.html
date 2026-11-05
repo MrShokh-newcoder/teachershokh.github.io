@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261105j">
+  <link rel="stylesheet" href="styles.css?v=20261105k">
   <script>
     // Set the theme before paint to avoid a flash.
     (function () {
@@ -47,7 +47,7 @@
     <div class="wrap masthead__brand">
       <a href="#top" class="wordmark" id="top" aria-label="Teacher Shokh">Teacher<span class="wordmark__dot" aria-hidden="true">.</span><em>Shokh</em></a>
       <nav class="nav" aria-label="Primary">
-        <a href="#writing" data-i18n="nav.writing">Writing</a>
+        <a href="writing/" data-i18n="nav.writing">Writing</a>
         <a href="telegram/" data-i18n="nav.telegram">Telegram</a>
         <a href="watch/" data-i18n="nav.watch">Watch</a>
         <a href="#work" data-i18n="nav.work">Work</a>
@@ -86,16 +86,27 @@
         <h2 id="writing-h" data-i18n="writing.h">Writing</h2>
         <p class="section__dek" data-i18n="writing.dek">Essays on teaching, learning, and the craft of doing both well.</p>
       </header>
-      <div class="filters" role="group" aria-label="Filter by language">
-        <button type="button" data-filter="all" aria-pressed="true" data-i18n="filter.all">All</button>
-        <button type="button" data-filter="uz" aria-pressed="false">Uzbek</button>
-        <button type="button" data-filter="en" aria-pressed="false">English</button>
-      </div>
-
       <article class="feature" id="featured" aria-live="polite"></article>
-      <ol class="index" id="postIndex"></ol>
+      <ol class="index" id="postIndex" data-limit="2"></ol>
 
-      <a class="more" href="https://teachershokh.substack.com/archive" target="_blank" rel="noopener"><span data-i18n="writing.all">All writing on Substack</span> <span aria-hidden="true">→</span></a>
+      <div class="tg-actions"><a class="btn btn--more" href="writing/"><span data-i18n="more.read">Read all</span> <span aria-hidden="true">→</span></a></div>
+    </section>
+
+    <!-- TELEGRAM -->
+    <section class="section wrap" id="telegram" aria-labelledby="telegram-h">
+      <header class="section__head">
+        <span class="section__no mono">02</span>
+        <h2 id="telegram-h" data-i18n="tg.h">Telegram posts</h2>
+        <p class="section__dek" data-i18n="tg.dek">From the @inspiring_teacher channel: classroom notes, games, books and reflections.</p>
+      </header>
+      <ul class="tg-grid teaser">
+<!-- TG:START -->
+        <li><a class="tg-card" href="telegram/#tg-127"><span class="tg-card__img"><img src="covers/tg-127.webp" alt="" width="1200" height="750" loading="lazy" decoding="async"></span><span class="tg-card__meta mono"><time datetime="2026-09-05T17:35:52+00:00">5 September 2026</time><span>UZ</span></span><span class="tg-card__title" lang="uz">Well, tomorrow&#x27;s event has been postponed...</span></a></li>
+        <li><a class="tg-card" href="telegram/#tg-126"><span class="tg-card__img"><img src="covers/tg-126.webp" alt="" width="1200" height="750" loading="lazy" decoding="async"></span><span class="tg-card__meta mono"><time datetime="2026-08-29T09:16:57+00:00">29 August 2026</time><span>UZ</span></span><span class="tg-card__title" lang="uz">Assalamu alaikum, ustozjonlar!</span></a></li>
+        <li><a class="tg-card" href="telegram/#tg-116"><span class="tg-card__img"><img src="covers/tg-116.webp" alt="" width="1200" height="750" loading="lazy" decoding="async"></span><span class="tg-card__meta mono"><time datetime="2026-08-29T09:08:04+00:00">29 August 2026</time><span>EN</span></span><span class="tg-card__title" lang="en">The people behind the CELTA journey.</span></a></li>
+<!-- TG:END -->
+      </ul>
+      <div class="tg-actions"><a class="btn btn--more" href="telegram/"><span data-i18n="more.read">Read all</span> <span aria-hidden="true">→</span></a><a class="readlink" href="https://t.me/inspiring_teacher" target="_blank" rel="noopener">@inspiring_teacher ↗</a></div>
     </section>
 
     <!-- PULL QUOTE -->
@@ -107,25 +118,18 @@
     <!-- WATCH -->
     <section class="section wrap" id="watch" aria-labelledby="watch-h">
       <header class="section__head">
-        <span class="section__no mono">02</span>
+        <span class="section__no mono">03</span>
         <h2 id="watch-h" data-i18n="watch.h">Watch</h2>
         <p class="section__dek" data-i18n="watch.dek">My two YouTube channels: one on teaching, one personal. You can watch the videos right here.</p>
       </header>
-      <div class="watch">
-        <a class="watch__card" href="watch/">
-          <span class="watch__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="watch__label mono" data-i18n="watch.label">YouTube · 2 channels</span>
-          <span class="watch__title">@InspiringTeacherShokh<br>@mrshokh</span>
-          <span class="watch__go" data-i18n="watch.go">All videos →</span>
-        </a>
-        <ol class="series series--yt" data-yt-latest></ol>
-      </div>
+      <ul class="yt-grid teaser" data-yt-home></ul>
+      <div class="tg-actions"><a class="btn btn--more" href="watch/"><span data-i18n="more.watch">Watch all</span> <span aria-hidden="true">→</span></a><a class="readlink" href="https://www.youtube.com/@InspiringTeacherShokh" target="_blank" rel="noopener">@InspiringTeacherShokh ↗</a><a class="readlink" href="https://www.youtube.com/@mrshokh" target="_blank" rel="noopener">@mrshokh ↗</a></div>
     </section>
 
     <!-- WORK -->
     <section class="section wrap" id="work" aria-labelledby="work-h">
       <header class="section__head">
-        <span class="section__no mono">03</span>
+        <span class="section__no mono">04</span>
         <h2 id="work-h" data-i18n="work.h">Work</h2>
         <p class="section__dek" data-i18n="work.dek">Things I'm building outside the classroom.</p>
       </header>
@@ -152,7 +156,7 @@
     <!-- ABOUT -->
     <section class="section wrap" id="about" aria-labelledby="about-h">
       <header class="section__head">
-        <span class="section__no mono">04</span>
+        <span class="section__no mono">05</span>
         <h2 id="about-h" data-i18n="about.h">About</h2>
       </header>
       <div class="about">
@@ -227,8 +231,8 @@
     </div>
   </footer>
 
-  <script src="youtube.js?v=20261105j" defer></script>
-  <script src="articles.js?v=20261105j" defer></script>
-  <script src="app.js?v=20261105j" defer></script>
+  <script src="youtube.js?v=20261105k" defer></script>
+  <script src="articles.js?v=20261105k" defer></script>
+  <script src="app.js?v=20261105k" defer></script>
 </body>
 </html>

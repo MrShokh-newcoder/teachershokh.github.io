@@ -471,3 +471,48 @@ button.btn { background: transparent; color: var(--ink); cursor: pointer; }
 .elsewhere__list a:hover { color: var(--ink); }
 .elsewhere__list a:hover .mono { text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 880px) { .elsewhere__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Home: a few of each, then "Read all" / "Watch all" */
+.btn--more span[aria-hidden] { transition: transform .2s; }
+.btn--more:hover span[aria-hidden] { transform: translateX(4px); }
+.section--flush { padding-top: clamp(24px, 4vw, 40px); }
+
+/* Phones */
+@media (max-width: 600px) {
+  /* the menu is one row you can swipe, not two wrapped lines */
+  .masthead__brand { gap: 6px; }
+  .nav { flex-wrap: nowrap; overflow-x: auto; gap: 0 22px; width: calc(100% + 2 * var(--gutter)); margin: 0 calc(-1 * var(--gutter)); padding: 0 var(--gutter); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { flex: none; padding: 12px 0; background-position: 0 78%; }
+  .hero__title { font-size: clamp(28px, 8.2vw, 40px); }
+  .hero__lede { font-size: 19px; }
+  /* home teasers: swipe sideways, the next card peeks in */
+  .teaser { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 82%; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
+            width: calc(100% + 2 * var(--gutter)); margin: 0 calc(-1 * var(--gutter)); padding: 0 var(--gutter) 4px; scroll-padding: 0 var(--gutter); scrollbar-width: none; }
+  .teaser::-webkit-scrollbar { display: none; }
+  .teaser > li { scroll-snap-align: start; }
+  .teaser .tg-card__title, .teaser .yt__title { font-size: 19px; }
+  .tg-actions { gap: 14px 22px; margin-top: 24px; }
+  .btn { padding: 14px 18px; }
+  /* channels: one per row */
+  .elsewhere__list { grid-template-columns: 1fr; }
+  .elsewhere__list a { gap: 2px; padding: 12px 0; }
+  .footer__links a { display: inline-block; padding: 8px 0; }
+  .feature__media--empty { display: none; }
+  /* topic chips: one swipeable row */
+  .rl__toc { flex-wrap: nowrap; overflow-x: auto; width: calc(100% + 2 * var(--gutter)); margin-left: calc(-1 * var(--gutter)); margin-right: calc(-1 * var(--gutter)); padding: 0 var(--gutter) 4px; scrollbar-width: none; }
+  .rl__toc::-webkit-scrollbar { display: none; }
+  .rl__toc a { flex: none; }
+  /* Telegram page: compact rows (small cover, title) instead of full-width cards */
+  .tg-grid:not(.teaser) { gap: 0; }
+  .tg-grid:not(.teaser) > li { border-bottom: 1px solid var(--rule); }
+  .tg-grid:not(.teaser) .tg-card { display: grid; grid-template-columns: 108px minmax(0, 1fr); align-content: start; column-gap: 14px; row-gap: 6px; padding: 14px 0; }
+  .tg-grid:not(.teaser) .tg-card__img { grid-row: 1 / span 2; }
+  .tg-grid:not(.teaser) .tg-card__meta { margin-top: 0; font-size: 11px; gap: 10px; }
+  .tg-grid:not(.teaser) .tg-card__title { font-size: 18px; line-height: 1.25; }
+  .tg-grid:not(.teaser) .tg-card__ex { display: none; }
+  .filters button { min-height: 38px; }
+}
+
+/* Writing page: filters sit under the hero text */
+.hero--page .filters { margin-top: clamp(24px, 4vw, 40px); }

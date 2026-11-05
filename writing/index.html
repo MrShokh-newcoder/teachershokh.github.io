@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Writing — Teacher Shokh</title>
+  <meta name="description" content="Essays by Teacher Shokh on teaching, learning and methodology, in Uzbek and English.">
+  <meta property="og:title" content="Writing — Teacher Shokh">
+  <meta property="og:description" content="Notes on teaching English, and learning anything, well.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://teachershokh.blog/writing/">
+  <meta name="theme-color" content="#012b1d" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f1512" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <meta property="og:image" content="https://teachershokh.blog/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="alternate" type="application/rss+xml" title="Teacher Shokh on Substack" href="https://teachershokh.substack.com/feed">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=20261105k">
+  <script>
+    // Set the theme before paint to avoid a flash.
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('ts-theme'); } catch (e) {}
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body class="page-writing" data-base="../">
+  <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+  <header class="masthead">
+    <div class="wrap masthead__top">
+      <span class="mono" data-i18n="edition">Tashkent · English teaching methodology</span>
+      <div class="controls">
+        <button type="button" class="theme" id="themeToggle" aria-label="Toggle dark mode">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path class="sun" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10Zm0-5v3m0 14v3M4.2 4.2l2.1 2.1m11.4 11.4l2.1 2.1M2 12h3m14 0h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><path class="moon" d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="wrap masthead__brand">
+      <a href="../" class="wordmark" aria-label="Teacher Shokh">Teacher<span class="wordmark__dot" aria-hidden="true">.</span><em>Shokh</em></a>
+      <nav class="nav" aria-label="Primary">
+        <a href="./" aria-current="page" data-i18n="nav.writing">Writing</a>
+        <a href="../telegram/" data-i18n="nav.telegram">Telegram</a>
+        <a href="../watch/" data-i18n="nav.watch">Watch</a>
+        <a href="../#work" data-i18n="nav.work">Work</a>
+        <a href="../reading/" data-i18n="nav.reading">What I read</a>
+        <a href="../#about" data-i18n="nav.about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero hero--page wrap">
+      <p class="kicker" data-i18n="writing.kicker">Essays · Substack</p>
+      <h1 class="hero__title" data-i18n="writing.h">Writing</h1>
+      <div class="hero__grid">
+        <p class="hero__lede" data-i18n="writing.dek">Essays on teaching, learning, and the craft of doing both well.</p>
+        <aside class="hero__aside">
+          <div class="hero__ctas"><a class="btn btn--solid" href="https://teachershokh.substack.com/subscribe" target="_blank" rel="noopener" data-i18n="hero.cta2">Subscribe</a></div>
+        </aside>
+      </div>
+      <div class="filters" role="group" aria-label="Filter by language">
+        <button type="button" data-filter="all" aria-pressed="true" data-i18n="filter.all">All</button>
+        <button type="button" data-filter="uz" aria-pressed="false">Uzbek</button>
+        <button type="button" data-filter="en" aria-pressed="false">English</button>
+      </div>
+    </section>
+
+    <section class="section wrap section--flush" id="writing" aria-label="Essays">
+      <article class="feature" id="featured" aria-live="polite"></article>
+      <ol class="index" id="postIndex"></ol>
+      <a class="more" href="https://teachershokh.substack.com/archive" target="_blank" rel="noopener"><span data-i18n="writing.all">All writing on Substack</span> <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <span class="wordmark wordmark--sm" aria-label="Teacher Shokh">Teacher<span class="wordmark__dot" aria-hidden="true">.</span><em>Shokh</em></span>
+      <nav class="footer__links" aria-label="Elsewhere">
+        <a href="https://teachershokh.substack.com/" target="_blank" rel="noopener">Substack</a>
+        <a href="https://www.youtube.com/@InspiringTeacherShokh" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://ceq-prep-tracker.vercel.app/login" target="_blank" rel="noopener">CEQ-Prep</a>
+        <a href="https://book2board.uz" target="_blank" rel="noopener">Book2Board.uz</a>
+      </nav>
+      <span class="mono footer__fine">© <span id="year">2026</span> · <span data-i18n="footer.made">Written in Tashkent</span></span>
+    </div>
+  </footer>
+
+  <script src="../articles.js?v=20261105k" defer></script>
+  <script src="../app.js?v=20261105k" defer></script>
+</body>
+</html>

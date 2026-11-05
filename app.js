@@ -53,7 +53,7 @@
       'tg.note': 'This post includes {m}. See them on Telegram.',
       'nav.telegram': 'Telegram', 'tg.kicker': 'Telegram · @inspiring_teacher',
       'tg.lede': "What I've written on the @inspiring_teacher channel since 2024, sorted by topic: teaching tips, methodology, classroom games, books, my CELTA journey and one-liners.",
-      'tg.posts': 'posts', 'tg.next': 'Next post', 'tg.showAll': 'Show all {n}', 'tg.showLess': 'Show fewer', 'tg.cats': 'topics',
+      'tg.posts': 'posts', 'tg.next': 'Next post', 'tg.discuss': 'Open the discussion in Telegram', 'tg.showAll': 'Show all {n}', 'tg.showLess': 'Show fewer', 'tg.cats': 'topics',
       'tg.cat.tips': 'Teaching tips', 'tg.dek.tips': "From Penny Ur's 100 Teaching Tips, one at a time, and how each plays out in my classes.",
       'tg.cat.method': 'Methodology', 'tg.dek.method': 'How languages are learned and taught: acquisition, TBL, TPR, assessment, exam preparation.',
       'tg.cat.classroom': 'Classroom & rapport', 'tg.dek.classroom': 'Being the teacher students look forward to: respect, names, control vs guidance, parents.',
@@ -215,6 +215,8 @@
     root.setAttribute('data-theme', next);
     store('ts-theme', next);
     giscusConfig({ theme: giscusTheme() });
+    var cur = currentSlug && bySlug(currentSlug);
+    if (cur && cur.kind === 'telegram') loadTelegramComments(cur.id);
   });
 
   /* ---------- Writing list ---------- */
@@ -494,7 +496,7 @@
     reader.hidden = false;
     document.title = a.title + ' · Teacher Shokh';
     window.scrollTo(0, 0);
-    loadGiscus(a.slug);
+    if (a.kind === 'telegram') loadTelegramComments(a.id); else loadGiscus(a.slug);
   }
 
   function closeArticle() {
@@ -506,7 +508,42 @@
     document.getElementById('giscus').innerHTML = '';
   }
 
-  /* ---------- Comments (Giscus) ---------- */
+  /* ---------- Comments: Telegram posts use the channel's own discussion group ---------- */
+  // The widget shows the comments under the post in @inspiring_teacher's linked group, and readers
+  // can reply from here after logging in with Telegram, so the site and the channel share one thread.
+  var TG_CHANNEL = 'inspiring_teacher', tgCommentsIO = null;
+  function loadTelegramComments(id) {
+    var box = document.getElementById('giscus');
+    box.innerHTML = '';
+    if (tgCommentsIO) { tgCommentsIO.disconnect(); tgCommentsIO = null; }
+    var mount = function () {
+      if (!box.isConnected || currentSlug !== 'tg-' + id) return;
+      var accent = currentTheme() === 'dark' ? '36B872' : '01B36C';
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://telegram.org/js/telegram-widget.js?24';
+      s.setAttribute('data-telegram-discussion', TG_CHANNEL + '/' + id);
+      s.setAttribute('data-comments-limit', '10');
+      s.setAttribute('data-color', accent);
+      s.setAttribute('data-dark', '1');
+      s.setAttribute('data-dark-color', accent);
+      box.appendChild(s);
+      var p = document.createElement('p');
+      p.className = 'tg-discuss';
+      p.innerHTML = '<a class="readlink" href="https://t.me/' + TG_CHANNEL + '/' + encodeURIComponent(id) + '" target="_blank" rel="noopener">' +
+        esc(T[lang]['tg.discuss']) + ' ↗</a>';
+      box.appendChild(p);
+    };
+    // load it only when the reader scrolls near the comments
+    if ('IntersectionObserver' in window) {
+      tgCommentsIO = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) { tgCommentsIO.disconnect(); tgCommentsIO = null; mount(); }
+      }, { rootMargin: '600px 0px' });
+      tgCommentsIO.observe(box);
+    } else mount();
+  }
+
+  /* ---------- Comments on essays (Giscus) ---------- */
   function loadGiscus(slug) {
     var box = document.getElementById('giscus');
     box.innerHTML = '';

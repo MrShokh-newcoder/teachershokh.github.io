@@ -516,3 +516,7 @@ button.btn { background: transparent; color: var(--ink); cursor: pointer; }
 
 /* Writing page: filters sit under the hero text */
 .hero--page .filters { margin-top: clamp(24px, 4vw, 40px); }
+
+/* Telegram comments under a post */
+.tg-discuss { margin: 16px 0 0; }
+#giscus iframe[id^="telegram-discussion"] { width: 100% !important; border-radius: 4px; }

@@ -463,3 +463,17 @@ button.btn { background: transparent; color: var(--ink); cursor: pointer; }
 .yt-cat .tg-actions:has(> [hidden]) { display: none; }
 @media (max-width: 880px) { .yt-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .yt-grid--shorts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .yt-grid { grid-template-columns: 1fr; } .yt-grid--shorts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* About: inline links */
+.about__text a { color: var(--link-fg); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.about__text a:hover { text-decoration-thickness: 2px; }
+
+/* About: the Telegram channels, one per interest */
+.elsewhere { margin-top: clamp(36px, 5vw, 56px); }
+.elsewhere__h { color: var(--muted); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; margin: 0 0 14px; }
+.elsewhere__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.elsewhere__list a { display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 16px 16px 18px 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: var(--ink-2); font-size: 17px; line-height: 1.35; box-sizing: border-box; }
+.elsewhere__list .mono { color: var(--link-fg); font-size: 13px; letter-spacing: .01em; text-transform: none; overflow-wrap: anywhere; }
+.elsewhere__list a:hover { color: var(--ink); }
+.elsewhere__list a:hover .mono { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 880px) { .elsewhere__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

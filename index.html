@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261105d">
+  <link rel="stylesheet" href="styles.css?v=20261105e">
   <script>
     // Set theme + language before paint to avoid a flash.
     (function () {
@@ -56,7 +56,7 @@
       <nav class="nav" aria-label="Primary">
         <a href="#writing" data-i18n="nav.writing">Maqolalar</a>
         <a href="telegram/" data-i18n="nav.telegram">Telegram</a>
-        <a href="#watch" data-i18n="nav.watch">Videolar</a>
+        <a href="watch/" data-i18n="nav.watch">Videolar</a>
         <a href="#work" data-i18n="nav.work">Loyihalar</a>
         <a href="reading/" data-i18n="nav.reading">Nima o'qiyman</a>
         <a href="#about" data-i18n="nav.about">Men haqimda</a>
@@ -116,22 +116,16 @@
       <header class="section__head">
         <span class="section__no mono">02</span>
         <h2 id="watch-h" data-i18n="watch.h">Videolar</h2>
-        <p class="section__dek" data-i18n="watch.dek">YouTube'da: yangi o'qituvchilar uchun metodika, aniq va amaliy.</p>
+        <p class="section__dek" data-i18n="watch.dek">YouTube'dagi ikki kanalim: biri o'qitish haqida, biri shaxsiy. Videolarni shu yerning o'zida ko'rsa bo'ladi.</p>
       </header>
       <div class="watch">
-        <a class="watch__card" href="https://www.youtube.com/@InspiringTeacherShokh" target="_blank" rel="noopener">
+        <a class="watch__card" href="watch/">
           <span class="watch__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="watch__label mono">YouTube</span>
-          <span class="watch__title">@InspiringTeacherShokh</span>
-          <span class="watch__go" data-i18n="watch.go">Kanalni ochish →</span>
+          <span class="watch__label mono" data-i18n="watch.label">YouTube · 2 kanal</span>
+          <span class="watch__title">@InspiringTeacherShokh<br>@mrshokh</span>
+          <span class="watch__go" data-i18n="watch.go">Barcha videolar →</span>
         </a>
-        <ul class="series">
-          <li><span class="mono">I</span><span data-i18n="watch.s1">Yosh o'quvchilar va o'smirlarni o'qitish</span></li>
-          <li><span class="mono">II</span><span data-i18n="watch.s2">Kattalar uchun CELTA freymvorklari</span></li>
-          <li><span class="mono">III</span><span data-i18n="watch.s3">Sinfni boshqarish</span></li>
-          <li><span class="mono">IV</span><span data-i18n="watch.s4">“How to teach…” turkumi: lug'at, grammatika, ko'nikmalar</span></li>
-          <li><span class="mono">V</span><span data-i18n="watch.s5">O'qiyotgan ELT kitoblarimdan g'oyalar</span></li>
-        </ul>
+        <ol class="series series--yt" data-yt-latest></ol>
       </div>
     </section>
 
@@ -226,7 +220,8 @@
     </div>
   </footer>
 
-  <script src="articles.js?v=20261105d" defer></script>
-  <script src="app.js?v=20261105d" defer></script>
+  <script src="youtube.js?v=20261105e" defer></script>
+  <script src="articles.js?v=20261105e" defer></script>
+  <script src="app.js?v=20261105e" defer></script>
 </body>
 </html>

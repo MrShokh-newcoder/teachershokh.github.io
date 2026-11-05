@@ -62,13 +62,14 @@
       'tg.cat.reflections': "Fikrlar va yo'l", 'tg.dek.reflections': 'CELTA, kurslar, tadbirlar va tajribadan olingan saboqlar.',
       'tg.cat.oneliners': 'Iqtiboslar va qisqa fikrlar', 'tg.dek.oneliners': "Qisqa fikrlar va saqlab qo'yishga arziydigan iqtiboslar.",
       'watch.h': 'Videolar',
-      'watch.dek': "YouTube'da: yangi o'qituvchilar uchun metodika, aniq va amaliy.",
-      'watch.go': 'Kanalni ochish →',
-      'watch.s1': "Yosh o'quvchilar va o'smirlarni o'qitish",
-      'watch.s2': 'Kattalar uchun CELTA freymvorklari',
-      'watch.s3': 'Sinfni boshqarish',
-      'watch.s4': "“How to teach…” turkumi: lug'at, grammatika, ko'nikmalar",
-      'watch.s5': "O'qiyotgan ELT kitoblarimdan g'oyalar",
+      'watch.dek': "YouTube'dagi ikki kanalim: biri o'qitish haqida, biri shaxsiy. Videolarni shu yerning o'zida ko'rsa bo'ladi.",
+      'watch.go': 'Barcha videolar →', 'watch.label': 'YouTube · 2 kanal',
+      'yt.kicker': 'YouTube · 2 kanal', 'yt.h': 'Videolar', 'yt.videos': 'video', 'yt.channels': 'kanal',
+      'yt.lede': "Ikki kanal: @InspiringTeacherShokh'da o'qitish haqida, @mrshokh'da esa shaxsiy fikrlarim. Videoni shu yerning o'zida ko'rish uchun ustiga bosing yoki YouTube'da oching.",
+      'yt.cat.teaching': "O'qitish haqida", 'yt.dek.teaching': 'Ustozlar uchun: sinfda nima ishlaydi va nega.',
+      'yt.cat.personal': 'Shaxsiy videolar', 'yt.dek.personal': "O'qish, yozish, ish va vaqt haqida ochiq o'ylar.",
+      'yt.cat.shorts': 'Shorts', 'yt.dek.shorts': 'Bir daqiqalik fikrlar.',
+      'yt.open': "YouTube'da ochish", 'yt.play': "Ko'rish",
       'work.h': 'Loyihalar', 'work.dek': 'Darsdan tashqarida qurayotgan narsalarim.',
       'work.live': 'Ishlamoqda', 'work.soon': 'Tez orada',
       'work.ielts': "IELTS'ga tayyorlanish platformasi: to'liq Listening va Reading testlari. Maqsad: yozish va gapirishda 9 ball darajasiga olib chiqish.",
@@ -139,13 +140,14 @@
       'tg.cat.reflections': 'Reflections & journey', 'tg.dek.reflections': 'CELTA, courses, events and lessons learned the hard way.',
       'tg.cat.oneliners': 'One-liners & quotes', 'tg.dek.oneliners': 'Short thoughts and lines worth keeping.',
       'watch.h': 'Watch',
-      'watch.dek': 'On YouTube: methodology for new teachers, made clear and practical.',
-      'watch.go': 'Open the channel →',
-      'watch.s1': 'Teaching young learners and teens',
-      'watch.s2': 'CELTA frameworks for adult classes',
-      'watch.s3': 'Classroom management',
-      'watch.s4': 'The “How to teach…” series: vocabulary, grammar, skills',
-      'watch.s5': "Ideas from the ELT books I'm reading",
+      'watch.dek': 'My two YouTube channels: one on teaching, one personal. You can watch the videos right here.',
+      'watch.go': 'All videos →', 'watch.label': 'YouTube · 2 channels',
+      'yt.kicker': 'YouTube · 2 channels', 'yt.h': 'Watch', 'yt.videos': 'videos', 'yt.channels': 'channels',
+      'yt.lede': 'Two channels: teaching on @InspiringTeacherShokh, and my personal thinking on @mrshokh. Click a video to watch it here, or open it on YouTube.',
+      'yt.cat.teaching': 'On teaching', 'yt.dek.teaching': 'For teachers: what works in class, and why.',
+      'yt.cat.personal': 'Personal videos', 'yt.dek.personal': 'Thinking out loud about reading, writing, work and time.',
+      'yt.cat.shorts': 'Shorts', 'yt.dek.shorts': 'One-minute thoughts.',
+      'yt.open': 'Open on YouTube', 'yt.play': 'Play',
       'work.h': 'Work', 'work.dek': "Things I'm building outside the classroom.",
       'work.live': 'Live', 'work.soon': 'Coming soon',
       'work.ielts': 'An IELTS preparation platform with full Listening and Reading tests, built to take learners toward band 9 writing and speaking.',
@@ -269,6 +271,7 @@
     });
     renderPosts();
     renderTelegram();
+    renderWatch();
     if (currentSlug) { renderReaderMeta(bySlug(currentSlug)); giscusConfig({ lang: lang }); }
     store('ts-lang', lang);
   }
@@ -409,6 +412,121 @@
     });
   });
 
+  /* ---------- Watch: YouTube videos, played in place ---------- */
+  var YT = window.YOUTUBE || { channels: {}, videos: [] };
+  var YT_PREVIEW = { teaching: 6, personal: 6, shorts: 10 }, ytOpen = {}, ytPlaying = null, ytBuilt = false;
+  function ytTitle(t) {
+    return String(t || '').replace(/\s*\|\s*Teacher Shokh\s*$/i, '').replace(/#vlog\s*(\d+)/i, '· vlog $1')
+      .replace(/\s*#[\wÀ-ɏ]+/g, '').trim();
+  }
+  function ytDur(s) {
+    if (!s) return '';
+    var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    return (h ? h + ':' + (m < 10 ? '0' : '') : '') + m + ':' + (x < 10 ? '0' : '') + x;
+  }
+  function ytUrl(v) { return v.short ? 'https://www.youtube.com/shorts/' + v.id : 'https://www.youtube.com/watch?v=' + v.id; }
+  function ytById(id) { for (var i = 0; i < YT.videos.length; i++) if (YT.videos[i].id === id) return YT.videos[i]; return null; }
+  function ytIn(key) {
+    return YT.videos.filter(function (v) { return key === 'shorts' ? v.short : v.ch === key && !v.short; })
+      .sort(function (a, b) { return toDate(b.date) - toDate(a.date); });
+  }
+  function ytThumb(v) {
+    return '<button type="button" class="yt__thumb" data-yt-play="' + esc(v.id) + '" aria-label="' + esc(T[lang]['yt.play'] + ': ' + ytTitle(v.title)) + '">' +
+      '<img src="https://i.ytimg.com/vi/' + esc(v.id) + '/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">' +
+      '<span class="yt__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M8 5v14l11-7z"/></svg></span>' +
+      (v.secs ? '<span class="yt__dur mono">' + ytDur(v.secs) + '</span>' : '') + '</button>';
+  }
+  function ytCard(v, hide) {
+    var l = v.lang || 'uz';
+    return '<li class="yt" id="v-' + esc(v.id) + '"' + (hide ? ' hidden' : '') + '>' +
+      '<div class="yt__media">' + ytThumb(v) + '</div>' +
+      '<span class="tg-card__meta mono"><time datetime="' + esc(v.date) + '">' + esc(fmtDate(v.date)) + '</time><span>' + esc(l.toUpperCase()) + '</span></span>' +
+      '<h3 class="yt__title" lang="' + esc(l) + '">' + esc(ytTitle(v.title)) + '</h3>' +
+      '<a class="readlink yt__open" href="' + esc(ytUrl(v)) + '" target="_blank" rel="noopener"><span data-yt-open>' + esc(T[lang]['yt.open']) + '</span> <span aria-hidden="true">↗</span></a></li>';
+  }
+  function ytPlay(id, autoplay) {
+    var v = ytById(id), li = document.getElementById('v-' + id);
+    if (!v || !li) return;
+    if (ytPlaying && ytPlaying !== id) ytStop(ytPlaying);
+    li.hidden = false;
+    li.querySelector('.yt__media').innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) +
+      '?rel=0&playsinline=1' + (autoplay ? '&autoplay=1' : '') + '" title="' + esc(ytTitle(v.title)) + '"' +
+      ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"' +
+      ' referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+    li.classList.add('is-playing');
+    ytPlaying = id;
+  }
+  function ytStop(id) {
+    var v = ytById(id), li = document.getElementById('v-' + id);
+    if (v && li) { li.querySelector('.yt__media').innerHTML = ytThumb(v); li.classList.remove('is-playing'); }
+    if (ytPlaying === id) ytPlaying = null;
+  }
+  function ytSync() {   // counts and show-all buttons; cards are built once so a playing video survives
+    var dict = T[lang];
+    var total = document.getElementById('ytTotal');
+    if (total) total.textContent = YT.videos.length;
+    document.querySelectorAll('[data-yt-list]').forEach(function (ul) {
+      var key = ul.getAttribute('data-yt-list'), n = ytIn(key).length, max = YT_PREVIEW[key] || 6;
+      var section = ul.closest('section');
+      section.hidden = !n;
+      section.querySelector('.rl__count').textContent = n;
+      [].forEach.call(ul.children, function (li, i) { if (i >= max && li.id !== 'v-' + ytPlaying) li.hidden = !ytOpen[key]; });
+      var btn = section.querySelector('[data-yt-more]');
+      btn.hidden = n <= max;
+      btn.textContent = ytOpen[key] ? dict['tg.showLess'] : dict['tg.showAll'].replace('{n}', n);
+      var chip = document.querySelector('[data-yt-chip="' + key + '"] .tg-chip__n');
+      if (chip) chip.textContent = n;
+    });
+  }
+  function renderWatch() {
+    var latest = document.querySelector('[data-yt-latest]');
+    if (latest) {
+      // the teaching channel first, then the newest personal videos
+      latest.innerHTML = ytIn('teaching').slice(0, 3).concat(ytIn('personal').slice(0, 2)).map(function (v) {
+          return '<li><a href="' + BASE + 'watch/#v-' + esc(v.id) + '"><span class="mono">' + ytDur(v.secs) + '</span>' +
+            '<span lang="' + esc(v.lang || 'uz') + '">' + esc(ytTitle(v.title)) + '</span></a></li>';
+        }).join('');
+    }
+    var lists = document.querySelectorAll('[data-yt-list]');
+    if (!lists.length) return;
+    if (!ytBuilt) {
+      lists.forEach(function (ul) {
+        var key = ul.getAttribute('data-yt-list'), max = YT_PREVIEW[key] || 6;
+        ul.innerHTML = ytIn(key).map(function (v, i) { return ytCard(v, i >= max); }).join('');
+      });
+      ytBuilt = true;
+    } else {   // language change: relabel in place
+      var dict = T[lang];
+      document.querySelectorAll('.yt').forEach(function (li) {
+        var v = ytById(li.id.slice(2));
+        if (!v) return;
+        li.querySelector('time').textContent = fmtDate(v.date);
+        li.querySelector('[data-yt-open]').textContent = dict['yt.open'];
+        var b = li.querySelector('.yt__thumb');
+        if (b) b.setAttribute('aria-label', dict['yt.play'] + ': ' + ytTitle(v.title));
+      });
+    }
+    ytSync();
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-yt-play]');
+    if (b) { ytPlay(b.getAttribute('data-yt-play'), true); return; }
+    var more = e.target.closest && e.target.closest('[data-yt-more]');
+    if (more) {
+      var key = more.getAttribute('data-yt-more');
+      ytOpen[key] = !ytOpen[key];
+      ytSync();
+      if (!ytOpen[key]) document.getElementById('ch-' + key).scrollIntoView();
+    }
+  });
+  function ytFromHash() {   // watch/#v-ID opens that video, ready to play
+    var m = /^#v-([\w-]{11})$/.exec(location.hash);
+    if (!m || !document.getElementById('v-' + m[1])) return;
+    ytPlay(m[1], false);
+    document.getElementById('v-' + m[1]).scrollIntoView({ block: 'center' });
+  }
+  window.addEventListener('hashchange', ytFromHash);
+
   /* ---------- Reader ---------- */
   var home = document.getElementById('home');
   var reader = document.getElementById('reader');
@@ -520,5 +638,6 @@
   applyLang(lang);
   route();
   setupReveal();
+  ytFromHash();
   loadSubstack();
 })();

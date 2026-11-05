@@ -51,6 +51,16 @@
       'tg.back': 'Barcha postlar', 'tg.open': "Telegram'da ochish ↗",
       'tg.photos': '{n} ta rasm', 'tg.video': 'video', 'tg.file': 'fayl',
       'tg.note': "Bu postda {m} bor. Ularni Telegram'da ko'ring.",
+      'nav.telegram': 'Telegram', 'tg.kicker': 'Telegram · @inspiring_teacher',
+      'tg.lede': "2024-yildan beri @inspiring_teacher kanalida yozganlarim, mavzular bo'yicha: maslahatlar, metodika, sinfdagi o'yinlar, kitoblar, CELTA yo'lim va qisqa fikrlar.",
+      'tg.posts': 'ta post', 'tg.next': 'Keyingi post', 'tg.showAll': "Hammasini ko'rsatish ({n})", 'tg.showLess': "Kamroq ko'rsatish", 'tg.cats': "bo'lim",
+      'tg.cat.tips': "O'qitish bo'yicha maslahatlar", 'tg.dek.tips': "Penny Ur'ning 100 ta maslahatidan, birma-bir, va ular darslarimda qanday ishlashi.",
+      'tg.cat.method': 'Metodika', 'tg.dek.method': "Til qanday o'rganiladi va o'rgatiladi: o'zlashtirish, TBL, TPR, baholash, imtihonga tayyorlash.",
+      'tg.cat.classroom': 'Sinf va munosabat', 'tg.dek.classroom': "O'quvchilar kutadigan ustoz bo'lish: hurmat, ismlar, nazorat yoki yo'naltirish, ota-onalar.",
+      'tg.cat.games': "O'yinlar va mashg'ulotlar", 'tg.dek.games': "Sinfda sinab ko'rilgan: tanishuv o'yinlari, xazina qidirish, lug'at o'yinlari, Class Blog.",
+      'tg.cat.books': 'Kitoblar va manbalar', 'tg.dek.books': "O'qiyotgan va ko'rayotganlarim, tavsiyalarim.",
+      'tg.cat.reflections': "Fikrlar va yo'l", 'tg.dek.reflections': 'CELTA, kurslar, tadbirlar va tajribadan olingan saboqlar.',
+      'tg.cat.oneliners': 'Iqtiboslar va qisqa fikrlar', 'tg.dek.oneliners': "Qisqa fikrlar va saqlab qo'yishga arziydigan iqtiboslar.",
       'watch.h': 'Videolar',
       'watch.dek': "YouTube'da: yangi o'qituvchilar uchun metodika, aniq va amaliy.",
       'watch.go': 'Kanalni ochish →',
@@ -118,6 +128,16 @@
       'tg.back': 'All posts', 'tg.open': 'Open on Telegram ↗',
       'tg.photos': '{n} photo(s)', 'tg.video': 'a video', 'tg.file': 'a file',
       'tg.note': 'This post includes {m}. See them on Telegram.',
+      'nav.telegram': 'Telegram', 'tg.kicker': 'Telegram · @inspiring_teacher',
+      'tg.lede': "What I've written on the @inspiring_teacher channel since 2024, sorted by topic: teaching tips, methodology, classroom games, books, my CELTA journey and one-liners.",
+      'tg.posts': 'posts', 'tg.next': 'Next post', 'tg.showAll': 'Show all {n}', 'tg.showLess': 'Show fewer', 'tg.cats': 'topics',
+      'tg.cat.tips': 'Teaching tips', 'tg.dek.tips': "From Penny Ur's 100 Teaching Tips, one at a time, and how each plays out in my classes.",
+      'tg.cat.method': 'Methodology', 'tg.dek.method': 'How languages are learned and taught: acquisition, TBL, TPR, assessment, exam preparation.',
+      'tg.cat.classroom': 'Classroom & rapport', 'tg.dek.classroom': 'Being the teacher students look forward to: respect, names, control vs guidance, parents.',
+      'tg.cat.games': 'Games & activities', 'tg.dek.games': 'Tried in class: icebreakers, treasure hunts, vocabulary games, class blogs.',
+      'tg.cat.books': 'Books & resources', 'tg.dek.books': "What I'm reading and watching, and what I recommend.",
+      'tg.cat.reflections': 'Reflections & journey', 'tg.dek.reflections': 'CELTA, courses, events and lessons learned the hard way.',
+      'tg.cat.oneliners': 'One-liners & quotes', 'tg.dek.oneliners': 'Short thoughts and lines worth keeping.',
       'watch.h': 'Watch',
       'watch.dek': 'On YouTube: methodology for new teachers, made clear and practical.',
       'watch.go': 'Open the channel →',
@@ -197,12 +217,22 @@
       url: '#' + a.slug
     };
   });
+  var BASE = document.body.getAttribute('data-base') || '';   // '../' on pages one folder down
+  var TG_ORDER = ['tips', 'method', 'classroom', 'games', 'books', 'reflections', 'oneliners'];
   var tgPosts = (window.TELEGRAM || []).map(function (p) {
     return {
       kind: 'telegram', slug: p.slug, title: p.title, fullTitle: p.fullTitle || p.title, date: p.date, lang: p.lang,
-      body: p.html, minutes: p.minutes, tags: p.tags || [], cover: p.cover, url: p.url, media: p.media || {}, excerpt: p.excerpt
+      body: p.html, minutes: p.minutes, tags: p.tags || [], cover: BASE + p.cover, url: p.url, media: p.media || {},
+      excerpt: p.excerpt, cat: p.cat || 'reflections', id: p.id
     };
   });
+  // within a topic: the numbered tips series reads in order, everything else newest first
+  function tgInCat(cat) {
+    var list = tgPosts.filter(function (p) { return p.cat === cat; });
+    return cat === 'tips' ? list.sort(function (a, b) { return a.id - b.id; }) : list.sort(function (a, b) { return toDate(b.date) - toDate(a.date); });
+  }
+  // old links pointed at teachershokh.blog/#tg-N; posts now live on the Telegram page
+  if (/^#tg-\d+$/.test(location.hash) && document.getElementById('featured')) location.replace('telegram/' + location.hash);
   function bySlug(slug) {
     var all = siteArticles.concat(tgPosts);
     for (var i = 0; i < all.length; i++) if (all[i].slug === slug) return all[i];
@@ -318,11 +348,8 @@
       .catch(function () { /* keep fallback */ });
   }
 
-  /* ---------- Telegram grid ---------- */
-  var tgFilter = 'all', tgShown = 9;
-  function tgList() {
-    return tgFilter === 'all' ? tgPosts : tgPosts.filter(function (p) { return p.lang === tgFilter; });
-  }
+  /* ---------- Telegram page: posts by topic ---------- */
+  var tgFilter = 'all', TG_PREVIEW = 6, tgOpen = {};
   function mediaLabel(m, dict) {
     var bits = [];
     if (m.photos) bits.push(dict['tg.photos'].replace('{n}', m.photos));
@@ -330,35 +357,56 @@
     if (m.doc) bits.push(dict['tg.file']);
     return bits.join(', ');
   }
+  function tgCard(p, cat) {
+    var meta = '<span class="tg-card__meta mono"><time datetime="' + esc(p.date) + '">' + esc(fmtDate(p.date)) + '</time><span>' + esc(p.lang.toUpperCase()) + '</span></span>';
+    if (cat === 'oneliners') {
+      var stub = p.title === 'Iqtibos' || p.title === 'Quote';
+      var rest = (p.excerpt || '').replace(/^…/, '');
+      var line = stub ? rest : (rest && rest !== p.title ? p.title.replace(/…$/, '') + ' ' + rest : p.title);
+      return '<li><a class="tg-quote" href="#' + esc(p.slug) + '">' +
+        '<span class="tg-quote__text" lang="' + esc(p.lang) + '">' + esc(line) + '</span>' + meta + '</a></li>';
+    }
+    return '<li><a class="tg-card" href="#' + esc(p.slug) + '">' +
+      '<span class="tg-card__img"><img src="' + esc(p.cover) + '" alt="" width="1200" height="750" loading="lazy" decoding="async"></span>' +
+      meta + '<span class="tg-card__title" lang="' + esc(p.lang) + '">' + esc(p.title) + '</span>' +
+      (p.excerpt && p.excerpt !== p.title ? '<span class="tg-card__ex" lang="' + esc(p.lang) + '">' + esc(p.excerpt) + '</span>' : '') +
+      '</a></li>';
+  }
   function renderTelegram() {
-    var grid = document.getElementById('tgGrid');
-    if (!grid) return;
-    var dict = T[lang], list = tgList();
-    grid.innerHTML = list.slice(0, tgShown).map(function (p) {
-      return '<li><a class="tg-card" href="#' + esc(p.slug) + '">' +
-        '<span class="tg-card__img"><img src="' + esc(p.cover) + '" alt="" width="1200" height="750" loading="lazy" decoding="async"></span>' +
-        '<span class="tg-card__meta mono"><time datetime="' + esc(p.date) + '">' + esc(fmtDate(p.date)) + '</time><span>' + esc(p.lang.toUpperCase()) + '</span></span>' +
-        '<span class="tg-card__title" lang="' + esc(p.lang) + '">' + esc(p.title) + '</span>' +
-        (p.excerpt && p.excerpt !== p.title ? '<span class="tg-card__ex" lang="' + esc(p.lang) + '">' + esc(p.excerpt) + '</span>' : '') +
-        '</a></li>';
-    }).join('');
-    document.getElementById('tgCount').textContent = dict['tg.count'].replace('{n}', list.length);
-    document.getElementById('tgMore').hidden = tgShown >= list.length;
+    var lists = document.querySelectorAll('[data-tg-list]');
+    if (!lists.length) return;
+    var dict = T[lang];
+    lists.forEach(function (ul) {
+      var cat = ul.getAttribute('data-tg-list');
+      var all = tgInCat(cat).filter(function (p) { return tgFilter === 'all' || p.lang === tgFilter; });
+      var shown = tgOpen[cat] ? all : all.slice(0, TG_PREVIEW);
+      ul.innerHTML = shown.map(function (p) { return tgCard(p, cat); }).join('');
+      var section = ul.closest('[data-tg-cat]');
+      section.hidden = !all.length;
+      section.querySelector('.rl__count').textContent = all.length;
+      var btn = section.querySelector('[data-tg-more]');
+      btn.hidden = all.length <= TG_PREVIEW;
+      btn.textContent = tgOpen[cat] ? dict['tg.showLess'] : dict['tg.showAll'].replace('{n}', all.length);
+      var chip = document.querySelector('[data-tg-chip="' + cat + '"] .tg-chip__n');
+      if (chip) chip.textContent = all.length;
+    });
+    var total = document.getElementById('tgTotal');
+    if (total) total.textContent = tgPosts.filter(function (p) { return tgFilter === 'all' || p.lang === tgFilter; }).length;
   }
   document.querySelectorAll('[data-tg-filter]').forEach(function (b) {
     b.addEventListener('click', function () {
-      tgFilter = b.getAttribute('data-tg-filter'); tgShown = 9;
+      tgFilter = b.getAttribute('data-tg-filter');
       document.querySelectorAll('[data-tg-filter]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
       renderTelegram();
     });
   });
-  var tgMoreBtn = document.getElementById('tgMore');
-  if (tgMoreBtn) tgMoreBtn.addEventListener('click', function () {
-    var before = tgShown;
-    tgShown += 12;
-    renderTelegram();
-    var next = document.querySelectorAll('#tgGrid .tg-card')[before];
-    if (next) next.focus({ preventScroll: true });
+  document.querySelectorAll('[data-tg-more]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var cat = b.getAttribute('data-tg-more');
+      tgOpen[cat] = !tgOpen[cat];
+      renderTelegram();
+      if (!tgOpen[cat]) document.getElementById('cat-' + cat).scrollIntoView();
+    });
   });
 
   /* ---------- Reader ---------- */
@@ -371,7 +419,7 @@
     document.getElementById('readerMeta').innerHTML = metaBits(a, dict);
     var isTg = a.kind === 'telegram';
     var back = document.getElementById('backLink');
-    back.setAttribute('href', isTg ? '#telegram' : '#writing');
+    back.setAttribute('href', isTg ? '#cat-' + a.cat : '#writing');
     back.querySelector('[data-i18n]').textContent = isTg ? dict['tg.back'] : dict['reader.back'];
     var mediaEl = document.getElementById('readerMedia');
     if (isTg) {
@@ -380,10 +428,10 @@
         '<a class="readlink" href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(dict['tg.open']) + '</a>';
     }
     mediaEl.hidden = !isTg;
-    var next = (isTg ? tgPosts : siteArticles).slice().sort(function (x, y) { return toDate(y.date) - toDate(x.date); });
+    var next = isTg ? tgInCat(a.cat) : siteArticles.slice().sort(function (x, y) { return toDate(y.date) - toDate(x.date); });
     var i = next.indexOf(a), n = next[i + 1] || next[0];
     document.getElementById('readerNext').innerHTML = (n && n !== a)
-      ? '<span class="mono">' + esc(dict['reader.next']) + '</span><a href="#' + esc(n.slug) + '">' + esc(n.title) + ' →</a>'
+      ? '<span class="mono">' + esc(dict[isTg ? 'tg.next' : 'reader.next']) + '</span><a href="#' + esc(n.slug) + '">' + esc(n.title) + ' →</a>'
       : '';
   }
 

@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261105c">
+  <link rel="stylesheet" href="styles.css?v=20261105d">
   <script>
     // Set theme + language before paint to avoid a flash.
     (function () {
@@ -55,7 +55,7 @@
       <a href="#top" class="wordmark" id="top" aria-label="Teacher Shokh">Teacher<span class="wordmark__dot" aria-hidden="true">.</span><em>Shokh</em></a>
       <nav class="nav" aria-label="Primary">
         <a href="#writing" data-i18n="nav.writing">Maqolalar</a>
-        <a href="#telegram">Telegram</a>
+        <a href="telegram/" data-i18n="nav.telegram">Telegram</a>
         <a href="#watch" data-i18n="nav.watch">Videolar</a>
         <a href="#work" data-i18n="nav.work">Loyihalar</a>
         <a href="reading/" data-i18n="nav.reading">Nima o'qiyman</a>
@@ -111,30 +111,10 @@
       <figcaption><span class="mono">V. A. Sukhomlinskiy</span> · <span data-i18n="pull.src">kitob nomi, 1969</span></figcaption>
     </figure>
 
-    <!-- TELEGRAM -->
-    <section class="section wrap" id="telegram" aria-labelledby="tg-h">
-      <header class="section__head">
-        <span class="section__no mono">02</span>
-        <h2 id="tg-h" data-i18n="tg.h">Telegram postlari</h2>
-        <p class="section__dek" data-i18n="tg.dek">@inspiring_teacher kanalidan: sinfdan qaydlar, o'yinlar, kitoblar va fikrlar.</p>
-      </header>
-      <div class="filters" role="group" aria-label="Filter Telegram posts by language">
-        <button type="button" data-tg-filter="all" aria-pressed="true" data-i18n="filter.all">Hammasi</button>
-        <button type="button" data-tg-filter="uz" aria-pressed="false">O'zbekcha</button>
-        <button type="button" data-tg-filter="en" aria-pressed="false">English</button>
-        <span class="tg-count mono" id="tgCount"></span>
-      </div>
-      <ul class="tg-grid" id="tgGrid"></ul>
-      <div class="tg-actions">
-        <button type="button" class="btn btn--solid" id="tgMore" data-i18n="tg.more">Yana ko'rsatish</button>
-        <a class="more" href="https://t.me/inspiring_teacher" target="_blank" rel="noopener"><span data-i18n="tg.join">Kanalga qo'shilish</span> <span aria-hidden="true">↗</span></a>
-      </div>
-    </section>
-
     <!-- WATCH -->
     <section class="section wrap" id="watch" aria-labelledby="watch-h">
       <header class="section__head">
-        <span class="section__no mono">03</span>
+        <span class="section__no mono">02</span>
         <h2 id="watch-h" data-i18n="watch.h">Videolar</h2>
         <p class="section__dek" data-i18n="watch.dek">YouTube'da: yangi o'qituvchilar uchun metodika, aniq va amaliy.</p>
       </header>
@@ -158,7 +138,7 @@
     <!-- WORK -->
     <section class="section wrap" id="work" aria-labelledby="work-h">
       <header class="section__head">
-        <span class="section__no mono">04</span>
+        <span class="section__no mono">03</span>
         <h2 id="work-h" data-i18n="work.h">Loyihalar</h2>
         <p class="section__dek" data-i18n="work.dek">Darsdan tashqarida qurayotgan narsalarim.</p>
       </header>
@@ -185,7 +165,7 @@
     <!-- ABOUT -->
     <section class="section wrap" id="about" aria-labelledby="about-h">
       <header class="section__head">
-        <span class="section__no mono">05</span>
+        <span class="section__no mono">04</span>
         <h2 id="about-h" data-i18n="about.h">Men haqimda</h2>
       </header>
       <div class="about">
@@ -246,8 +226,7 @@
     </div>
   </footer>
 
-  <script src="articles.js?v=20261105c" defer></script>
-  <script src="telegram.js?v=20261105c" defer></script>
-  <script src="app.js?v=20261105c" defer></script>
+  <script src="articles.js?v=20261105d" defer></script>
+  <script src="app.js?v=20261105d" defer></script>
 </body>
 </html>

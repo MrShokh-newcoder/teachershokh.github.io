@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="uz">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,30 +22,23 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261105i">
+  <link rel="stylesheet" href="styles.css?v=20261105j">
   <script>
-    // Set theme + language before paint to avoid a flash.
+    // Set the theme before paint to avoid a flash.
     (function () {
-      var d = document.documentElement, t = null, l = null;
-      try { t = localStorage.getItem('ts-theme'); l = localStorage.getItem('ts-lang'); } catch (e) {}
-      var q = new URLSearchParams(location.search).get('lang');
-      if (q === 'en' || q === 'uz') l = q;
-      if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
-      d.lang = (l === 'en') ? 'en' : 'uz';
+      var t = null;
+      try { t = localStorage.getItem('ts-theme'); } catch (e) {}
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
     })();
   </script>
 </head>
 <body>
-  <a class="skip" href="#main" data-i18n="skip">Asosiy qismga o'tish</a>
+  <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 
   <header class="masthead">
     <div class="wrap masthead__top">
-      <span class="mono" data-i18n="edition">Toshkent · Ingliz tili ustozi</span>
+      <span class="mono" data-i18n="edition">Tashkent · English teaching methodology</span>
       <div class="controls">
-        <div class="lang" role="group" aria-label="Language">
-          <button type="button" data-set-lang="uz" aria-pressed="true">UZ</button>
-          <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
-        </div>
         <button type="button" class="theme" id="themeToggle" aria-label="Toggle dark mode">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path class="sun" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10Zm0-5v3m0 14v3M4.2 4.2l2.1 2.1m11.4 11.4l2.1 2.1M2 12h3m14 0h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><path class="moon" d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
         </button>
@@ -54,12 +47,12 @@
     <div class="wrap masthead__brand">
       <a href="#top" class="wordmark" id="top" aria-label="Teacher Shokh">Teacher<span class="wordmark__dot" aria-hidden="true">.</span><em>Shokh</em></a>
       <nav class="nav" aria-label="Primary">
-        <a href="#writing" data-i18n="nav.writing">Maqolalar</a>
+        <a href="#writing" data-i18n="nav.writing">Writing</a>
         <a href="telegram/" data-i18n="nav.telegram">Telegram</a>
-        <a href="watch/" data-i18n="nav.watch">Videolar</a>
-        <a href="#work" data-i18n="nav.work">Loyihalar</a>
-        <a href="reading/" data-i18n="nav.reading">Nimalarni o'qiyman</a>
-        <a href="#about" data-i18n="nav.about">Men haqimda</a>
+        <a href="watch/" data-i18n="nav.watch">Watch</a>
+        <a href="#work" data-i18n="nav.work">Work</a>
+        <a href="reading/" data-i18n="nav.reading">What I read</a>
+        <a href="#about" data-i18n="nav.about">About</a>
       </nav>
     </div>
   </header>
@@ -68,19 +61,19 @@
   <div id="home">
     <!-- HERO -->
     <section class="hero wrap">
-      <p class="kicker" data-i18n="hero.kicker">Ustozning daftaridan</p>
-      <h1 class="hero__title" data-i18n-html="hero.title">Ustozlik&nbsp;— <em>san'at.</em><br>Yaxshi ustozlik&nbsp;— <em>hunar.</em></h1>
+      <p class="kicker" data-i18n="hero.kicker">A teacher's notebook</p>
+      <h1 class="hero__title" data-i18n-html="hero.title">Teaching is an <em>art.</em><br>Teaching well is a <em>craft.</em></h1>
       <div class="hero__grid">
-        <p class="hero__lede" data-i18n="hero.lede">Men Teacher Shokh (Shohruh Rejavaliev), Toshkentda ingliz tilidan dars beraman. Kichik yoshdagi bolalar, o'smirlar va IELTS'ga tayyorlanayotganlar bilan ishlayman. Bu yerda metodika haqida yozaman: tadqiqotlar nima deydi, sinfda esa amalda nima bo'ladi va bu ikkisi nega doim ham bir-biriga to'g'ri kelavermaydi.</p>
+        <p class="hero__lede" data-i18n="hero.lede">I'm Teacher Shokh (Shokhrukh Rejavaliev), an English teacher in Tashkent, Uzbekistan. I work with young learners, teens and IELTS candidates, and I write about methodology: what the research says, what actually happens in the classroom, and the distance between the two.</p>
         <aside class="hero__aside">
           <dl class="facts">
-            <div><dt data-i18n="facts.teach">Dars beraman</dt><dd>Cambridge YLE · KET–FCE · IELTS</dd></div>
-            <div><dt data-i18n="facts.train">Malakam</dt><dd>CELTA · IH CTYL · <span data-i18n="facts.delta">DELTA (hozir o'qiyapman)</span></dd></div>
-            <div><dt data-i18n="facts.now">Hozir</dt><dd>Rahimov School, <span data-i18n="facts.city">Toshkent</span></dd></div>
+            <div><dt data-i18n="facts.teach">Teaching</dt><dd>Cambridge YLE · KET–FCE · IELTS</dd></div>
+            <div><dt data-i18n="facts.train">Training</dt><dd>CELTA · IH CTYL · <span data-i18n="facts.delta">DELTA (in progress)</span></dd></div>
+            <div><dt data-i18n="facts.now">Now</dt><dd>Rahimov School, <span data-i18n="facts.city">Tashkent</span></dd></div>
           </dl>
           <div class="hero__ctas">
-            <a class="btn btn--solid" href="#writing" data-i18n="hero.cta1">Yangi maqolalar</a>
-            <a class="btn" href="https://teachershokh.substack.com/subscribe" target="_blank" rel="noopener" data-i18n="hero.cta2">Obuna bo'lish</a>
+            <a class="btn btn--solid" href="#writing" data-i18n="hero.cta1">Latest writing</a>
+            <a class="btn" href="https://teachershokh.substack.com/subscribe" target="_blank" rel="noopener" data-i18n="hero.cta2">Subscribe</a>
           </div>
         </aside>
       </div>
@@ -90,40 +83,40 @@
     <section class="section wrap" id="writing" aria-labelledby="writing-h">
       <header class="section__head">
         <span class="section__no mono">01</span>
-        <h2 id="writing-h" data-i18n="writing.h">Maqolalar</h2>
-        <p class="section__dek" data-i18n="writing.dek">Dars berish, o'rganish va ikkalasini qanday qilib yaxshi qilish haqida yozganlarim.</p>
+        <h2 id="writing-h" data-i18n="writing.h">Writing</h2>
+        <p class="section__dek" data-i18n="writing.dek">Essays on teaching, learning, and the craft of doing both well.</p>
       </header>
       <div class="filters" role="group" aria-label="Filter by language">
-        <button type="button" data-filter="all" aria-pressed="true" data-i18n="filter.all">Hammasi</button>
-        <button type="button" data-filter="uz" aria-pressed="false">O'zbekcha</button>
+        <button type="button" data-filter="all" aria-pressed="true" data-i18n="filter.all">All</button>
+        <button type="button" data-filter="uz" aria-pressed="false">Uzbek</button>
         <button type="button" data-filter="en" aria-pressed="false">English</button>
       </div>
 
       <article class="feature" id="featured" aria-live="polite"></article>
       <ol class="index" id="postIndex"></ol>
 
-      <a class="more" href="https://teachershokh.substack.com/archive" target="_blank" rel="noopener"><span data-i18n="writing.all">Hamma maqolalarim Substack'da</span> <span aria-hidden="true">→</span></a>
+      <a class="more" href="https://teachershokh.substack.com/archive" target="_blank" rel="noopener"><span data-i18n="writing.all">All writing on Substack</span> <span aria-hidden="true">→</span></a>
     </section>
 
     <!-- PULL QUOTE -->
     <figure class="pull wrap">
-      <blockquote data-i18n="pull.q">“Yuragimni bolalarga beraman.”</blockquote>
-      <figcaption><span class="mono">V. A. Sukhomlinskiy</span> · <span data-i18n="pull.src">kitob nomi, 1969</span></figcaption>
+      <blockquote data-i18n="pull.q">“I give my heart to children.”</blockquote>
+      <figcaption><span class="mono">V. A. Sukhomlinskiy</span> · <span data-i18n="pull.src">book title, 1969</span></figcaption>
     </figure>
 
     <!-- WATCH -->
     <section class="section wrap" id="watch" aria-labelledby="watch-h">
       <header class="section__head">
         <span class="section__no mono">02</span>
-        <h2 id="watch-h" data-i18n="watch.h">Videolar</h2>
-        <p class="section__dek" data-i18n="watch.dek">YouTube'da ikkita kanalim bor: biri dars berish haqida, biri shaxsiy. Videolarni shu yerda ham ko'rsangiz bo'ladi.</p>
+        <h2 id="watch-h" data-i18n="watch.h">Watch</h2>
+        <p class="section__dek" data-i18n="watch.dek">My two YouTube channels: one on teaching, one personal. You can watch the videos right here.</p>
       </header>
       <div class="watch">
         <a class="watch__card" href="watch/">
           <span class="watch__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="watch__label mono" data-i18n="watch.label">YouTube · 2 ta kanal</span>
+          <span class="watch__label mono" data-i18n="watch.label">YouTube · 2 channels</span>
           <span class="watch__title">@InspiringTeacherShokh<br>@mrshokh</span>
-          <span class="watch__go" data-i18n="watch.go">Hamma videolar →</span>
+          <span class="watch__go" data-i18n="watch.go">All videos →</span>
         </a>
         <ol class="series series--yt" data-yt-latest></ol>
       </div>
@@ -133,25 +126,25 @@
     <section class="section wrap" id="work" aria-labelledby="work-h">
       <header class="section__head">
         <span class="section__no mono">03</span>
-        <h2 id="work-h" data-i18n="work.h">Loyihalar</h2>
-        <p class="section__dek" data-i18n="work.dek">Darsdan tashqari qilayotgan ishlarim.</p>
+        <h2 id="work-h" data-i18n="work.h">Work</h2>
+        <p class="section__dek" data-i18n="work.dek">Things I'm building outside the classroom.</p>
       </header>
       <div class="work">
         <a class="work__item" href="https://ielts-pro-gang.vercel.app" target="_blank" rel="noopener">
-          <span class="work__tag mono" data-i18n="work.live">Ishlayapti</span>
+          <span class="work__tag mono" data-i18n="work.live">Live</span>
           <h3>IELTS Pro Gang</h3>
-          <p data-i18n="work.ielts">IELTS'ga tayyorlanish uchun platforma: to'liq Listening va Reading testlari bor. Maqsad: Writing va Speaking'ni ham 9 ballgacha olib chiqish.</p>
+          <p data-i18n="work.ielts">An IELTS preparation platform with full Listening and Reading tests, built to take learners toward band 9 writing and speaking.</p>
           <span class="work__go" aria-hidden="true">↗</span>
         </a>
         <div class="work__item">
-          <span class="work__tag mono" data-i18n="work.soon">Tez orada</span>
-          <h3 data-i18n="work.podcastT">Ustozlar uchun podkast</h3>
-          <p data-i18n="work.podcast">Metodika haqida suhbatlar: kichik yoshdagi bolalarni imtihonga tayyorlash, CELTA asoslari (til va ko'nikmalar), dars bosqichlari.</p>
+          <span class="work__tag mono" data-i18n="work.soon">Coming soon</span>
+          <h3 data-i18n="work.podcastT">Teacher podcast</h3>
+          <p data-i18n="work.podcast">Conversations on methodology: preparing beginners for exams, CELTA fundamentals (language vs skills), lesson staging.</p>
         </div>
         <div class="work__item">
           <span class="work__tag mono">Rahimov School</span>
-          <h3 data-i18n="work.gameT">Geymifikatsiya</h3>
-          <p data-i18n="work.game">Bolalarning o'qishga ishtiyoqini so'ndirmaydigan, aksincha, uni qo'llab-quvvatlaydigan rag'bat va ball tizimlarini o'ylab topish.</p>
+          <h3 data-i18n="work.gameT">Gamification</h3>
+          <p data-i18n="work.game">Designing reward and points systems that support motivation rather than replace it.</p>
         </div>
       </div>
     </section>
@@ -160,51 +153,51 @@
     <section class="section wrap" id="about" aria-labelledby="about-h">
       <header class="section__head">
         <span class="section__no mono">04</span>
-        <h2 id="about-h" data-i18n="about.h">Men haqimda</h2>
+        <h2 id="about-h" data-i18n="about.h">About</h2>
       </header>
       <div class="about">
         <div class="about__text">
-          <p data-i18n="about.p1">Besh yilga yaqin dars beraman: Starters'dagi yetti yashar bolalardan tortib IELTS'ga tayyorlanayotgan kattalargacha. Hozir Toshkentdagi Rahimov School'da ishlayman, maktabdagi geymifikatsiya va rag'bat tizimlariga men javob beraman.</p>
-          <p data-i18n="about.p2">Meni bitta savol tinch qo'ymaydi: odam aslida qanday o'rganadi va ustoz bunga qanchalik ta'sir qila oladi? Shuning uchun til o'rganish nazariyasi (SLA), pedagogika, psixologiya va falsafaga oid kitoblarni o'qiyman, keyin o'qiganlarimni sinfda sinab ko'raman.</p>
-          <p data-i18n="about.p3">Men faqat ustoz emasman. Qiziqishlarim ko'p, meni bitta so'z bilan ta'riflab bo'lmaydi, shuning uchun hammasiga joy topishga harakat qilaman: dars beraman, vibe-coding bilan ta'lim uchun dasturlar yasayman, yozaman, she'riyat va adabiyotni yaxshi ko'raman, tadbirkorlikka qiziqaman, Instagram va YouTube'ga video qilaman, qo'shiq ham aytaman, o'zim uchun. Har biriga alohida kanal ochganman.</p>
+          <p data-i18n="about.p1">I've taught for about five years, from seven-year-olds in Starters to adults preparing for IELTS. I currently work at Rahimov School in Tashkent, where I lead the school's gamification and reward systems.</p>
+          <p data-i18n="about.p2">One question drives me: how do learners actually learn, and how much of that can a teacher influence? So I read second language acquisition research, pedagogy, psychology and philosophy, then test what I find in the classroom.</p>
+          <p data-i18n="about.p3">I'm a human being, not a job title. I have a lot of interests, and I can't be defined by a single word, so I try to embrace the complexity of my passions: teaching, vibe-coding tools for EdTech, writing, poetry and literature, entrepreneurship, videos for Instagram and YouTube, and singing, just for myself. Each one has its own corner.</p>
         </div>
         <table class="ledger">
-          <caption class="mono" data-i18n="about.cap">Sertifikatlar va tajriba</caption>
+          <caption class="mono" data-i18n="about.cap">Qualifications &amp; experience</caption>
           <tbody>
-            <tr><th>CELTA</th><td data-i18n="about.celta">Cambridge'ning kattalarga ingliz tilini o'qitish sertifikati</td></tr>
-            <tr><th>IH CTYL</th><td data-i18n="about.ctyl">International House'ning bolalarga dars berish sertifikati</td></tr>
-            <tr><th>IELTS</th><td data-i18n="about.ielts">Academic, umumiy ball 8.0</td></tr>
-            <tr><th>DELTA</th><td data-i18n="about.delta">Hozir tayyorlanyapman</td></tr>
-            <tr><th data-i18n="about.expT">Tajriba</th><td data-i18n="about.exp">5 yilga yaqin</td></tr>
+            <tr><th>CELTA</th><td data-i18n="about.celta">Cambridge Certificate in Teaching English to Adults</td></tr>
+            <tr><th>IH CTYL</th><td data-i18n="about.ctyl">International House Certificate in Teaching Young Learners</td></tr>
+            <tr><th>IELTS</th><td data-i18n="about.ielts">Academic, overall band 8.0</td></tr>
+            <tr><th>DELTA</th><td data-i18n="about.delta">In preparation</td></tr>
+            <tr><th data-i18n="about.expT">Experience</th><td data-i18n="about.exp">~5 years in the classroom</td></tr>
           </tbody>
         </table>
       </div>
       <div class="elsewhere">
-        <p class="elsewhere__h mono" data-i18n="about.elsewhere">Telegram kanallarim</p>
+        <p class="elsewhere__h mono" data-i18n="about.elsewhere">My Telegram channels</p>
         <ul class="elsewhere__list">
-          <li><a href="https://t.me/inspiring_teacher" target="_blank" rel="noopener"><span class="mono">@inspiring_teacher</span><span data-i18n="ch.inspiring_teacher">Ingliz tili darslari, asosan boshlang'ich sinflar bilan</span></a></li>
-          <li><a href="https://t.me/mrshokh_blog" target="_blank" rel="noopener"><span class="mono">@mrshokh_blog</span><span data-i18n="ch.mrshokh_blog">O'zbekcha blogim</span></a></li>
-          <li><a href="https://t.me/mrshokh_notes" target="_blank" rel="noopener"><span class="mono">@mrshokh_notes</span><span data-i18n="ch.mrshokh_notes">Yozib qo'yganlarim</span></a></li>
-          <li><a href="https://t.me/mrshokh_insights" target="_blank" rel="noopener"><span class="mono">@mrshokh_insights</span><span data-i18n="ch.mrshokh_insights">Muhim xulosalar, faqat inglizcha</span></a></li>
-          <li><a href="https://t.me/mrshokh_poetry" target="_blank" rel="noopener"><span class="mono">@mrshokh_poetry</span><span data-i18n="ch.mrshokh_poetry">She'riyat va adabiyot</span></a></li>
-          <li><a href="https://t.me/mrshokh_wantrepreneurship" target="_blank" rel="noopener"><span class="mono">@mrshokh_wantrepreneurship</span><span data-i18n="ch.mrshokh_wantrepreneurship">Tadbirkorlik haqida qiziqqanlarim</span></a></li>
-          <li><a href="https://t.me/mrshokh_reminders" target="_blank" rel="noopener"><span class="mono">@mrshokh_reminders</span><span data-i18n="ch.mrshokh_reminders">Hammamizga eslatma kerak bo'lib turadi</span></a></li>
-          <li><a href="https://t.me/classblog_4A" target="_blank" rel="noopener"><span class="mono">@classblog_4A</span><span data-i18n="ch.classblog_4A">4-A o'quvchilarimning loyihasi</span></a></li>
+          <li><a href="https://t.me/inspiring_teacher" target="_blank" rel="noopener"><span class="mono">@inspiring_teacher</span><span data-i18n="ch.inspiring_teacher">English teaching, mostly primary students</span></a></li>
+          <li><a href="https://t.me/mrshokh_blog" target="_blank" rel="noopener"><span class="mono">@mrshokh_blog</span><span data-i18n="ch.mrshokh_blog">My blog in Uzbek</span></a></li>
+          <li><a href="https://t.me/mrshokh_notes" target="_blank" rel="noopener"><span class="mono">@mrshokh_notes</span><span data-i18n="ch.mrshokh_notes">My notes</span></a></li>
+          <li><a href="https://t.me/mrshokh_insights" target="_blank" rel="noopener"><span class="mono">@mrshokh_insights</span><span data-i18n="ch.mrshokh_insights">Key insights, in English only</span></a></li>
+          <li><a href="https://t.me/mrshokh_poetry" target="_blank" rel="noopener"><span class="mono">@mrshokh_poetry</span><span data-i18n="ch.mrshokh_poetry">Poetry &amp; literature</span></a></li>
+          <li><a href="https://t.me/mrshokh_wantrepreneurship" target="_blank" rel="noopener"><span class="mono">@mrshokh_wantrepreneurship</span><span data-i18n="ch.mrshokh_wantrepreneurship">My curiosity about entrepreneurship</span></a></li>
+          <li><a href="https://t.me/mrshokh_reminders" target="_blank" rel="noopener"><span class="mono">@mrshokh_reminders</span><span data-i18n="ch.mrshokh_reminders">We need reminders</span></a></li>
+          <li><a href="https://t.me/classblog_4A" target="_blank" rel="noopener"><span class="mono">@classblog_4A</span><span data-i18n="ch.classblog_4A">My students' digital project</span></a></li>
         </ul>
       </div>
     </section>
 
     <!-- SUBSCRIBE -->
     <section class="subscribe wrap" aria-labelledby="sub-h">
-      <h2 id="sub-h" data-i18n="sub.h">Yangi maqola chiqsa, pochtangizga keladi.</h2>
-      <p data-i18n="sub.p">Reklama ham, spam ham yo'q. Faqat yangi maqola.</p>
-      <a class="btn btn--solid btn--lg" href="https://teachershokh.substack.com/subscribe" target="_blank" rel="noopener" data-i18n="sub.cta">Substack'da obuna bo'lish</a>
+      <h2 id="sub-h" data-i18n="sub.h">New essays, straight to your inbox.</h2>
+      <p data-i18n="sub.p">No spam. One email when a new piece comes out.</p>
+      <a class="btn btn--solid btn--lg" href="https://teachershokh.substack.com/subscribe" target="_blank" rel="noopener" data-i18n="sub.cta">Subscribe on Substack</a>
     </section>
   </div>
 
     <!-- READER (single essay) -->
     <article class="reader wrap" id="reader" hidden>
-      <a class="back mono" href="#writing" id="backLink"><span aria-hidden="true">←</span> <span data-i18n="reader.back">Hamma maqolalar</span></a>
+      <a class="back mono" href="#writing" id="backLink"><span aria-hidden="true">←</span> <span data-i18n="reader.back">All writing</span></a>
       <header class="reader__head">
         <p class="reader__meta mono" id="readerMeta"></p>
         <h1 id="readerTitle"></h1>
@@ -215,7 +208,7 @@
       <div class="prose" id="readerBody"></div>
       <nav class="reader__next" id="readerNext" aria-label="Next essay"></nav>
       <section class="comments" aria-labelledby="comments-h">
-        <h2 id="comments-h" class="mono" data-i18n="reader.comments">Izohlar</h2>
+        <h2 id="comments-h" class="mono" data-i18n="reader.comments">Comments</h2>
         <div id="giscus"></div>
       </section>
     </article>
@@ -230,12 +223,12 @@
         <a href="https://ceq-prep-tracker.vercel.app/login" target="_blank" rel="noopener">CEQ-Prep</a>
         <a href="https://book2board.uz" target="_blank" rel="noopener">Book2Board.uz</a>
       </nav>
-      <span class="mono footer__fine">© <span id="year">2026</span> · <span data-i18n="footer.made">Toshkentda yozildi</span></span>
+      <span class="mono footer__fine">© <span id="year">2026</span> · <span data-i18n="footer.made">Written in Tashkent</span></span>
     </div>
   </footer>
 
-  <script src="youtube.js?v=20261105i" defer></script>
-  <script src="articles.js?v=20261105i" defer></script>
-  <script src="app.js?v=20261105i" defer></script>
+  <script src="youtube.js?v=20261105j" defer></script>
+  <script src="articles.js?v=20261105j" defer></script>
+  <script src="app.js?v=20261105j" defer></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="uz">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,30 +22,23 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=20261105i">
+  <link rel="stylesheet" href="../styles.css?v=20261105j">
   <script>
-    // Set theme + language before paint to avoid a flash.
+    // Set the theme before paint to avoid a flash.
     (function () {
-      var d = document.documentElement, t = null, l = null;
-      try { t = localStorage.getItem('ts-theme'); l = localStorage.getItem('ts-lang'); } catch (e) {}
-      var q = new URLSearchParams(location.search).get('lang');
-      if (q === 'en' || q === 'uz') l = q;
-      if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
-      d.lang = (l === 'en') ? 'en' : 'uz';
+      var t = null;
+      try { t = localStorage.getItem('ts-theme'); } catch (e) {}
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
     })();
   </script>
 </head>
 <body class="page-telegram" data-base="../">
-  <a class="skip" href="#main" data-i18n="skip">Asosiy qismga o'tish</a>
+  <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 
   <header class="masthead">
     <div class="wrap masthead__top">
-      <span class="mono" data-i18n="edition">Toshkent · Ingliz tili ustozi</span>
+      <span class="mono" data-i18n="edition">Tashkent · English teaching methodology</span>
       <div class="controls">
-        <div class="lang" role="group" aria-label="Language">
-          <button type="button" data-set-lang="uz" aria-pressed="true">UZ</button>
-          <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
-        </div>
         <button type="button" class="theme" id="themeToggle" aria-label="Toggle dark mode">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path class="sun" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10Zm0-5v3m0 14v3M4.2 4.2l2.1 2.1m11.4 11.4l2.1 2.1M2 12h3m14 0h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><path class="moon" d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
         </button>
@@ -54,12 +47,12 @@
     <div class="wrap masthead__brand">
       <a href="../" class="wordmark" aria-label="Teacher Shokh">Teacher<span class="wordmark__dot" aria-hidden="true">.</span><em>Shokh</em></a>
       <nav class="nav" aria-label="Primary">
-        <a href="../#writing" data-i18n="nav.writing">Maqolalar</a>
+        <a href="../#writing" data-i18n="nav.writing">Writing</a>
         <a href="./" aria-current="page" data-i18n="nav.telegram">Telegram</a>
-        <a href="../watch/" data-i18n="nav.watch">Videolar</a>
-        <a href="../#work" data-i18n="nav.work">Loyihalar</a>
-        <a href="../reading/" data-i18n="nav.reading">Nimalarni o'qiyman</a>
-        <a href="../#about" data-i18n="nav.about">Men haqimda</a>
+        <a href="../watch/" data-i18n="nav.watch">Watch</a>
+        <a href="../#work" data-i18n="nav.work">Work</a>
+        <a href="../reading/" data-i18n="nav.reading">What I read</a>
+        <a href="../#about" data-i18n="nav.about">About</a>
       </nav>
     </div>
   </header>
@@ -68,26 +61,26 @@
   <div id="home">
     <section class="hero hero--page wrap">
       <p class="kicker" data-i18n="tg.kicker">Telegram · @inspiring_teacher</p>
-      <h1 class="hero__title" data-i18n="tg.h">Telegramdagi postlarim</h1>
+      <h1 class="hero__title" data-i18n="tg.h">Telegram posts</h1>
       <div class="hero__grid">
-        <p class="hero__lede" data-i18n="tg.lede">2024-yildan beri @inspiring_teacher kanalida yozib kelganlarim, mavzularga ajratib qo'yilgan: maslahatlar, metodika, sinfda o'ynaladigan o'yinlar, kitoblar, CELTA'gacha bo'lgan yo'lim va qisqa fikrlar.</p>
+        <p class="hero__lede" data-i18n="tg.lede">What I've written on the @inspiring_teacher channel since 2024, sorted by topic: teaching tips, methodology, classroom games, books, my CELTA journey and one-liners.</p>
         <aside class="hero__aside">
-          <p class="rl__total mono"><span id="tgTotal">88</span> <span data-i18n="tg.posts">ta post</span> · <span>7</span> <span data-i18n="tg.cats">ta bo'lim</span></p>
-          <div class="hero__ctas"><a class="btn btn--solid" href="https://t.me/inspiring_teacher" target="_blank" rel="noopener" data-i18n="tg.join">Kanalga a'zo bo'lish</a></div>
+          <p class="rl__total mono"><span id="tgTotal">88</span> <span data-i18n="tg.posts">posts</span> · <span>7</span> <span data-i18n="tg.cats">topics</span></p>
+          <div class="hero__ctas"><a class="btn btn--solid" href="https://t.me/inspiring_teacher" target="_blank" rel="noopener" data-i18n="tg.join">Join the channel</a></div>
         </aside>
       </div>
       <nav class="rl__toc" aria-label="Topics">
-          <a href="#cat-tips" data-tg-chip="tips"><span class="mono">01</span> <span data-i18n="tg.cat.tips">Ustozlarga maslahatlar</span> <span class="tg-chip__n mono">14</span></a>
-          <a href="#cat-method" data-tg-chip="method"><span class="mono">02</span> <span data-i18n="tg.cat.method">Metodika</span> <span class="tg-chip__n mono">18</span></a>
-          <a href="#cat-classroom" data-tg-chip="classroom"><span class="mono">03</span> <span data-i18n="tg.cat.classroom">O'quvchilar bilan munosabat</span> <span class="tg-chip__n mono">11</span></a>
-          <a href="#cat-games" data-tg-chip="games"><span class="mono">04</span> <span data-i18n="tg.cat.games">Sinf uchun o'yinlar</span> <span class="tg-chip__n mono">8</span></a>
-          <a href="#cat-books" data-tg-chip="books"><span class="mono">05</span> <span data-i18n="tg.cat.books">Kitoblar va foydali manbalar</span> <span class="tg-chip__n mono">8</span></a>
-          <a href="#cat-reflections" data-tg-chip="reflections"><span class="mono">06</span> <span data-i18n="tg.cat.reflections">Tajriba va mulohazalar</span> <span class="tg-chip__n mono">16</span></a>
-          <a href="#cat-oneliners" data-tg-chip="oneliners"><span class="mono">07</span> <span data-i18n="tg.cat.oneliners">Qisqa fikrlar va iqtiboslar</span> <span class="tg-chip__n mono">13</span></a>
+          <a href="#cat-tips" data-tg-chip="tips"><span class="mono">01</span> <span data-i18n="tg.cat.tips">Teaching tips</span> <span class="tg-chip__n mono">14</span></a>
+          <a href="#cat-method" data-tg-chip="method"><span class="mono">02</span> <span data-i18n="tg.cat.method">Methodology</span> <span class="tg-chip__n mono">18</span></a>
+          <a href="#cat-classroom" data-tg-chip="classroom"><span class="mono">03</span> <span data-i18n="tg.cat.classroom">Classroom &amp; rapport</span> <span class="tg-chip__n mono">11</span></a>
+          <a href="#cat-games" data-tg-chip="games"><span class="mono">04</span> <span data-i18n="tg.cat.games">Games &amp; activities</span> <span class="tg-chip__n mono">8</span></a>
+          <a href="#cat-books" data-tg-chip="books"><span class="mono">05</span> <span data-i18n="tg.cat.books">Books &amp; resources</span> <span class="tg-chip__n mono">8</span></a>
+          <a href="#cat-reflections" data-tg-chip="reflections"><span class="mono">06</span> <span data-i18n="tg.cat.reflections">Reflections &amp; journey</span> <span class="tg-chip__n mono">16</span></a>
+          <a href="#cat-oneliners" data-tg-chip="oneliners"><span class="mono">07</span> <span data-i18n="tg.cat.oneliners">One-liners &amp; quotes</span> <span class="tg-chip__n mono">13</span></a>
       </nav>
       <div class="filters tg-filters" role="group" aria-label="Filter by language">
-        <button type="button" data-tg-filter="all" aria-pressed="true" data-i18n="filter.all">Hammasi</button>
-        <button type="button" data-tg-filter="uz" aria-pressed="false">O'zbekcha</button>
+        <button type="button" data-tg-filter="all" aria-pressed="true" data-i18n="filter.all">All</button>
+        <button type="button" data-tg-filter="uz" aria-pressed="false">Uzbek</button>
         <button type="button" data-tg-filter="en" aria-pressed="false">English</button>
       </div>
     </section>
@@ -95,8 +88,8 @@
     <section class="section wrap tg-cat" id="cat-tips" data-tg-cat="tips" aria-labelledby="tg-h-tips">
       <header class="section__head">
         <span class="section__no mono">01</span>
-        <h2 id="tg-h-tips" data-i18n="tg.cat.tips">Ustozlarga maslahatlar</h2>
-        <p class="section__dek" data-i18n="tg.dek.tips">Penny Ur'ning 100 ta maslahatini birma-bir ko'rib chiqaman va darslarimda qanday ish berishini aytaman.</p>
+        <h2 id="tg-h-tips" data-i18n="tg.cat.tips">Teaching tips</h2>
+        <p class="section__dek" data-i18n="tg.dek.tips">From Penny Ur's 100 Teaching Tips, one at a time, and how each plays out in my classes.</p>
         <p class="section__dek mono rl__count">14</p>
       </header>
       <ul class="tg-grid" data-tg-list="tips"></ul>
@@ -105,8 +98,8 @@
     <section class="section wrap tg-cat" id="cat-method" data-tg-cat="method" aria-labelledby="tg-h-method">
       <header class="section__head">
         <span class="section__no mono">02</span>
-        <h2 id="tg-h-method" data-i18n="tg.cat.method">Metodika</h2>
-        <p class="section__dek" data-i18n="tg.dek.method">Til qanday o'rganiladi va qanday o'rgatiladi: TBL, TPR, baholash, imtihonga tayyorlash va boshqalar.</p>
+        <h2 id="tg-h-method" data-i18n="tg.cat.method">Methodology</h2>
+        <p class="section__dek" data-i18n="tg.dek.method">How languages are learned and taught: acquisition, TBL, TPR, assessment, exam preparation.</p>
         <p class="section__dek mono rl__count">18</p>
       </header>
       <ul class="tg-grid" data-tg-list="method"></ul>
@@ -115,8 +108,8 @@
     <section class="section wrap tg-cat" id="cat-classroom" data-tg-cat="classroom" aria-labelledby="tg-h-classroom">
       <header class="section__head">
         <span class="section__no mono">03</span>
-        <h2 id="tg-h-classroom" data-i18n="tg.cat.classroom">O'quvchilar bilan munosabat</h2>
-        <p class="section__dek" data-i18n="tg.dek.classroom">Bolalar darsini kutib yuradigan ustoz bo'lish haqida: hurmat, ism bilan murojaat qilish, nazoratmi yoki yo'l ko'rsatishmi, ota-onalar bilan ishlash.</p>
+        <h2 id="tg-h-classroom" data-i18n="tg.cat.classroom">Classroom &amp; rapport</h2>
+        <p class="section__dek" data-i18n="tg.dek.classroom">Being the teacher students look forward to: respect, names, control vs guidance, parents.</p>
         <p class="section__dek mono rl__count">11</p>
       </header>
       <ul class="tg-grid" data-tg-list="classroom"></ul>
@@ -125,8 +118,8 @@
     <section class="section wrap tg-cat" id="cat-games" data-tg-cat="games" aria-labelledby="tg-h-games">
       <header class="section__head">
         <span class="section__no mono">04</span>
-        <h2 id="tg-h-games" data-i18n="tg.cat.games">Sinf uchun o'yinlar</h2>
-        <p class="section__dek" data-i18n="tg.dek.games">Hammasi sinfda sinab ko'rilgan: tanishuv o'yinlari, xazina qidirish, so'z o'yinlari, Class Blog.</p>
+        <h2 id="tg-h-games" data-i18n="tg.cat.games">Games &amp; activities</h2>
+        <p class="section__dek" data-i18n="tg.dek.games">Tried in class: icebreakers, treasure hunts, vocabulary games, class blogs.</p>
         <p class="section__dek mono rl__count">8</p>
       </header>
       <ul class="tg-grid" data-tg-list="games"></ul>
@@ -135,8 +128,8 @@
     <section class="section wrap tg-cat" id="cat-books" data-tg-cat="books" aria-labelledby="tg-h-books">
       <header class="section__head">
         <span class="section__no mono">05</span>
-        <h2 id="tg-h-books" data-i18n="tg.cat.books">Kitoblar va foydali manbalar</h2>
-        <p class="section__dek" data-i18n="tg.dek.books">Nimalarni o'qiyapman, nimalarni ko'ryapman va nimani tavsiya qilaman.</p>
+        <h2 id="tg-h-books" data-i18n="tg.cat.books">Books &amp; resources</h2>
+        <p class="section__dek" data-i18n="tg.dek.books">What I'm reading and watching, and what I recommend.</p>
         <p class="section__dek mono rl__count">8</p>
       </header>
       <ul class="tg-grid" data-tg-list="books"></ul>
@@ -145,8 +138,8 @@
     <section class="section wrap tg-cat" id="cat-reflections" data-tg-cat="reflections" aria-labelledby="tg-h-reflections">
       <header class="section__head">
         <span class="section__no mono">06</span>
-        <h2 id="tg-h-reflections" data-i18n="tg.cat.reflections">Tajriba va mulohazalar</h2>
-        <p class="section__dek" data-i18n="tg.dek.reflections">CELTA, kurslar, tadbirlar va ulardan olgan saboqlarim.</p>
+        <h2 id="tg-h-reflections" data-i18n="tg.cat.reflections">Reflections &amp; journey</h2>
+        <p class="section__dek" data-i18n="tg.dek.reflections">CELTA, courses, events and lessons learned the hard way.</p>
         <p class="section__dek mono rl__count">16</p>
       </header>
       <ul class="tg-grid" data-tg-list="reflections"></ul>
@@ -155,8 +148,8 @@
     <section class="section wrap tg-cat" id="cat-oneliners" data-tg-cat="oneliners" aria-labelledby="tg-h-oneliners">
       <header class="section__head">
         <span class="section__no mono">07</span>
-        <h2 id="tg-h-oneliners" data-i18n="tg.cat.oneliners">Qisqa fikrlar va iqtiboslar</h2>
-        <p class="section__dek" data-i18n="tg.dek.oneliners">Saqlab qo'ysa arziydigan qisqa fikrlar va iqtiboslar.</p>
+        <h2 id="tg-h-oneliners" data-i18n="tg.cat.oneliners">One-liners &amp; quotes</h2>
+        <p class="section__dek" data-i18n="tg.dek.oneliners">Short thoughts and lines worth keeping.</p>
         <p class="section__dek mono rl__count">13</p>
       </header>
       <ul class="tg-quotes" data-tg-list="oneliners"></ul>
@@ -166,7 +159,7 @@
 
     <!-- READER (single essay) -->
     <article class="reader wrap" id="reader" hidden>
-      <a class="back mono" href="#writing" id="backLink"><span aria-hidden="true">←</span> <span data-i18n="reader.back">Hamma maqolalar</span></a>
+      <a class="back mono" href="#writing" id="backLink"><span aria-hidden="true">←</span> <span data-i18n="reader.back">All writing</span></a>
       <header class="reader__head">
         <p class="reader__meta mono" id="readerMeta"></p>
         <h1 id="readerTitle"></h1>
@@ -177,7 +170,7 @@
       <div class="prose" id="readerBody"></div>
       <nav class="reader__next" id="readerNext" aria-label="Next essay"></nav>
       <section class="comments" aria-labelledby="comments-h">
-        <h2 id="comments-h" class="mono" data-i18n="reader.comments">Izohlar</h2>
+        <h2 id="comments-h" class="mono" data-i18n="reader.comments">Comments</h2>
         <div id="giscus"></div>
       </section>
     </article>
@@ -192,12 +185,12 @@
         <a href="https://ceq-prep-tracker.vercel.app/login" target="_blank" rel="noopener">CEQ-Prep</a>
         <a href="https://book2board.uz" target="_blank" rel="noopener">Book2Board.uz</a>
       </nav>
-      <span class="mono footer__fine">© <span id="year">2026</span> · <span data-i18n="footer.made">Toshkentda yozildi</span></span>
+      <span class="mono footer__fine">© <span id="year">2026</span> · <span data-i18n="footer.made">Written in Tashkent</span></span>
     </div>
   </footer>
 
-  <script src="youtube.js?v=20261105i" defer></script>
-  <script src="../telegram.js?v=20261105i" defer></script>
-  <script src="../app.js?v=20261105i" defer></script>
+  <script src="youtube.js?v=20261105j" defer></script>
+  <script src="../telegram.js?v=20261105j" defer></script>
+  <script src="../app.js?v=20261105j" defer></script>
 </body>
 </html>

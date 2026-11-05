@@ -2,7 +2,7 @@
 
 Static site served by GitHub Pages (custom domain in `CNAME`).
 
-- `index.html`, `styles.css`, `app.js`: the page, design, and UZ/EN text (all translations live in the `T` object in `app.js`).
+- `index.html`, `styles.css`, `app.js`: the page, design and text (all interface text lives in `T.en` in `app.js`; the site is English-only, posts keep their own language).
 - `articles.js`: essays hosted on the site. Each one opens at `teachershokh.blog/#<slug>` and has Giscus comments tied to that slug, so never rename a published slug.
 - `data/substack.json`: Substack posts, refreshed every 6 hours by `.github/workflows/sync-substack.yml` (run it by hand from the repo's Actions tab with "Run workflow").
 - `telegram/`, `telegram.js`, `covers/`: Telegram posts by topic.

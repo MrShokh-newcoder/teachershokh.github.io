@@ -1506,7 +1506,7 @@ window.TELEGRAM = [
  {
   "id": 30,
   "slug": "tg-30",
-  "title": "Iqtibos",
+  "title": "Quote",
   "fullTitle": null,
   "date": "2025-02-23T17:56:45+00:00",
   "lang": "uz",

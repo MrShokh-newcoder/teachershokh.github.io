@@ -1,4 +1,4 @@
-/* Teacher Shokh — site script: language, theme, posts */
+/* Teacher Shokh — site script: text, theme, posts. The site is in English; posts keep their own language. */
 (function () {
   'use strict';
 
@@ -14,135 +14,6 @@
   ];
 
   var T = {
-    uz: {
-      skip: "Asosiy qismga o'tish",
-      edition: "Toshkent · Ingliz tili ustozi",
-      "nav.writing": "Maqolalar",
-      "nav.watch": "Videolar",
-      "nav.work": "Loyihalar",
-      "nav.about": "Men haqimda",
-      "hero.kicker": "Ustozning daftaridan",
-      "hero.title": "Ustozlik&nbsp;— <em>san'at.</em><br>Yaxshi ustozlik&nbsp;— <em>hunar.</em>",
-      "hero.lede": "Men Teacher Shokh (Shohruh Rejavaliev), Toshkentda ingliz tilidan dars beraman. Kichik yoshdagi bolalar, o'smirlar va IELTS'ga tayyorlanayotganlar bilan ishlayman. Bu yerda metodika haqida yozaman: tadqiqotlar nima deydi, sinfda esa amalda nima bo'ladi va bu ikkisi nega doim ham bir-biriga to'g'ri kelavermaydi.",
-      "facts.teach": "Dars beraman",
-      "facts.train": "Malakam",
-      "facts.now": "Hozir",
-      "facts.delta": "DELTA (hozir o'qiyapman)",
-      "facts.city": "Toshkent",
-      "hero.cta1": "Yangi maqolalar",
-      "hero.cta2": "Obuna bo'lish",
-      "writing.h": "Maqolalar",
-      "writing.dek": "Dars berish, o'rganish va ikkalasini qanday qilib yaxshi qilish haqida yozganlarim.",
-      "filter.all": "Hammasi",
-      "reader.back": "Hamma maqolalar",
-      "reader.comments": "Izohlar",
-      "reader.next": "Keyingi maqola",
-      "writing.all": "Hamma maqolalarim Substack'da",
-      "post.latest": "Eng yangisi",
-      "post.read": "O'qish →",
-      "post.min": "daqiqa",
-      "pull.q": "“Yuragimni bolalarga beraman.”",
-      "pull.src": "kitob nomi, 1969",
-      "tg.h": "Telegramdagi postlarim",
-      "nav.reading": "Nimalarni o'qiyman",
-      "read.kicker": "Kutubxona",
-      "read.h": "Nimalarni o'qiyman",
-      "read.lede": "Kasbimda o'sib borish uchun kuzatib boradigan blog va saytlarim: metodika, til o'rganish nazariyasi (SLA), kichik yoshdagi bolalar, DELTA va tadqiqotlar. Hammasi ingliz tilida, deyarli hammasi tekin.",
-      "read.sources": "ta manba",
-      "read.topics": "ta bo'lim",
-      "read.cat1": "Metodika va til o'rganish nazariyasi",
-      "read.cat2": "So'z boyligi",
-      "read.cat3": "Kichik yoshdagi bolalar",
-      "read.cat4": "DELTA va kasbda o'sish",
-      "read.cat5": "Tadqiqotlar",
-      "read.cat6": "Darsga g'oyalar",
-      "read.cat7": "Texnologiya va sun'iy intellekt",
-      "read.cat8": "Motivatsiya",
-      "read.cat9": "Tashkilotlar va imtihonlar",
-      "tg.dek": "@inspiring_teacher kanalidan: sinfda ko'rganlarim, o'yinlar, kitoblar va fikrlar.",
-      "tg.more": "Yana ko'rsatish",
-      "tg.join": "Kanalga a'zo bo'lish",
-      "tg.count": "{n} ta post",
-      "tg.back": "Hamma postlar",
-      "tg.open": "Telegram'da ochish ↗",
-      "tg.photos": "{n} ta rasm",
-      "tg.video": "video",
-      "tg.file": "fayl",
-      "tg.note": "Bu postda {m} ham bor, ularni Telegram'da ko'rasiz.",
-      "nav.telegram": "Telegram",
-      "tg.kicker": "Telegram · @inspiring_teacher",
-      "tg.lede": "2024-yildan beri @inspiring_teacher kanalida yozib kelganlarim, mavzularga ajratib qo'yilgan: maslahatlar, metodika, sinfda o'ynaladigan o'yinlar, kitoblar, CELTA'gacha bo'lgan yo'lim va qisqa fikrlar.",
-      "tg.posts": "ta post",
-      "tg.next": "Keyingi post",
-      "tg.showAll": "Hammasini ko'rsatish ({n})",
-      "tg.showLess": "Yig'ish",
-      "tg.cats": "ta bo'lim",
-      "tg.cat.tips": "Ustozlarga maslahatlar",
-      "tg.dek.tips": "Penny Ur'ning 100 ta maslahatini birma-bir ko'rib chiqaman va darslarimda qanday ish berishini aytaman.",
-      "tg.cat.method": "Metodika",
-      "tg.dek.method": "Til qanday o'rganiladi va qanday o'rgatiladi: TBL, TPR, baholash, imtihonga tayyorlash va boshqalar.",
-      "tg.cat.classroom": "O'quvchilar bilan munosabat",
-      "tg.dek.classroom": "Bolalar darsini kutib yuradigan ustoz bo'lish haqida: hurmat, ism bilan murojaat qilish, nazoratmi yoki yo'l ko'rsatishmi, ota-onalar bilan ishlash.",
-      "tg.cat.games": "Sinf uchun o'yinlar",
-      "tg.dek.games": "Hammasi sinfda sinab ko'rilgan: tanishuv o'yinlari, xazina qidirish, so'z o'yinlari, Class Blog.",
-      "tg.cat.books": "Kitoblar va foydali manbalar",
-      "tg.dek.books": "Nimalarni o'qiyapman, nimalarni ko'ryapman va nimani tavsiya qilaman.",
-      "tg.cat.reflections": "Tajriba va mulohazalar",
-      "tg.dek.reflections": "CELTA, kurslar, tadbirlar va ulardan olgan saboqlarim.",
-      "tg.cat.oneliners": "Qisqa fikrlar va iqtiboslar",
-      "tg.dek.oneliners": "Saqlab qo'ysa arziydigan qisqa fikrlar va iqtiboslar.",
-      "watch.h": "Videolar",
-      "watch.dek": "YouTube'da ikkita kanalim bor: biri dars berish haqida, biri shaxsiy. Videolarni shu yerda ham ko'rsangiz bo'ladi.",
-      "watch.go": "Hamma videolar →",
-      "watch.label": "YouTube · 2 ta kanal",
-      "yt.kicker": "YouTube · 2 ta kanal",
-      "yt.h": "Videolar",
-      "yt.videos": "ta video",
-      "yt.channels": "ta kanal",
-      "yt.lede": "@InspiringTeacherShokh'da dars berish haqida gapiraman, @mrshokh'da esa shunchaki o'ylaganlarimni aytaman. Videoni bossangiz, shu yerning o'zida ochiladi. Xohlasangiz, YouTube'da ham ko'rishingiz mumkin.",
-      "yt.cat.teaching": "Dars berish haqida",
-      "yt.dek.teaching": "Ustozlar uchun: sinfda nima ish beradi va nega.",
-      "yt.cat.personal": "Shaxsiy videolar",
-      "yt.dek.personal": "O'qish, yozish, ish va vaqt haqida dildagi gaplar.",
-      "yt.cat.shorts": "Shorts",
-      "yt.dek.shorts": "Bir daqiqada bitta fikr.",
-      "yt.open": "YouTube'da ochish",
-      "yt.play": "Ko'rish",
-      "work.h": "Loyihalar",
-      "work.dek": "Darsdan tashqari qilayotgan ishlarim.",
-      "work.live": "Ishlayapti",
-      "work.soon": "Tez orada",
-      "work.ielts": "IELTS'ga tayyorlanish uchun platforma: to'liq Listening va Reading testlari bor. Maqsad: Writing va Speaking'ni ham 9 ballgacha olib chiqish.",
-      "work.podcastT": "Ustozlar uchun podkast",
-      "work.podcast": "Metodika haqida suhbatlar: kichik yoshdagi bolalarni imtihonga tayyorlash, CELTA asoslari (til va ko'nikmalar), dars bosqichlari.",
-      "work.gameT": "Geymifikatsiya",
-      "work.game": "Bolalarning o'qishga ishtiyoqini so'ndirmaydigan, aksincha, uni qo'llab-quvvatlaydigan rag'bat va ball tizimlarini o'ylab topish.",
-      "about.h": "Men haqimda",
-      "about.p1": "Besh yilga yaqin dars beraman: Starters'dagi yetti yashar bolalardan tortib IELTS'ga tayyorlanayotgan kattalargacha. Hozir Toshkentdagi Rahimov School'da ishlayman, maktabdagi geymifikatsiya va rag'bat tizimlariga men javob beraman.",
-      "about.p2": "Meni bitta savol tinch qo'ymaydi: odam aslida qanday o'rganadi va ustoz bunga qanchalik ta'sir qila oladi? Shuning uchun til o'rganish nazariyasi (SLA), pedagogika, psixologiya va falsafaga oid kitoblarni o'qiyman, keyin o'qiganlarimni sinfda sinab ko'raman.",
-      "about.p3": "Men faqat ustoz emasman. Qiziqishlarim ko'p, meni bitta so'z bilan ta'riflab bo'lmaydi, shuning uchun hammasiga joy topishga harakat qilaman: dars beraman, vibe-coding bilan ta'lim uchun dasturlar yasayman, yozaman, she'riyat va adabiyotni yaxshi ko'raman, tadbirkorlikka qiziqaman, Instagram va YouTube'ga video qilaman, qo'shiq ham aytaman, o'zim uchun. Har biriga alohida kanal ochganman.",
-      "about.elsewhere": "Telegram kanallarim",
-      "ch.inspiring_teacher": "Ingliz tili darslari, asosan boshlang'ich sinflar bilan",
-      "ch.mrshokh_blog": "O'zbekcha blogim",
-      "ch.mrshokh_notes": "Yozib qo'yganlarim",
-      "ch.mrshokh_insights": "Muhim xulosalar, faqat inglizcha",
-      "ch.mrshokh_poetry": "She'riyat va adabiyot",
-      "ch.mrshokh_wantrepreneurship": "Tadbirkorlik haqida qiziqqanlarim",
-      "ch.mrshokh_reminders": "Hammamizga eslatma kerak bo'lib turadi",
-      "ch.classblog_4A": "4-A o'quvchilarimning loyihasi",
-      "about.cap": "Sertifikatlar va tajriba",
-      "about.celta": "Cambridge'ning kattalarga ingliz tilini o'qitish sertifikati",
-      "about.ctyl": "International House'ning bolalarga dars berish sertifikati",
-      "about.ielts": "Academic, umumiy ball 8.0",
-      "about.delta": "Hozir tayyorlanyapman",
-      "about.expT": "Tajriba",
-      "about.exp": "5 yilga yaqin",
-      "sub.h": "Yangi maqola chiqsa, pochtangizga keladi.",
-      "sub.p": "Reklama ham, spam ham yo'q. Faqat yangi maqola.",
-      "sub.cta": "Substack'da obuna bo'lish",
-      "footer.made": "Toshkentda yozildi",
-      months: ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr']
-    },
     en: {
       skip: 'Skip to content',
       edition: 'Tashkent · English teaching methodology',
@@ -241,7 +112,7 @@
   };
 
   var root = document.documentElement;
-  var lang = root.lang === 'en' ? 'en' : 'uz';
+  var lang = 'en';
   var filter = 'all';
   var substack = FALLBACK_SUBSTACK;
   var currentSlug = null;
@@ -316,8 +187,6 @@
 
   /* ---------- Language ---------- */
   function applyLang(next) {
-    lang = next === 'en' ? 'en' : 'uz';
-    root.lang = lang;
     var dict = T[lang];
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
       var v = dict[el.getAttribute('data-i18n')];
@@ -327,18 +196,11 @@
       var v = dict[el.getAttribute('data-i18n-html')];
       if (typeof v === 'string') el.innerHTML = v; // authored strings only
     });
-    document.querySelectorAll('[data-set-lang]').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === lang));
-    });
     renderPosts();
     renderTelegram();
     renderWatch();
     if (currentSlug) { renderReaderMeta(bySlug(currentSlug)); giscusConfig({ lang: lang }); }
-    store('ts-lang', lang);
   }
-  document.querySelectorAll('[data-set-lang]').forEach(function (b) {
-    b.addEventListener('click', function () { applyLang(b.getAttribute('data-set-lang')); });
-  });
 
   /* ---------- Theme ---------- */
   function currentTheme() {
@@ -424,7 +286,7 @@
   function tgCard(p, cat) {
     var meta = '<span class="tg-card__meta mono"><time datetime="' + esc(p.date) + '">' + esc(fmtDate(p.date)) + '</time><span>' + esc(p.lang.toUpperCase()) + '</span></span>';
     if (cat === 'oneliners') {
-      var stub = p.title === 'Iqtibos' || p.title === 'Quote';
+      var stub = p.title === 'Quote';
       var rest = (p.excerpt || '').replace(/^…/, '');
       var line = stub ? rest : (rest && rest !== p.title ? p.title.replace(/…$/, '') + ' ' + rest : p.title);
       return '<li><a class="tg-quote" href="#' + esc(p.slug) + '">' +
@@ -498,7 +360,7 @@
       (v.secs ? '<span class="yt__dur mono">' + ytDur(v.secs) + '</span>' : '') + '</button>';
   }
   function ytCard(v, hide) {
-    var l = v.lang || 'uz';
+    var l = v.lang || 'en';
     return '<li class="yt" id="v-' + esc(v.id) + '"' + (hide ? ' hidden' : '') + '>' +
       '<div class="yt__media">' + ytThumb(v) + '</div>' +
       '<span class="tg-card__meta mono"><time datetime="' + esc(v.date) + '">' + esc(fmtDate(v.date)) + '</time><span>' + esc(l.toUpperCase()) + '</span></span>' +

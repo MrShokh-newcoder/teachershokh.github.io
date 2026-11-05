@@ -63,7 +63,7 @@
       'tg.cat.oneliners': 'One-liners & quotes', 'tg.dek.oneliners': 'Short thoughts and lines worth keeping.',
       'watch.h': 'Watch',
       'watch.dek': 'My two YouTube channels: one on teaching, one personal. You can watch the videos right here.',
-      'more.read': 'Read all', 'more.watch': 'Watch all', 'writing.kicker': 'Essays · Substack',
+      'more.work': 'See all work', 'more.read': 'Read all', 'more.watch': 'Watch all', 'writing.kicker': 'Essays · Substack',
       'watch.go': 'All videos →', 'watch.label': 'YouTube · 2 channels',
       'yt.kicker': 'YouTube · 2 channels', 'yt.h': 'Watch', 'yt.videos': 'videos', 'yt.channels': 'channels',
       'yt.lede': 'Two channels: teaching on @InspiringTeacherShokh, and my personal thinking on @mrshokh. Click a video to watch it here, or open it on YouTube.',

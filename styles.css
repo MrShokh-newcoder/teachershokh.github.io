@@ -751,3 +751,62 @@ button.btn { background: transparent; color: var(--ink); cursor: pointer; }
   .ab-fig--book { max-width: 320px; }
   .ab-portrait { max-width: 420px; }
 }
+/* About hero: portrait beside the intro, as tall as the paragraph */
+.ab-lead { display: grid; grid-template-columns: clamp(150px, 15vw, 200px) minmax(0, 1fr); gap: clamp(20px, 2.4vw, 32px); align-items: start; }
+.ab-lead .ab-portrait { margin: 4px 0 0; max-width: none; box-shadow: 8px 8px 0 -1px var(--peach); }
+.ab-lead .hero__lede { margin: 0; }
+.ab-names { padding-left: calc(clamp(150px, 15vw, 200px) + clamp(20px, 2.4vw, 32px) + 23px); }
+@media (max-width: 600px) {
+  .ab-lead { grid-template-columns: 1fr; }
+  .ab-lead .ab-portrait { width: 150px; }
+  .ab-names { padding-left: 0; }
+}
+
+/* Essay scrapbook: photos in "Reading my first channel" */
+.prose h2 { clear: both; }
+.ess-snap, .ess-scrap, .ess-doc { --frame: var(--peach); --tape: rgba(255, 138, 61, .78); position: relative; }
+.ess-snap--green, .ess-scrap:nth-child(even), .ess-doc { --frame: #01b36c; --tape: rgba(1, 179, 108, .75); }
+.prose .ess-snap { width: 38%; margin: 8px 0 18px 30px; padding: 10px 10px 0; background: #fbf7ef; border-radius: 3px; box-shadow: 9px 9px 0 -1px var(--frame), 0 14px 30px rgba(0, 0, 0, .35); }
+.ess-snap--right { float: right; margin-right: -24px; }
+.ess-tilt-r { transform: rotate(2.2deg); }
+.ess-tilt-l { transform: rotate(-2deg); }
+.ess-snap::before, .ess-doc::before { content: ""; position: absolute; top: -13px; left: 50%; width: 92px; height: 26px; transform: translateX(-50%) rotate(-4deg); background: var(--tape); box-shadow: 0 1px 2px rgba(0, 0, 0, .25); }
+.prose .ess-snap img { display: block; width: 100%; border-radius: 1px; }
+.prose .ess-snap figcaption { color: #26332c; font-size: 15px; font-style: italic; line-height: 1.35; padding: 10px 2px 12px; }
+.ess-tag { display: inline-block; margin-right: 8px; padding: 3px 7px; border-radius: 2px; background: var(--frame); color: #0d1a14; font: 600 10.5px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; font-style: normal; vertical-align: 1px; }
+/* the board of beginnings */
+.ess-board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-flow: dense; gap: 22px 20px; margin: 34px 0 10px; padding: 26px 22px 30px; border: 1px dashed rgba(255, 255, 255, .22); border-radius: 6px; background: repeating-linear-gradient(45deg, rgba(255, 255, 255, .025) 0 12px, transparent 12px 24px); }
+.prose .ess-scrap { margin: 0; padding: 7px; background: #fbf7ef; border-radius: 3px; box-shadow: 6px 6px 0 -1px var(--frame), 0 10px 22px rgba(0, 0, 0, .35); transition: transform .25s ease; }
+.prose .ess-scrap img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 1px; }
+.ess-scrap--antiqa { transform: rotate(-3deg); aspect-ratio: 1; }
+.ess-scrap--group { grid-column: span 2; transform: rotate(1.4deg); aspect-ratio: 1000 / 523; }
+.ess-scrap--poster { grid-row: span 2; transform: rotate(-1.6deg); }
+.ess-scrap--ibrat { grid-row: span 2; transform: rotate(2deg); }
+.ess-scrap--llc { transform: rotate(3deg); aspect-ratio: 1; }
+.ess-scrap--card { transform: rotate(-2.4deg); }
+.ess-scrap:hover { transform: rotate(0) scale(1.03); z-index: 2; }
+.ess-sticker { position: absolute; left: -10px; bottom: 12px; z-index: 1; padding: 5px 9px; border-radius: 3px; background: var(--peach); color: #1a0e05; font: 600 11px/1.2 var(--mono); letter-spacing: .07em; text-transform: uppercase; transform: rotate(-4deg); box-shadow: 2px 2px 0 rgba(0, 0, 0, .35); }
+.ess-sticker--green { background: #01b36c; color: #04170f; transform: rotate(3deg); }
+.prose .ess-board__cap { margin: 8px 0 1.6em; color: var(--muted); font-size: 15px; font-style: italic; text-align: center; }
+/* the IELTS report */
+.prose .ess-doc { margin: 30px 0 34px; padding: 12px 12px 0; background: #e9f4e5; border-radius: 3px; transform: rotate(-1.2deg); box-shadow: 9px 9px 0 -1px var(--frame), 0 14px 30px rgba(0, 0, 0, .35); }
+.prose .ess-doc img { display: block; width: 100%; border-radius: 0; }
+.prose .ess-doc figcaption { color: #26332c; font-size: 15px; font-style: italic; padding: 10px 2px 12px; }
+.ess-stamp { position: absolute; right: -16px; top: -22px; display: grid; place-items: center; width: 78px; height: 78px; border-radius: 50%; border: 3px solid var(--peach); color: var(--peach); background: rgba(1, 43, 29, .92); font: 700 26px/1 var(--mono); transform: rotate(12deg); box-shadow: 0 0 0 4px rgba(1, 43, 29, .92); }
+@media (max-width: 600px) {
+  .prose .ess-snap, .ess-snap--right { float: none; width: auto; max-width: 300px; margin: 26px auto 26px; }
+  .ess-board { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 14px; padding: 18px 12px 22px; }
+  .ess-scrap--group { grid-column: span 2; }
+  .ess-scrap--poster, .ess-scrap--ibrat { grid-row: span 1; }
+  .ess-sticker { font-size: 9.5px; left: -6px; bottom: 8px; padding: 4px 7px; }
+  .ess-stamp { width: 58px; height: 58px; font-size: 19px; right: -6px; top: -20px; }
+}
+@media (prefers-reduced-motion: reduce) { .prose .ess-scrap { transition: none; } }
+.prose .ess-snap--green { width: 32%; }
+.ab-hero .hero__grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+.ab-lead { grid-template-columns: clamp(150px, 16vw, 215px) minmax(0, 1fr); }
+.ab-names { padding-left: calc(clamp(150px, 16vw, 215px) + clamp(20px, 2.4vw, 32px) + 23px); }
+@media (max-width: 880px) { .ab-hero .hero__grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .ab-lead { grid-template-columns: 1fr; } .ab-names { padding-left: 0; } }
+.prose .ess-scrap--poster img { object-fit: contain; background: #fff; }
+@media (max-width: 600px) { .ess-scrap--card { grid-column: span 2; justify-self: center; width: 70%; } }

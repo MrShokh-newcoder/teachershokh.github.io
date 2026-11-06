@@ -734,3 +734,20 @@ button.btn { background: transparent; color: var(--ink); cursor: pointer; }
   .ab-why p { font-size: 18px; }
 }
 #find { padding-bottom: clamp(40px, 6vw, 72px); }
+/* About page photos */
+.ab-portrait { margin: 0 0 28px; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; background: var(--paper-2); }
+.ab-portrait img, .ab-fig img { display: block; width: 100%; height: auto; }
+.ab-fig { margin: 0; }
+.ab-fig img { border: 1px solid var(--rule); border-radius: 4px; background: var(--paper-2); }
+.ab-fig figcaption { margin-top: 8px; color: var(--muted); font-size: 15px; font-style: italic; line-height: 1.4; }
+.ab-path { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); gap: clamp(28px, 4vw, 56px); align-items: start; }
+.ab-path .ab-tl { max-width: none; }
+.ab-figs { display: grid; gap: 28px; position: sticky; top: 24px; }
+.ab-beyond { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 260px); gap: clamp(28px, 4vw, 56px); align-items: start; }
+.ab-beyond .ab-why { margin-bottom: 0; }
+@media (max-width: 880px) {
+  .ab-path, .ab-beyond { grid-template-columns: 1fr; }
+  .ab-figs { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .ab-fig--book { max-width: 320px; }
+  .ab-portrait { max-width: 420px; }
+}

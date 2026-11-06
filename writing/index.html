@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Writing — Teacher Shokh</title>
+  <title>Articles &amp; Posts — Teacher Shokh</title>
   <meta name="description" content="Essays by Teacher Shokh on teaching, learning and methodology, in Uzbek and English.">
-  <meta property="og:title" content="Writing — Teacher Shokh">
+  <meta property="og:title" content="Articles &amp; Posts — Teacher Shokh">
   <meta property="og:description" content="Essays by Teacher Shokh on teaching, learning and methodology, in Uzbek and English.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Teacher Shokh">
@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=20261106a">
+  <link rel="stylesheet" href="../styles.css?v=20261106b">
   <script>
     // Set the theme before paint to avoid a flash.
     (function () {
@@ -62,28 +62,43 @@
     </div>
   </header>
 
-  <main id="main">
-    <section class="hero hero--page wrap">
-      <p class="kicker" data-i18n="writing.kicker">Essays · Substack</p>
-      <h1 class="hero__title" data-i18n="writing.h">Writing</h1>
-      <div class="hero__grid">
-        <p class="hero__lede" data-i18n="writing.dek">Essays on teaching, learning, and the craft of doing both well.</p>
-        <aside class="hero__aside">
-          <div class="hero__ctas"><a class="btn btn--solid" href="https://teachershokh.substack.com/subscribe" target="_blank" rel="noopener" data-i18n="hero.cta2">Subscribe</a></div>
-        </aside>
+  <main id="main" class="ap" data-ap>
+    <aside class="ap-side" id="apSide" aria-labelledby="apSideTitle">
+      <div class="ap-side__inner">
+        <h1 class="ap-side__title" id="apSideTitle" data-i18n="ap.title">Articles &amp; Posts</h1>
+        <input class="ap-search" id="apSearch" type="search" placeholder="Search posts…" aria-label="Search posts" autocomplete="off">
+        <div class="filters ap-filters" role="group" aria-label="Filter by language">
+          <button type="button" data-ap-filter="all" aria-pressed="true" data-i18n="filter.all">All</button>
+          <button type="button" data-ap-filter="uz" aria-pressed="false">Uzbek</button>
+          <button type="button" data-ap-filter="en" aria-pressed="false">English</button>
+        </div>
+        <ol class="ap-list" id="apList"></ol>
+        <a class="more ap-side__more" href="https://teachershokh.substack.com/archive" target="_blank" rel="noopener"><span data-i18n="writing.all">All writing on Substack</span> <span aria-hidden="true">→</span></a>
       </div>
-      <div class="filters" role="group" aria-label="Filter by language">
-        <button type="button" data-filter="all" aria-pressed="true" data-i18n="filter.all">All</button>
-        <button type="button" data-filter="uz" aria-pressed="false">Uzbek</button>
-        <button type="button" data-filter="en" aria-pressed="false">English</button>
+    </aside>
+    <div class="ap-scrim" id="apScrim" aria-hidden="true"></div>
+    <div class="ap-main">
+      <div class="ap-bar">
+        <button type="button" class="ap-toggle" id="apToggle" aria-controls="apSide" aria-expanded="true" aria-label="Show or hide the list" title="Show or hide the list">
+          <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <span class="ap-bar__label mono" data-i18n="ap.title">Articles &amp; Posts</span>
       </div>
-    </section>
-
-    <section class="section wrap section--flush" id="writing" aria-label="Essays">
-      <article class="feature" id="featured" aria-live="polite"></article>
-      <ol class="index" id="postIndex"></ol>
-      <a class="more" href="https://teachershokh.substack.com/archive" target="_blank" rel="noopener"><span data-i18n="writing.all">All writing on Substack</span> <span aria-hidden="true">→</span></a>
-    </section>
+      <article class="ap-article">
+        <header class="reader__head">
+          <p class="reader__meta mono" id="apMeta"></p>
+          <h2 class="ap-article__title" id="apTitle"></h2>
+        </header>
+        <figure class="reader__cover ap-cover" id="apCover" hidden><img alt=""></figure>
+        <div class="prose" id="apBody"></div>
+        <nav class="ap-nav" id="apNav" aria-label="Newer and older"></nav>
+        <section class="comments" id="apComments" aria-labelledby="comments-h">
+          <h2 id="comments-h" class="mono" data-i18n="reader.comments">Comments</h2>
+          <div id="giscus"></div>
+        </section>
+        <p class="ap-comments-substack" id="apCommentsSubstack" hidden><a class="readlink" href="#" target="_blank" rel="noopener"><span data-i18n="ap.commentSubstack">Comments for this post are on Substack</span> ↗</a></p>
+      </article>
+    </div>
   </main>
 
   <footer class="footer">
@@ -99,7 +114,7 @@
     </div>
   </footer>
 
-  <script src="../articles.js?v=20261106a" defer></script>
-  <script src="../app.js?v=20261106a" defer></script>
+  <script src="../articles.js?v=20261106b" defer></script>
+  <script src="../app.js?v=20261106b" defer></script>
 </body>
 </html>

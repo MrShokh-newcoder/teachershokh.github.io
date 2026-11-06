@@ -63,7 +63,7 @@
       'tg.cat.oneliners': 'One-liners & quotes', 'tg.dek.oneliners': 'Short thoughts and lines worth keeping.',
       'watch.h': 'Watch',
       'watch.dek': 'My two YouTube channels: one on teaching, one personal. You can watch the videos right here.',
-      'more.work': 'See all work', 'more.read': 'Read all', 'more.watch': 'Watch all', 'writing.kicker': 'Essays · Substack',
+      'more.work': 'See all work', 'ap.title': 'Articles & Posts', 'ap.search': 'Search posts…', 'ap.toggle': 'Show or hide the list', 'ap.none': 'Nothing matches that search.', 'ap.newer': 'Newer', 'ap.older': 'Older', 'ap.onSubstack': 'Also on Substack', 'ap.readSubstack': 'Read it on Substack', 'ap.commentSubstack': 'Comments for this post are on Substack', 'more.read': 'Read all', 'more.watch': 'Watch all', 'writing.kicker': 'Essays · Substack',
       'watch.go': 'All videos →', 'watch.label': 'YouTube · 2 channels',
       'yt.kicker': 'YouTube · 2 channels', 'yt.h': 'Watch', 'yt.videos': 'videos', 'yt.channels': 'channels',
       'yt.lede': 'Two channels: teaching on @InspiringTeacherShokh, and my personal thinking on @mrshokh. Click a video to watch it here, or open it on YouTube.',
@@ -173,18 +173,34 @@
     for (var i = 0; i < all.length; i++) if (all[i].slug === slug) return all[i];
     return null;
   }
-  function allPosts() {
-    var list = siteArticles.concat(substack.map(function (p) {
-      return { kind: 'substack', title: p.title, subtitle: p.subtitle, url: p.url, date: p.date, lang: p.lang || 'uz', image: p.image, minutes: p.minutes };
-    }));
+  var ON_WRITING = document.body.classList.contains('page-writing');
+  function substackItems() {
+    return substack.map(function (p) {
+      var key = (String(p.url || '').match(/\/p\/([^/?#]+)/) || [, String(p.title).toLowerCase().replace(/[^a-z0-9]+/g, '-')])[1];
+      return { kind: 'substack', slug: 's-' + key, title: p.title, subtitle: p.subtitle, url: p.url, date: p.date,
+        lang: p.lang || 'uz', image: p.image && p.image !== 'None' ? p.image : null, minutes: p.minutes, html: p.html || '' };
+    });
+  }
+  function everyPost() {
+    var list = siteArticles.concat(substackItems());
     list.sort(function (a, b) { return toDate(b.date) - toDate(a.date); });
+    return list;
+  }
+  function allPosts() {
+    var list = everyPost();
     return filter === 'all' ? list : list.filter(function (p) { return p.lang === filter; });
   }
+  // every essay and Substack post opens on the Writing page
   function linkAttrs(p) {
-    return p.kind === 'substack'
-      ? 'href="' + esc(p.url) + '" target="_blank" rel="noopener"'
-      : 'href="' + BASE + '#' + esc(p.slug) + '"';
+    return 'href="' + (ON_WRITING ? '' : BASE + 'writing/') + '#' + esc(p.slug) + '"';
   }
+  // old links to an essay on the home page (teachershokh.blog/#slug) now go to the Writing page
+  (function () {
+    var h = decodeURIComponent(location.hash.slice(1));
+    if (!BASE && h && document.getElementById('featured')) {
+      for (var i = 0; i < siteArticles.length; i++) if (siteArticles[i].slug === h) { location.replace('writing/#' + h); break; }
+    }
+  })();
 
   /* ---------- Language ---------- */
   function applyLang(next) {
@@ -269,13 +285,122 @@
   }
 
   function loadSubstack() {
-    if (location.protocol === 'file:' || !document.getElementById('featured')) return;
+    if (location.protocol === 'file:' || !(document.getElementById('featured') || ON_WRITING)) return;
     fetch(BASE + 'data/substack.json', { cache: 'no-cache' })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (data) {
-        if (data && Array.isArray(data.posts) && data.posts.length) { substack = data.posts; renderPosts(); }
+        if (data && Array.isArray(data.posts) && data.posts.length) { substack = data.posts; renderPosts(); renderWritingApp(true); }
       })
       .catch(function () { /* keep fallback */ });
+  }
+
+  /* ---------- Writing page: Articles & Posts (list on the left, the piece on the right) ---------- */
+  var ap = document.querySelector('[data-ap]');
+  var apQuery = '', apFilter = 'all', apCurrent = null;
+  function apItems() {
+    var q = apQuery.trim().toLowerCase();
+    return everyPost().filter(function (p) {
+      if (apFilter !== 'all' && p.lang !== apFilter) return false;
+      return !q || (p.title + ' ' + (p.subtitle || '')).toLowerCase().indexOf(q) > -1;
+    });
+  }
+  function renderWritingApp(refreshArticle) {
+    if (!ap) return;
+    var all = everyPost(), items = apItems(), list = document.getElementById('apList');
+    var order = {}; all.forEach(function (p, i) { order[p.slug] = all.length - i; });
+    list.innerHTML = items.length ? items.map(function (p) {
+      var n = order[p.slug];
+      return '<li><a href="#' + esc(p.slug) + '"' + (p.slug === apCurrent ? ' aria-current="page"' : '') + '>' +
+        '<span class="ap-list__n mono">' + n + '.</span><span class="ap-list__t" lang="' + esc(p.lang) + '">' + esc(p.title) + '</span>' +
+        '<span class="ap-list__m mono">' + esc(fmtDate(p.date)) + ' · ' + esc((p.lang || '').toUpperCase()) + (p.kind === 'substack' ? ' · Substack' : '') + '</span></a></li>';
+    }).join('') : '<li class="ap-list__empty">' + esc(T[lang]['ap.none']) + '</li>';
+    if (refreshArticle && apCurrent) apOpen(apCurrent, false);
+  }
+  function apOpen(slug, scroll) {
+    if (!ap) return;
+    var all = everyPost(), i = -1;
+    for (var k = 0; k < all.length; k++) if (all[k].slug === slug) { i = k; break; }
+    if (i < 0) { i = 0; slug = all[0] && all[0].slug; }
+    var p = all[i], dict = T[lang];
+    if (!p) return;
+    var changed = apCurrent !== slug;
+    apCurrent = slug;
+    document.getElementById('apMeta').innerHTML = '<time datetime="' + esc(p.date) + '">' + esc(fmtDate(p.date)) + '</time>' +
+      (p.minutes ? '<span>' + p.minutes + ' ' + esc(dict['post.min']) + '</span>' : '') + '<span>' + esc((p.lang || '').toUpperCase()) + '</span>' +
+      (p.kind === 'substack' ? '<span>Substack</span>' : '');
+    var title = document.getElementById('apTitle');
+    title.textContent = p.title; title.lang = p.lang;
+    var body = document.getElementById('apBody');
+    body.lang = p.lang;
+    var cover = document.getElementById('apCover');
+    if (p.kind === 'site') {
+      cover.hidden = true;
+      body.innerHTML = p.body;   // authored: articles.js
+    } else {
+      cover.hidden = !(p.image && !p.html);
+      if (!cover.hidden) cover.querySelector('img').src = p.image;
+      // Substack posts: the post itself (from the feed), or its summary until the feed has been synced
+      body.innerHTML = p.html ||
+        (p.subtitle ? '<p class="ap-dek">' + esc(p.subtitle) + '</p>' : '');
+      body.insertAdjacentHTML('beforeend', '<p class="ap-src"><a class="btn btn--solid" href="' + esc(p.url) + '" target="_blank" rel="noopener">' +
+        esc(dict[p.html ? 'ap.onSubstack' : 'ap.readSubstack']) + ' <span aria-hidden="true">↗</span></a></p>');
+    }
+    var older = all[i + 1], newer = all[i - 1];
+    document.getElementById('apNav').innerHTML =
+      (newer ? '<a class="ap-nav__newer" href="#' + esc(newer.slug) + '"><span class="mono">← ' + esc(dict['ap.newer']) + '</span><span lang="' + esc(newer.lang) + '">' + esc(newer.title) + '</span></a>' : '<span></span>') +
+      (older ? '<a class="ap-nav__older" href="#' + esc(older.slug) + '"><span class="mono">' + esc(dict['ap.older']) + ' →</span><span lang="' + esc(older.lang) + '">' + esc(older.title) + '</span></a>' : '');
+    var comments = document.getElementById('apComments');
+    if (p.kind === 'site') {
+      comments.hidden = false;
+      if (changed || !document.querySelector('#giscus iframe, #giscus script')) loadGiscus(p.slug);
+      document.getElementById('apCommentsSubstack').hidden = true;
+    } else {
+      comments.hidden = true;
+      document.getElementById('giscus').innerHTML = '';
+      var cs = document.getElementById('apCommentsSubstack');
+      cs.hidden = false;
+      cs.querySelector('a').href = p.url + (p.url.indexOf('?') > -1 ? '&' : '?') + 'comments=true';
+    }
+    document.title = p.title + ' · Teacher Shokh';
+    document.querySelectorAll('#apList a').forEach(function (a) {
+      if (a.getAttribute('href') === '#' + slug) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+    if (scroll) {
+      var top = ap.getBoundingClientRect().top + window.scrollY;
+      if (window.scrollY > top) window.scrollTo(0, top);
+    }
+    if (window.matchMedia('(max-width: 880px)').matches) apSide(false);
+  }
+  function apSide(open) {
+    if (!ap) return;
+    var mobile = window.matchMedia('(max-width: 880px)').matches;
+    ap.classList.toggle(mobile ? 'is-drawer-open' : 'is-collapsed', mobile ? open : !open);
+    if (!mobile) store('ts-ap-side', open ? 'open' : 'closed');
+    document.getElementById('apToggle').setAttribute('aria-expanded', String(open));
+  }
+  function apSideIsOpen() {
+    return window.matchMedia('(max-width: 880px)').matches ? ap.classList.contains('is-drawer-open') : !ap.classList.contains('is-collapsed');
+  }
+  if (ap) {
+    try { if (localStorage.getItem('ts-ap-side') === 'closed' && !window.matchMedia('(max-width: 880px)').matches) ap.classList.add('is-collapsed'); } catch (e) {}
+    document.getElementById('apToggle').setAttribute('aria-expanded', String(apSideIsOpen()));
+    document.getElementById('apToggle').addEventListener('click', function () { apSide(!apSideIsOpen()); });
+    document.getElementById('apScrim').addEventListener('click', function () { apSide(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ap.classList.contains('is-drawer-open')) apSide(false); });
+    document.getElementById('apList').addEventListener('click', function (e) {
+      if (e.target.closest('a') && window.matchMedia('(max-width: 880px)').matches) apSide(false);
+    });
+    document.getElementById('apSearch').addEventListener('input', function (e) { apQuery = e.target.value; renderWritingApp(false); });
+    document.querySelectorAll('[data-ap-filter]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        apFilter = b.getAttribute('data-ap-filter');
+        document.querySelectorAll('[data-ap-filter]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        renderWritingApp(false);
+      });
+    });
+    window.addEventListener('hashchange', function () { apOpen(decodeURIComponent(location.hash.slice(1)), true); });
+    renderWritingApp(false);
+    apOpen(decodeURIComponent(location.hash.slice(1)), false);
   }
 
   /* ---------- Telegram page: posts by topic ---------- */

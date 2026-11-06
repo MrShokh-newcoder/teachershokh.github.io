@@ -22,6 +22,16 @@ const guessLang = (text) => {
   return uz >= 2 ? 'uz' : 'en';
 };
 
+// The post body is shown on the site's Writing page, so keep the text and images and drop
+// anything interactive Substack adds (scripts, forms, subscribe buttons, embeds).
+const cleanHtml = (html = '') => html
+  .replace(/<(script|style|form|button|iframe|svg|noscript)\b[\s\S]*?<\/\1>/gi, '')
+  .replace(/<div class="(?:subscription-widget|button-wrapper|captioned-button-wrap|footnote-anchor-wrap)[\s\S]*?<\/div>\s*<\/div>/gi, '')
+  .replace(/\s(on\w+|style|data-[\w-]+|srcset|sizes)="[^"]*"/gi, '')
+  .replace(/<a\s/gi, '<a target="_blank" rel="noopener" ')
+  .replace(/<p>\s*<\/p>/g, '')
+  .trim();
+
 const res = await fetch(FEED, { headers: { 'user-agent': 'teachershokh.blog sync' } });
 if (!res.ok) throw new Error(`Feed returned ${res.status}`);
 const xml = await res.text();
@@ -39,6 +49,7 @@ const posts = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map(([, item]) => {
     date: new Date(tag(item, 'pubDate')).toISOString(),
     image,
     minutes: words ? Math.max(1, Math.round(words / 200)) : null,
+    html: cleanHtml(content),
     lang: guessLang(`${title} ${subtitle} ${content.slice(0, 2000)}`)
   };
 });

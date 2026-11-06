@@ -707,3 +707,30 @@ button.btn { background: transparent; color: var(--ink); cursor: pointer; }
 .prose .tg-gallery__item { background: var(--paper-2); text-decoration: none; }
 .tg-gallery__item--player video { display: block; width: 100%; height: auto; background: #000; }
 .tg-gallery--one .tg-gallery__item--player video { width: auto; max-width: 100%; max-height: min(75vh, 680px); }
+
+/* About page */
+.ab-hero .hero__title { margin-bottom: clamp(20px, 3vw, 32px); }
+.ab-names { margin: 18px 0 0; padding-left: 23px; color: var(--muted); font-size: 16px; font-style: italic; }
+.ab-facts td { font-size: 16px; }
+.ab-facts th { width: 6.5em; }
+.ab-why { max-width: 42em; margin: 0 0 clamp(24px, 3vw, 36px); }
+.ab-why p { font-size: 19px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+.ab-topics { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 0 clamp(20px, 3vw, 36px); border-top: 1px solid var(--ink); }
+.ab-topic { padding: 20px 0 22px; border-bottom: 1px solid var(--rule); }
+.ab-topic h3 { font-size: 22px; font-weight: 500; line-height: 1.2; letter-spacing: -.01em; margin: 0 0 8px; }
+.ab-topic p { margin: 0; color: var(--ink-2); font-size: 17px; line-height: 1.5; }
+.ab-topic p.ab-topic__links { margin-top: 12px; font-size: 12px; letter-spacing: .04em; color: var(--muted); }
+.ab-topic__links a { color: var(--link-fg); text-decoration: none; background: linear-gradient(var(--hl), var(--hl)) 0 100% / 100% var(--hl-h) no-repeat; }
+.ab-topic__links a:hover { color: var(--hl-fg); background-size: 100% 100%; }
+.section__dek a { color: var(--link-fg); }
+.ab-tl { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); max-width: 860px; }
+.ab-tl li { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--rule); position: relative; }
+.ab-tl__when { color: var(--accent); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; padding-top: 4px; }
+.ab-tl p { margin: 0; font-size: 18px; line-height: 1.55; color: var(--ink-2); }
+.ab-profiles { margin-top: 0; }
+@media (max-width: 600px) {
+  .ab-tl li { grid-template-columns: 1fr; gap: 4px; }
+  .ab-names { padding-left: 0; }
+  .ab-why p { font-size: 18px; }
+}
+#find { padding-bottom: clamp(40px, 6vw, 72px); }

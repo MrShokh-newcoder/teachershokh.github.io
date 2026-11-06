@@ -82,7 +82,7 @@
       'about.p1': "I've taught for about five years, from seven-year-olds in Starters to adults preparing for IELTS. I currently work at Rahimov School in Tashkent, where I lead the school's gamification and reward systems.",
       'about.p2': 'One question drives me: how do learners actually learn, and how much of that can a teacher influence? So I read second language acquisition research, pedagogy, psychology and philosophy, then test what I find in the classroom.',
       'about.p3': "I'm a human being, not a job title. I have a lot of interests, and I can't be defined by a single word, so I try to embrace the complexity of my passions: teaching, vibe-coding tools for EdTech, writing, poetry and literature, entrepreneurship, videos for Instagram and YouTube, and singing, just for myself. Each one has its own corner.",
-      'about.elsewhere': "My Telegram channels",
+      'about.elsewhere': "My Telegram channels", 'about.more': 'More about me →',
       'ch.inspiring_teacher': "English teaching, mostly primary students",
       'ch.mrshokh_blog': "My blog in Uzbek",
       'ch.mrshokh_notes': "My notes",

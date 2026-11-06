@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Articles &amp; Posts — Teacher Shokh</title>
-  <meta name="description" content="Essays by Teacher Shokh on teaching, learning and methodology, in Uzbek and English.">
+  <meta name="description" content="Essays by Teacher Shokh on teaching, learning and methodology, plus posts from his first Telegram channel, in Uzbek and English.">
   <meta property="og:title" content="Articles &amp; Posts — Teacher Shokh">
-  <meta property="og:description" content="Essays by Teacher Shokh on teaching, learning and methodology, in Uzbek and English.">
+  <meta property="og:description" content="Essays by Teacher Shokh on teaching, learning and methodology, plus posts from his first Telegram channel, in Uzbek and English.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Teacher Shokh">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://teachershokh.blog/#website","name":"Teacher Shokh","alternateName":["Teacher.Shokh","teachershokh.blog"],"url":"https://teachershokh.blog/","publisher":{"@id":"https://teachershokh.blog/#person"}},{"@type":"Person","@id":"https://teachershokh.blog/#person","name":"Shokhrukh Rejavaliev","alternateName":["Teacher Shokh","Shohruh Rejavaliev","MrShokh"],"jobTitle":"English teacher","worksFor":{"@type":"EducationalOrganization","name":"Rahimov School"},"address":{"@type":"PostalAddress","addressLocality":"Tashkent","addressCountry":"UZ"},"url":"https://teachershokh.blog/","sameAs":["https://www.youtube.com/@InspiringTeacherShokh","https://www.youtube.com/@mrshokh","https://www.instagram.com/teachershokh/","https://t.me/inspiring_teacher","https://teachershokh.substack.com/","https://notes.teachershokh.blog/"]}]}</script>
@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=20261106b">
+  <link rel="stylesheet" href="../styles.css?v=20261106c">
   <script>
     // Set the theme before paint to avoid a flash.
     (function () {
@@ -67,6 +67,11 @@
       <div class="ap-side__inner">
         <h1 class="ap-side__title" id="apSideTitle" data-i18n="ap.title">Articles &amp; Posts</h1>
         <input class="ap-search" id="apSearch" type="search" placeholder="Search posts…" aria-label="Search posts" autocomplete="off">
+        <div class="filters ap-filters ap-filters--src" role="group" aria-label="Filter by source">
+          <button type="button" data-ap-source="all" aria-pressed="true" data-i18n="ap.src.all">Everything</button>
+          <button type="button" data-ap-source="essays" aria-pressed="false" data-i18n="ap.src.essays">Essays</button>
+          <button type="button" data-ap-source="first" aria-pressed="false" data-i18n="ap.src.first">First channel</button>
+        </div>
         <div class="filters ap-filters" role="group" aria-label="Filter by language">
           <button type="button" data-ap-filter="all" aria-pressed="true" data-i18n="filter.all">All</button>
           <button type="button" data-ap-filter="uz" aria-pressed="false">Uzbek</button>
@@ -114,7 +119,8 @@
     </div>
   </footer>
 
-  <script src="../articles.js?v=20261106b" defer></script>
-  <script src="../app.js?v=20261106b" defer></script>
+  <script src="../articles.js?v=20261106c" defer></script>
+  <script src="../first-channel.js?v=20261106c" defer></script>
+  <script src="../app.js?v=20261106c" defer></script>
 </body>
 </html>

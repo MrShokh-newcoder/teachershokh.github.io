@@ -63,7 +63,7 @@
       'tg.cat.oneliners': 'One-liners & quotes', 'tg.dek.oneliners': 'Short thoughts and lines worth keeping.',
       'watch.h': 'Watch',
       'watch.dek': 'My two YouTube channels: one on teaching, one personal. You can watch the videos right here.',
-      'more.work': 'See all work', 'ap.title': 'Articles & Posts', 'ap.search': 'Search posts…', 'ap.toggle': 'Show or hide the list', 'ap.none': 'Nothing matches that search.', 'ap.newer': 'Newer', 'ap.older': 'Older', 'ap.onSubstack': 'Also on Substack', 'ap.readSubstack': 'Read it on Substack', 'ap.commentSubstack': 'Comments for this post are on Substack', 'more.read': 'Read all', 'more.watch': 'Watch all', 'writing.kicker': 'Essays · Substack',
+      'more.work': 'See all work', 'ap.title': 'Articles & Posts', 'ap.search': 'Search posts…', 'ap.toggle': 'Show or hide the list', 'ap.none': 'Nothing matches that search.', 'ap.newer': 'Newer', 'ap.older': 'Older', 'ap.onSubstack': 'Also on Substack', 'ap.readSubstack': 'Read it on Substack', 'ap.commentSubstack': 'Comments for this post are on Substack', 'ap.first': 'First channel', 'ap.firstMeta': 'From my first Telegram channel', 'ap.firstNote': 'Posted on my first Telegram channel, @mrshokh_first, and published here as written.', 'ap.firstPhoto': 'The original post also has a photo.', 'ap.firstVideo': 'The original post also has a video.', 'ap.firstOpen': 'See the original on Telegram', 'ap.src.all': 'Everything', 'ap.src.essays': 'Essays', 'ap.src.first': 'First channel', 'more.read': 'Read all', 'more.watch': 'Watch all', 'writing.kicker': 'Essays · Substack',
       'watch.go': 'All videos →', 'watch.label': 'YouTube · 2 channels',
       'yt.kicker': 'YouTube · 2 channels', 'yt.h': 'Watch', 'yt.videos': 'videos', 'yt.channels': 'channels',
       'yt.lede': 'Two channels: teaching on @InspiringTeacherShokh, and my personal thinking on @mrshokh. Click a video to watch it here, or open it on YouTube.',
@@ -181,8 +181,13 @@
         lang: p.lang || 'uz', image: p.image && p.image !== 'None' ? p.image : null, minutes: p.minutes, html: p.html || '' };
     });
   }
+  // posts from my first Telegram channel (t.me/mrshokh_first), published as written; loaded on the Writing page
+  var firstPosts = (window.FIRST_CHANNEL || []).map(function (p) {
+    return { kind: 'first', slug: p.slug, id: p.id, title: p.title, fullTitle: p.fullTitle || p.title, date: p.date, lang: p.lang,
+      body: p.body, subtitle: p.excerpt, minutes: p.minutes, tags: p.tags || [], url: p.url, media: p.media || null };
+  });
   function everyPost() {
-    var list = siteArticles.concat(substackItems());
+    var list = siteArticles.concat(substackItems(), firstPosts);
     list.sort(function (a, b) { return toDate(b.date) - toDate(a.date); });
     return list;
   }
@@ -296,12 +301,13 @@
 
   /* ---------- Writing page: Articles & Posts (list on the left, the piece on the right) ---------- */
   var ap = document.querySelector('[data-ap]');
-  var apQuery = '', apFilter = 'all', apCurrent = null;
+  var apQuery = '', apFilter = 'all', apSource = 'all', apCurrent = null;
   function apItems() {
     var q = apQuery.trim().toLowerCase();
     return everyPost().filter(function (p) {
       if (apFilter !== 'all' && p.lang !== apFilter) return false;
-      return !q || (p.title + ' ' + (p.subtitle || '')).toLowerCase().indexOf(q) > -1;
+      if (apSource !== 'all' && (apSource === 'first') !== (p.kind === 'first')) return false;
+      return !q || ((p.fullTitle || p.title) + ' ' + (p.subtitle || '') + ' ' + (p.tags || []).join(' ')).toLowerCase().indexOf(q) > -1;
     });
   }
   function renderWritingApp(refreshArticle) {
@@ -312,7 +318,7 @@
       var n = order[p.slug];
       return '<li><a href="#' + esc(p.slug) + '"' + (p.slug === apCurrent ? ' aria-current="page"' : '') + '>' +
         '<span class="ap-list__n mono">' + n + '.</span><span class="ap-list__t" lang="' + esc(p.lang) + '">' + esc(p.title) + '</span>' +
-        '<span class="ap-list__m mono">' + esc(fmtDate(p.date)) + ' · ' + esc((p.lang || '').toUpperCase()) + (p.kind === 'substack' ? ' · Substack' : '') + '</span></a></li>';
+        '<span class="ap-list__m mono">' + esc(fmtDate(p.date)) + ' · ' + esc((p.lang || '').toUpperCase()) + (p.kind === 'substack' ? ' · Substack' : p.kind === 'first' ? ' · ' + esc(T[lang]['ap.first']) : '') + '</span></a></li>';
     }).join('') : '<li class="ap-list__empty">' + esc(T[lang]['ap.none']) + '</li>';
     if (refreshArticle && apCurrent) apOpen(apCurrent, false);
   }
@@ -327,15 +333,23 @@
     apCurrent = slug;
     document.getElementById('apMeta').innerHTML = '<time datetime="' + esc(p.date) + '">' + esc(fmtDate(p.date)) + '</time>' +
       (p.minutes ? '<span>' + p.minutes + ' ' + esc(dict['post.min']) + '</span>' : '') + '<span>' + esc((p.lang || '').toUpperCase()) + '</span>' +
-      (p.kind === 'substack' ? '<span>Substack</span>' : '');
+      (p.kind === 'substack' ? '<span>Substack</span>' : p.kind === 'first' ? '<span>' + esc(dict['ap.firstMeta']) + '</span>' : '');
     var title = document.getElementById('apTitle');
-    title.textContent = p.title; title.lang = p.lang;
+    title.textContent = p.fullTitle || p.title; title.lang = p.lang;
+    title.classList.toggle('is-long', (p.fullTitle || p.title).length > 64);
     var body = document.getElementById('apBody');
     body.lang = p.lang;
     var cover = document.getElementById('apCover');
     if (p.kind === 'site') {
       cover.hidden = true;
       body.innerHTML = p.body;   // authored: articles.js
+    } else if (p.kind === 'first') {
+      cover.hidden = true;
+      // the post exactly as written on Telegram (signatures left out); line breaks are the original ones
+      body.innerHTML = (p.body ? '<div class="tg-text ap-first">' + p.body + '</div>' : '') +   // built: first-channel.js
+        (p.tags.length ? '<p class="reader__tags mono">' + p.tags.map(function (t) { return '<span>#' + esc(t) + '</span>'; }).join('') + '</p>' : '') +
+        '<p class="ap-firstnote">' + esc(dict['ap.firstNote']) + (p.media ? ' ' + esc(dict[p.media === 'video' ? 'ap.firstVideo' : 'ap.firstPhoto']) : '') + '</p>' +
+        '<p class="ap-src"><a class="btn btn--solid" href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(dict['ap.firstOpen']) + ' <span aria-hidden="true">↗</span></a></p>';
     } else {
       cover.hidden = !(p.image && !p.html);
       if (!cover.hidden) cover.querySelector('img').src = p.image;
@@ -350,7 +364,7 @@
       (newer ? '<a class="ap-nav__newer" href="#' + esc(newer.slug) + '"><span class="mono">← ' + esc(dict['ap.newer']) + '</span><span lang="' + esc(newer.lang) + '">' + esc(newer.title) + '</span></a>' : '<span></span>') +
       (older ? '<a class="ap-nav__older" href="#' + esc(older.slug) + '"><span class="mono">' + esc(dict['ap.older']) + ' →</span><span lang="' + esc(older.lang) + '">' + esc(older.title) + '</span></a>' : '');
     var comments = document.getElementById('apComments');
-    if (p.kind === 'site') {
+    if (p.kind === 'site' || p.kind === 'first') {
       comments.hidden = false;
       if (changed || !document.querySelector('#giscus iframe, #giscus script')) loadGiscus(p.slug);
       document.getElementById('apCommentsSubstack').hidden = true;
@@ -391,6 +405,13 @@
       if (e.target.closest('a') && window.matchMedia('(max-width: 880px)').matches) apSide(false);
     });
     document.getElementById('apSearch').addEventListener('input', function (e) { apQuery = e.target.value; renderWritingApp(false); });
+    document.querySelectorAll('[data-ap-source]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        apSource = b.getAttribute('data-ap-source');
+        document.querySelectorAll('[data-ap-source]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        renderWritingApp(false);
+      });
+    });
     document.querySelectorAll('[data-ap-filter]').forEach(function (b) {
       b.addEventListener('click', function () {
         apFilter = b.getAttribute('data-ap-filter');

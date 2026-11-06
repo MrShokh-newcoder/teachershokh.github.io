@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url><loc>https://teachershokh.blog/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://teachershokh.blog/about/</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://teachershokh.blog/writing/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://teachershokh.blog/about/</loc><lastmod>2026-11-06</lastmod><image:image><image:loc>https://teachershokh.blog/img/about/shokhrukh-rejavaliev-teacher-shokh.jpg</image:loc></image:image><image:image><image:loc>https://teachershokh.blog/img/about/shokhrukh-rejavaliev-portrait.webp</image:loc></image:image><image:image><image:loc>https://teachershokh.blog/img/about/shokhrukh-rejavaliev-rahimov-school.webp</image:loc></image:image><image:image><image:loc>https://teachershokh.blog/img/about/shokhrukh-rejavaliev-aziz-rakhimov-samarkand.webp</image:loc></image:image><image:image><image:loc>https://teachershokh.blog/img/about/shokhrukh-rejavaliev-reading.webp</image:loc></image:image></url>
+  <url><loc>https://teachershokh.blog/writing/</loc><lastmod>2026-11-06</lastmod><image:image><image:loc>https://teachershokh.blog/img/essay/shokhrukh-rejavaliev-2021.webp</image:loc></image:image><image:image><image:loc>https://teachershokh.blog/img/essay/shokhrukh-rejavaliev-ibrat-language-camp-2022.webp</image:loc></image:image><image:image><image:loc>https://teachershokh.blog/img/essay/shokhrukh-rejavaliev-ielts-2022.webp</image:loc></image:image><image:image><image:loc>https://teachershokh.blog/img/essay/shokhrukh-rejavaliev-tashkent.webp</image:loc></image:image><image:image><image:loc>https://teachershokh.blog/img/essay/language-learners-community-speaking-club.webp</image:loc></image:image><image:image><image:loc>https://teachershokh.blog/img/essay/antiqa-podcast-shohruhbek.webp</image:loc></image:image></url>
   <url><loc>https://teachershokh.blog/telegram/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://teachershokh.blog/watch/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://teachershokh.blog/work/</loc><lastmod>2026-11-05</lastmod></url>

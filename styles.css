@@ -676,7 +676,7 @@ button.btn { background: transparent; color: var(--ink); cursor: pointer; }
 @media (prefers-reduced-motion: reduce) { .ap, .ap-side, .ap-scrim { transition: none; } }
 
 /* Writing page: posts from the first Telegram channel */
-.ap-filters--src { margin-bottom: 0; }
+.ap-filters--src { margin-bottom: 16px; }
 .ap-filters--src + .ap-filters { margin-top: 8px; }
 .ap-article__title.is-long { font-size: clamp(26px, 3.4vw, 40px); line-height: 1.18; letter-spacing: -.015em; }
 .ap-first { margin: 0 0 1.25em; }
@@ -687,3 +687,21 @@ button.btn { background: transparent; color: var(--ink); cursor: pointer; }
 .ap-filters { gap: 6px; }
 .ap-filters button { padding: 6px 9px; letter-spacing: .06em; }
 .prose p.ap-firstnote + .ap-src { margin-top: 18px; }
+
+/* Photos from the original Telegram post */
+.tg-gallery { display: grid; gap: 6px; margin: 0 0 28px; }
+.tg-gallery--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.tg-gallery--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.tg-gallery__item { position: relative; display: block; overflow: hidden; border-radius: 4px; border: 1px solid var(--rule); background: var(--paper-2); }
+.tg-gallery__item img { display: block; width: 100%; height: auto; transition: transform .4s ease; }
+.tg-gallery--two .tg-gallery__item img, .tg-gallery--three .tg-gallery__item img { aspect-ratio: 1; height: 100%; object-fit: cover; }
+.tg-gallery--one .tg-gallery__item { justify-self: start; max-width: 100%; }
+.tg-gallery--one .tg-gallery__item img { width: auto; max-width: 100%; max-height: min(70vh, 640px); }
+.tg-gallery__item:hover img { transform: scale(1.03); }
+.tg-gallery__item:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.tg-gallery__play { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: rgba(0, 0, 0, .55); box-shadow: 0 0 0 2px rgba(255, 255, 255, .85); }
+.tg-gallery__play::after { content: ""; position: absolute; left: 26px; top: 20px; border-style: solid; border-width: 12px 0 12px 20px; border-color: transparent transparent transparent #fff; }
+.tg-gallery__item--video:hover .tg-gallery__play { background: var(--accent); }
+@media (max-width: 560px) { .tg-gallery--three { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (prefers-reduced-motion: reduce) { .tg-gallery__item img { transition: none; } }
+.prose .tg-gallery__item { background: var(--paper-2); text-decoration: none; }

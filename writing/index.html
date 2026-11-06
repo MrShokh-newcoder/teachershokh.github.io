@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=20261106c">
+  <link rel="stylesheet" href="../styles.css?v=20261106d">
   <script>
     // Set the theme before paint to avoid a flash.
     (function () {
@@ -67,15 +67,9 @@
       <div class="ap-side__inner">
         <h1 class="ap-side__title" id="apSideTitle" data-i18n="ap.title">Articles &amp; Posts</h1>
         <input class="ap-search" id="apSearch" type="search" placeholder="Search posts…" aria-label="Search posts" autocomplete="off">
-        <div class="filters ap-filters ap-filters--src" role="group" aria-label="Filter by source">
-          <button type="button" data-ap-source="all" aria-pressed="true" data-i18n="ap.src.all">Everything</button>
-          <button type="button" data-ap-source="essays" aria-pressed="false" data-i18n="ap.src.essays">Essays</button>
-          <button type="button" data-ap-source="first" aria-pressed="false" data-i18n="ap.src.first">First channel</button>
-        </div>
-        <div class="filters ap-filters" role="group" aria-label="Filter by language">
-          <button type="button" data-ap-filter="all" aria-pressed="true" data-i18n="filter.all">All</button>
-          <button type="button" data-ap-filter="uz" aria-pressed="false">Uzbek</button>
-          <button type="button" data-ap-filter="en" aria-pressed="false">English</button>
+        <div class="filters ap-filters ap-filters--src" role="group" aria-label="Show">
+          <button type="button" data-ap-source="essays" aria-pressed="true" data-i18n="ap.src.essays">Essays</button>
+          <button type="button" data-ap-source="first" aria-pressed="false" data-i18n="ap.src.first">Short ones</button>
         </div>
         <ol class="ap-list" id="apList"></ol>
         <a class="more ap-side__more" href="https://teachershokh.substack.com/archive" target="_blank" rel="noopener"><span data-i18n="writing.all">All writing on Substack</span> <span aria-hidden="true">→</span></a>
@@ -119,8 +113,8 @@
     </div>
   </footer>
 
-  <script src="../articles.js?v=20261106c" defer></script>
-  <script src="../first-channel.js?v=20261106c" defer></script>
-  <script src="../app.js?v=20261106c" defer></script>
+  <script src="../articles.js?v=20261106d" defer></script>
+  <script src="../first-channel.js?v=20261106d" defer></script>
+  <script src="../app.js?v=20261106d" defer></script>
 </body>
 </html>

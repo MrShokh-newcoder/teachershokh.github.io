@@ -63,7 +63,7 @@
       'tg.cat.oneliners': 'One-liners & quotes', 'tg.dek.oneliners': 'Short thoughts and lines worth keeping.',
       'watch.h': 'Watch',
       'watch.dek': 'My two YouTube channels: one on teaching, one personal. You can watch the videos right here.',
-      'more.work': 'See all work', 'ap.title': 'Articles & Posts', 'ap.search': 'Search posts…', 'ap.toggle': 'Show or hide the list', 'ap.none': 'Nothing matches that search.', 'ap.newer': 'Newer', 'ap.older': 'Older', 'ap.onSubstack': 'Also on Substack', 'ap.readSubstack': 'Read it on Substack', 'ap.commentSubstack': 'Comments for this post are on Substack', 'ap.first': 'First channel', 'ap.firstMeta': 'From my first Telegram channel', 'ap.firstNote': 'Posted on my first Telegram channel, @mrshokh_first, and published here as written.', 'ap.firstPhoto': 'The original post also has a photo.', 'ap.firstVideo': 'The original post also has a video.', 'ap.firstOpen': 'See the original on Telegram', 'ap.src.all': 'Everything', 'ap.src.essays': 'Essays', 'ap.src.first': 'First channel', 'more.read': 'Read all', 'more.watch': 'Watch all', 'writing.kicker': 'Essays · Substack',
+      'more.work': 'See all work', 'ap.title': 'Articles & Posts', 'ap.search': 'Search posts…', 'ap.toggle': 'Show or hide the list', 'ap.none': 'Nothing matches that search.', 'ap.newer': 'Newer', 'ap.older': 'Older', 'ap.onSubstack': 'Also on Substack', 'ap.readSubstack': 'Read it on Substack', 'ap.commentSubstack': 'Comments for this post are on Substack', 'ap.first': 'First channel', 'ap.firstMeta': 'From my first Telegram channel', 'ap.firstNote': 'Posted on my first Telegram channel, @mrshokh_first, and published here as written.', 'ap.firstPhoto': 'The original post also has a photo.', 'ap.firstVideo': 'The video plays on Telegram.', 'tg.playVideo': 'Play the video on Telegram', 'tg.openPhoto': 'Open photo {n} full size', 'ap.firstOpen': 'See the original on Telegram', 'ap.src.essays': 'Essays', 'ap.src.first': 'Short ones', 'more.read': 'Read all', 'more.watch': 'Watch all', 'writing.kicker': 'Essays · Substack',
       'watch.go': 'All videos →', 'watch.label': 'YouTube · 2 channels',
       'yt.kicker': 'YouTube · 2 channels', 'yt.h': 'Watch', 'yt.videos': 'videos', 'yt.channels': 'channels',
       'yt.lede': 'Two channels: teaching on @InspiringTeacherShokh, and my personal thinking on @mrshokh. Click a video to watch it here, or open it on YouTube.',
@@ -158,7 +158,7 @@
     return {
       kind: 'telegram', slug: p.slug, title: p.title, fullTitle: p.fullTitle || p.title, date: p.date, lang: p.lang,
       body: p.html, minutes: p.minutes, tags: p.tags || [], cover: BASE + p.cover, url: p.url, media: p.media || {},
-      excerpt: p.excerpt, cat: p.cat || 'reflections', id: p.id
+      excerpt: p.excerpt, cat: p.cat || 'reflections', id: p.id, parts: p.parts || null, images: p.images || []
     };
   });
   // within a topic: the numbered tips series reads in order, everything else newest first
@@ -171,6 +171,9 @@
   function bySlug(slug) {
     var all = siteArticles.concat(tgPosts);
     for (var i = 0; i < all.length; i++) if (all[i].slug === slug) return all[i];
+    // a follow-up that was merged into the post before it (tg-44 -> tg-43)
+    var n = +(String(slug).match(/^tg-(\d+)$/) || [])[1];
+    for (var k = 0; n && k < tgPosts.length; k++) if ((tgPosts[k].parts || []).indexOf(n) > -1) return tgPosts[k];
     return null;
   }
   var ON_WRITING = document.body.classList.contains('page-writing');
@@ -184,7 +187,7 @@
   // posts from my first Telegram channel (t.me/mrshokh_first), published as written; loaded on the Writing page
   var firstPosts = (window.FIRST_CHANNEL || []).map(function (p) {
     return { kind: 'first', slug: p.slug, id: p.id, title: p.title, fullTitle: p.fullTitle || p.title, date: p.date, lang: p.lang,
-      body: p.body, subtitle: p.excerpt, minutes: p.minutes, tags: p.tags || [], url: p.url, media: p.media || null };
+      body: p.body, subtitle: p.excerpt, minutes: p.minutes, tags: p.tags || [], url: p.url, media: p.media || null, images: p.images || [] };
   });
   function everyPost() {
     var list = siteArticles.concat(substackItems(), firstPosts);
@@ -301,31 +304,39 @@
 
   /* ---------- Writing page: Articles & Posts (list on the left, the piece on the right) ---------- */
   var ap = document.querySelector('[data-ap]');
-  var apQuery = '', apFilter = 'all', apSource = 'all', apCurrent = null;
+  var apQuery = '', apSource = 'essays', apCurrent = null;
+  // two shelves: Essays (on-site + Substack) and Short ones (posts from the first Telegram channel)
+  function shelfOf(p) { return p.kind === 'first' ? 'first' : 'essays'; }
+  function apShelf() { return everyPost().filter(function (p) { return shelfOf(p) === apSource; }); }
+  function apSetSource(src) {
+    apSource = src;
+    document.querySelectorAll('[data-ap-source]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.getAttribute('data-ap-source') === src)); });
+  }
   function apItems() {
     var q = apQuery.trim().toLowerCase();
-    return everyPost().filter(function (p) {
-      if (apFilter !== 'all' && p.lang !== apFilter) return false;
-      if (apSource !== 'all' && (apSource === 'first') !== (p.kind === 'first')) return false;
+    return apShelf().filter(function (p) {
       return !q || ((p.fullTitle || p.title) + ' ' + (p.subtitle || '') + ' ' + (p.tags || []).join(' ')).toLowerCase().indexOf(q) > -1;
     });
   }
   function renderWritingApp(refreshArticle) {
     if (!ap) return;
-    var all = everyPost(), items = apItems(), list = document.getElementById('apList');
+    var all = apShelf(), items = apItems(), list = document.getElementById('apList');
     var order = {}; all.forEach(function (p, i) { order[p.slug] = all.length - i; });
     list.innerHTML = items.length ? items.map(function (p) {
       var n = order[p.slug];
       return '<li><a href="#' + esc(p.slug) + '"' + (p.slug === apCurrent ? ' aria-current="page"' : '') + '>' +
         '<span class="ap-list__n mono">' + n + '.</span><span class="ap-list__t" lang="' + esc(p.lang) + '">' + esc(p.title) + '</span>' +
-        '<span class="ap-list__m mono">' + esc(fmtDate(p.date)) + ' · ' + esc((p.lang || '').toUpperCase()) + (p.kind === 'substack' ? ' · Substack' : p.kind === 'first' ? ' · ' + esc(T[lang]['ap.first']) : '') + '</span></a></li>';
+        '<span class="ap-list__m mono">' + esc(fmtDate(p.date)) + ' · ' + esc((p.lang || '').toUpperCase()) + (p.kind === 'substack' ? ' · Substack' : '') + '</span></a></li>';
     }).join('') : '<li class="ap-list__empty">' + esc(T[lang]['ap.none']) + '</li>';
     if (refreshArticle && apCurrent) apOpen(apCurrent, false);
   }
   function apOpen(slug, scroll) {
     if (!ap) return;
-    var all = everyPost(), i = -1;
-    for (var k = 0; k < all.length; k++) if (all[k].slug === slug) { i = k; break; }
+    var every = everyPost(), hit = null;
+    for (var k = 0; k < every.length; k++) if (every[k].slug === slug) { hit = every[k]; break; }
+    if (hit && shelfOf(hit) !== apSource) { apSetSource(shelfOf(hit)); renderWritingApp(false); }
+    var all = apShelf(), i = -1;
+    for (k = 0; k < all.length; k++) if (all[k].slug === slug) { i = k; break; }
     if (i < 0) { i = 0; slug = all[0] && all[0].slug; }
     var p = all[i], dict = T[lang];
     if (!p) return;
@@ -346,9 +357,10 @@
     } else if (p.kind === 'first') {
       cover.hidden = true;
       // the post exactly as written on Telegram (signatures left out); line breaks are the original ones
-      body.innerHTML = (p.body ? '<div class="tg-text ap-first">' + p.body + '</div>' : '') +   // built: first-channel.js
+      var stills = p.images.length && p.images.every(function (im) { return !im.video; });
+      body.innerHTML = galleryHtml(p.images, dict) + (p.body ? '<div class="tg-text ap-first">' + p.body + '</div>' : '') +   // built: first-channel.js
         (p.tags.length ? '<p class="reader__tags mono">' + p.tags.map(function (t) { return '<span>#' + esc(t) + '</span>'; }).join('') + '</p>' : '') +
-        '<p class="ap-firstnote">' + esc(dict['ap.firstNote']) + (p.media ? ' ' + esc(dict[p.media === 'video' ? 'ap.firstVideo' : 'ap.firstPhoto']) : '') + '</p>' +
+        '<p class="ap-firstnote">' + esc(dict['ap.firstNote']) + (p.media && !stills ? ' ' + esc(dict[p.media === 'video' ? 'ap.firstVideo' : 'ap.firstPhoto']) : '') + '</p>' +
         '<p class="ap-src"><a class="btn btn--solid" href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(dict['ap.firstOpen']) + ' <span aria-hidden="true">↗</span></a></p>';
     } else {
       cover.hidden = !(p.image && !p.html);
@@ -407,15 +419,8 @@
     document.getElementById('apSearch').addEventListener('input', function (e) { apQuery = e.target.value; renderWritingApp(false); });
     document.querySelectorAll('[data-ap-source]').forEach(function (b) {
       b.addEventListener('click', function () {
-        apSource = b.getAttribute('data-ap-source');
-        document.querySelectorAll('[data-ap-source]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
-        renderWritingApp(false);
-      });
-    });
-    document.querySelectorAll('[data-ap-filter]').forEach(function (b) {
-      b.addEventListener('click', function () {
-        apFilter = b.getAttribute('data-ap-filter');
-        document.querySelectorAll('[data-ap-filter]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        if (b.getAttribute('data-ap-source') === apSource) return;
+        apSetSource(b.getAttribute('data-ap-source'));
         renderWritingApp(false);
       });
     });
@@ -426,9 +431,20 @@
 
   /* ---------- Telegram page: posts by topic ---------- */
   var tgFilter = 'all', TG_PREVIEW = 6, tgOpen = {};
-  function mediaLabel(m, dict) {
-    var bits = [];
-    if (m.photos) bits.push(dict['tg.photos'].replace('{n}', m.photos));
+  // photos (and video stills) from the original post, saved with the site: img/tg/, img/first/
+  function galleryHtml(images, dict) {
+    if (!images || !images.length) return '';
+    var n = images.length;
+    return '<div class="tg-gallery tg-gallery--' + (n === 1 ? 'one' : n === 2 || n === 4 ? 'two' : 'three') + '">' + images.map(function (im, k) {
+      var img = '<img src="' + esc(BASE + im.src) + '" width="' + im.w + '" height="' + im.h + '" alt="" loading="' + (k < 2 ? 'eager' : 'lazy') + '" decoding="async">';
+      return im.video
+        ? '<a class="tg-gallery__item tg-gallery__item--video" href="' + esc(im.href) + '" target="_blank" rel="noopener" aria-label="' + esc(dict['tg.playVideo']) + '">' + img + '<span class="tg-gallery__play" aria-hidden="true"></span></a>'
+        : '<a class="tg-gallery__item" href="' + esc(BASE + im.src) + '" target="_blank" rel="noopener" aria-label="' + esc(dict['tg.openPhoto'].replace('{n}', k + 1)) + '">' + img + '</a>';
+    }).join('') + '</div>';
+  }
+  function mediaLabel(m, dict, images) {
+    var bits = [], shown = (images || []).filter(function (im) { return !im.video; }).length;
+    if (m.photos && !shown) bits.push(dict['tg.photos'].replace('{n}', m.photos));
     if (m.video) bits.push(dict['tg.video']);
     if (m.doc) bits.push(dict['tg.file']);
     return bits.join(', ');
@@ -611,7 +627,7 @@
     back.querySelector('[data-i18n]').textContent = isTg ? dict['tg.back'] : dict['reader.back'];
     var mediaEl = document.getElementById('readerMedia');
     if (isTg) {
-      var m = mediaLabel(a.media, dict);
+      var m = mediaLabel(a.media, dict, a.images);
       mediaEl.innerHTML = (m ? esc(dict['tg.note'].replace('{m}', m)) + ' ' : '') +
         '<a class="readlink" href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(dict['tg.open']) + '</a>';
     }
@@ -628,10 +644,11 @@
     document.getElementById('readerTitle').textContent = a.fullTitle || a.title;
     var body = document.getElementById('readerBody');
     // authored content: articles.js, or the author's own Telegram posts (telegram.js)
-    body.innerHTML = a.kind === 'telegram' ? '<div class="tg-text">' + a.body + '</div>' : a.body;
+    body.innerHTML = a.kind === 'telegram' ? galleryHtml(a.images, T[lang]) + '<div class="tg-text">' + a.body + '</div>' : a.body;
     var cover = document.getElementById('readerCover');
-    cover.hidden = !a.cover;
-    if (a.cover) document.getElementById('readerCoverImg').src = a.cover;
+    var showCover = a.cover && !(a.images && a.images.length);   // real photos replace the generated cover
+    cover.hidden = !showCover;
+    if (showCover) document.getElementById('readerCoverImg').src = a.cover;
     var tags = document.getElementById('readerTags');
     tags.hidden = !(a.tags && a.tags.length);
     tags.innerHTML = (a.tags || []).map(function (t) { return '<span class="mono">' + esc(t) + '</span>'; }).join('');

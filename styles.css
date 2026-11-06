@@ -810,3 +810,10 @@ button.btn { background: transparent; color: var(--ink); cursor: pointer; }
 @media (max-width: 600px) { .ab-lead { grid-template-columns: 1fr; } .ab-names { padding-left: 0; } }
 .prose .ess-scrap--poster img { object-fit: contain; background: #fff; }
 @media (max-width: 600px) { .ess-scrap--card { grid-column: span 2; justify-self: center; width: 70%; } }
+/* About: contact details */
+.ab-contact { display: flex; flex-wrap: wrap; gap: 14px 48px; margin: 0 0 28px; padding: 18px 0 20px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); }
+.ab-contact div { display: flex; flex-direction: column; gap: 6px; }
+.ab-contact dt { color: var(--accent); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.ab-contact dd { margin: 0; font-size: 20px; }
+.ab-contact a { color: var(--ink); text-decoration-color: var(--peach); text-underline-offset: 4px; overflow-wrap: anywhere; }
+.ab-contact a:hover { color: var(--peach); }

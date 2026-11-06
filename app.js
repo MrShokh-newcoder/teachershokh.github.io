@@ -63,7 +63,7 @@
       'tg.cat.oneliners': 'One-liners & quotes', 'tg.dek.oneliners': 'Short thoughts and lines worth keeping.',
       'watch.h': 'Watch',
       'watch.dek': 'My two YouTube channels: one on teaching, one personal. You can watch the videos right here.',
-      'more.work': 'See all work', 'ap.title': 'Articles & Posts', 'ap.search': 'Search posts…', 'ap.toggle': 'Show or hide the list', 'ap.none': 'Nothing matches that search.', 'ap.newer': 'Newer', 'ap.older': 'Older', 'ap.onSubstack': 'Also on Substack', 'ap.readSubstack': 'Read it on Substack', 'ap.commentSubstack': 'Comments for this post are on Substack', 'ap.first': 'First channel', 'ap.firstMeta': 'From my first Telegram channel', 'ap.firstNote': 'Posted on my first Telegram channel, @mrshokh_first, and published here as written.', 'ap.firstPhoto': 'The original post also has a photo.', 'ap.firstVideo': 'The video plays on Telegram.', 'tg.playVideo': 'Play the video on Telegram', 'tg.openPhoto': 'Open photo {n} full size', 'ap.firstOpen': 'See the original on Telegram', 'ap.src.essays': 'Essays', 'ap.src.first': 'Short ones', 'more.read': 'Read all', 'more.watch': 'Watch all', 'writing.kicker': 'Essays · Substack',
+      'more.work': 'See all work', 'ap.title': 'Articles & Posts', 'ap.search': 'Search posts…', 'ap.toggle': 'Show or hide the list', 'ap.none': 'Nothing matches that search.', 'ap.newer': 'Newer', 'ap.older': 'Older', 'ap.onSubstack': 'Also on Substack', 'ap.readSubstack': 'Read it on Substack', 'ap.commentSubstack': 'Comments for this post are on Substack', 'ap.first': 'First channel', 'ap.firstMeta': 'From my first Telegram channel', 'ap.firstNote': 'Posted on my first Telegram channel, @mrshokh_first, and published here as written.', 'ap.firstPhoto': 'The original post also has a photo.', 'ap.firstVideo': 'The video plays on Telegram.', 'tg.playVideo': 'Play the video on Telegram', 'tg.anim': 'Short animation from the post', 'tg.openPhoto': 'Open photo {n} full size', 'ap.firstOpen': 'See the original on Telegram', 'ap.src.essays': 'Essays', 'ap.src.first': 'Short ones', 'more.read': 'Read all', 'more.watch': 'Watch all', 'writing.kicker': 'Essays · Substack',
       'watch.go': 'All videos →', 'watch.label': 'YouTube · 2 channels',
       'yt.kicker': 'YouTube · 2 channels', 'yt.h': 'Watch', 'yt.videos': 'videos', 'yt.channels': 'channels',
       'yt.lede': 'Two channels: teaching on @InspiringTeacherShokh, and my personal thinking on @mrshokh. Click a video to watch it here, or open it on YouTube.',
@@ -437,6 +437,10 @@
     var n = images.length;
     return '<div class="tg-gallery tg-gallery--' + (n === 1 ? 'one' : n === 2 || n === 4 ? 'two' : 'three') + '">' + images.map(function (im, k) {
       var img = '<img src="' + esc(BASE + im.src) + '" width="' + im.w + '" height="' + im.h + '" alt="" loading="' + (k < 2 ? 'eager' : 'lazy') + '" decoding="async">';
+      if (im.mp4) {   // the video itself, saved with the site: plays right here
+        return '<div class="tg-gallery__item tg-gallery__item--player"><video src="' + esc(BASE + im.mp4) + '" poster="' + esc(BASE + im.src) + '" width="' + im.w + '" height="' + im.h + '" playsinline ' +
+          (im.gif ? 'autoplay muted loop aria-label="' + esc(dict['tg.anim']) + '"' : 'controls preload="none"') + '></video></div>';
+      }
       return im.video
         ? '<a class="tg-gallery__item tg-gallery__item--video" href="' + esc(im.href) + '" target="_blank" rel="noopener" aria-label="' + esc(dict['tg.playVideo']) + '">' + img + '<span class="tg-gallery__play" aria-hidden="true"></span></a>'
         : '<a class="tg-gallery__item" href="' + esc(BASE + im.src) + '" target="_blank" rel="noopener" aria-label="' + esc(dict['tg.openPhoto'].replace('{n}', k + 1)) + '">' + img + '</a>';
@@ -445,7 +449,7 @@
   function mediaLabel(m, dict, images) {
     var bits = [], shown = (images || []).filter(function (im) { return !im.video; }).length;
     if (m.photos && !shown) bits.push(dict['tg.photos'].replace('{n}', m.photos));
-    if (m.video) bits.push(dict['tg.video']);
+    if (m.video && !(images || []).some(function (im) { return im.mp4; })) bits.push(dict['tg.video']);
     if (m.doc) bits.push(dict['tg.file']);
     return bits.join(', ');
   }

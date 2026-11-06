@@ -705,3 +705,5 @@ button.btn { background: transparent; color: var(--ink); cursor: pointer; }
 @media (max-width: 560px) { .tg-gallery--three { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (prefers-reduced-motion: reduce) { .tg-gallery__item img { transition: none; } }
 .prose .tg-gallery__item { background: var(--paper-2); text-decoration: none; }
+.tg-gallery__item--player video { display: block; width: 100%; height: auto; background: #000; }
+.tg-gallery--one .tg-gallery__item--player video { width: auto; max-width: 100%; max-height: min(75vh, 680px); }
